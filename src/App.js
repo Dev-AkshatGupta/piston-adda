@@ -1,10 +1,10 @@
-import {Footer} from "Components/Footer/Footer";
+import {LandingPage} from "Pages/LandingPage/LandingPage";
 import Mockman from "mockman-js";
 
 function App() {
   return (
     <div className="App">
-      <Footer/>
+   <LandingPage/>
     </div>
   );
 }
