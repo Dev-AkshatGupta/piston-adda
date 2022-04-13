@@ -1,9 +1,10 @@
-
+import {Footer} from "Components/Footer/Footer";
+import Mockman from "mockman-js";
 
 function App() {
   return (
     <div className="App">
-      <p className="underline text-3xl">Fuck you bakchodu</p>
+      <Footer/>
     </div>
   );
 }
