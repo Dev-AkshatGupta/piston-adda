@@ -3,12 +3,7 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import {
-  notifyError,
-  notifySuccess,
-  notifyInfo,
-  notifyWarn,
-} from "Utilities/Notifications";
+
 import { signUpHandler, logInHandler } from "Utilities/UserDetails";
 import { reducer, authInitialState } from "Reducers/AuthReducer";
 const AuthContext = createContext();
@@ -21,10 +16,6 @@ const AuthProvider = ({ children }) => {
       value={{
         authState,
         authDispatch,
-        notifyError,
-        notifySuccess,
-        notifyInfo,
-        notifyWarn,
         signUpHandler,
         logInHandler,
       }}
