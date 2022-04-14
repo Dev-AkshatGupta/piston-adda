@@ -1,59 +1,21 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useReducer,
-  useState,
 } from "react";
 import {
   notifyError,
   notifySuccess,
   notifyInfo,
   notifyWarn,
-} from "../../Utilities";
-import { useCartManager } from "./CartManagementProvider";
+} from "Utilities/Notifications";
+import { signUpHandler, logInHandler } from "Utilities/UserDetails";
+import { reducer, authInitialState } from "Reducers/AuthReducer";
 const AuthContext = createContext();
 const useAuthorization = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  //   reducer function for handling signUp and login
-  const { dispatch } = useCartManager();
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "SIGN_IN":
-        return {
-          ...state,
-          firstName: action.payload.createdUser.firstName,
-          id: action.payload.createdUser.id,
-          cart: action.payload.createdUser.cart,
-          wishlist: action.payload.createdUser.wishlist,
-          token: action.payload.encodedToken,
-        };
-
-      case "LOG_IN":
-        dispatch({ type: "LOGGED_IN", payload: action.payload });
-        return {
-          ...state,
-          firstName: action.payload.foundUser.firstName,
-          id: action.payload.foundUser._id,
-          cart: action.payload.foundUser.cart,
-          wishlist: action.payload.foundUser.wishlist,
-          token: action.payload.encodedToken,
-        };
-
-      default:
-        break;
-    }
-  };
-
-  const [authState, authDispatch] = useReducer(reducer, {
-    firstName: "",
-    id: "",
-    token: "",
-    wishlist: [],
-    cart: [],
-  });
-
+  const [authState, authDispatch] = useReducer(reducer, authInitialState);
   return (
     <AuthContext.Provider
       value={{
@@ -63,6 +25,8 @@ const AuthProvider = ({ children }) => {
         notifySuccess,
         notifyInfo,
         notifyWarn,
+        signUpHandler,
+        logInHandler,
       }}
     >
       {children}

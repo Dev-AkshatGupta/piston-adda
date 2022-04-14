@@ -1,5 +1,5 @@
 import React from "react";
-// import {}
+import { LogInForm } from "Components/Authentication/LogInForm";
 import { Footer } from "Components/Footer/Footer";
 function LandingPage() {
   return (
@@ -16,13 +16,14 @@ function LandingPage() {
               hammock starladder roathse. Craies vegan tousled etsy austin.
             </p>
           </div>
-          {/* <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
-            <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
+          <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+            <LogInForm />
+            {/* <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
               Sign Up
             </h2>
             <div className="relative mb-4">
               <label
-                for="full-name"
+                htmlFor="full-name"
                 className="leading-7 text-sm text-gray-600"
               >
                 Full Name
@@ -35,7 +36,7 @@ function LandingPage() {
               />
             </div>
             <div className="relative mb-4">
-              <label for="email" className="leading-7 text-sm text-gray-600">
+              <label htmlFor="email" className="leading-7 text-sm text-gray-600">
                 Email
               </label>
               <input
@@ -50,9 +51,8 @@ function LandingPage() {
             </button>
             <p className="text-xs text-gray-500 mt-3">
               Literally you probably haven't heard of them jean shorts.
-            </p>
-          </div> */}
-
+            </p> */}
+          </div>
         </div>
       </section>
       <Footer />
@@ -60,4 +60,4 @@ function LandingPage() {
   );
 }
 
-export  {LandingPage};
+export { LandingPage };
