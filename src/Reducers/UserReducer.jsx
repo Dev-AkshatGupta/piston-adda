@@ -24,7 +24,7 @@ function reducer(state, action) {
       break;
   }
 }
-const userState = {
+const initialState = {
   firstName: "",
   lastName: "",
   id: "",
@@ -32,4 +32,4 @@ const userState = {
   following: [],
   bookmarks: [],
 };
-export { reducer, userState };
+export { reducer, initialState };

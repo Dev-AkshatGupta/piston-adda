@@ -1,11 +1,12 @@
 import axios from "axios";
-
+import { notifySuccess ,notifyWarn} from "Utilities/Notifications";
 const signUpHandler = async (
   firstName,
   lastName,
   email,
   password,
-  dispatch
+  dispatch,
+  userDispatch
 ) => {
   try {
     const response = await axios.post(`/api/auth/signup`, {
@@ -20,10 +21,11 @@ const signUpHandler = async (
       type: "SIGN_IN",
       payload: response.data,
     });
-    // notifySuccess("Signed in succesfully");
+    userDispatch({type:"SIGN_UP",payload:response.data})
+    notifySuccess("Signed in succesfully");
   } catch (error) {
-    // notifyWarn(error);
-    console.log(error);
+    notifyWarn(error);
+    console.log(error.response);
   }
 };
 
@@ -40,10 +42,9 @@ const logInHandler = async (username, password, dispatch) => {
     console.log(response.data);
 
     dispatch({ type: "LOG_IN", payload: response.data });
-    // notifySuccess("Logged-in succesfully");
+    notifySuccess("Logged-in succesfully");
   } catch (error) {
-    // notifyWarn("Error in Log in ");
-    console.log(error.response);
+    notifyWarn("Error in Log in ");
   }
 };
 export { signUpHandler, logInHandler };

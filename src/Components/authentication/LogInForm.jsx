@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./authentication.css";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "Context/AuthProvider";
+import { useUser } from "Context/UserContext";
 
 function LogInForm() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -10,11 +11,17 @@ function LogInForm() {
     password: "",
   });
   const { logInHandler, authDispatch } = useAuthorization();
+  const { userDispatch } = useUser();
   function clickHandler(e) {
     //  to prevent initial refreshing of the page
     e.preventDefault();
 
-    logInHandler(details.userName, details.password, authDispatch);
+    logInHandler(
+      details.userName,
+      details.password,
+      authDispatch,
+      userDispatch
+    );
   }
 
   return (
@@ -69,7 +76,7 @@ function LogInForm() {
         className="btn btn-outline-pri  py-2 px-8  rounded text-lg mt-1.5"
         onClick={(e) => {
           e.preventDefault();
-          logInHandler("akshat", "akshat", authDispatch);
+          logInHandler("akshat", "akshat", authDispatch, userDispatch);
         }}
       >
         Guest Log-In
@@ -77,7 +84,6 @@ function LogInForm() {
       <Link to="/" className="link-btn text-center text-base">
         Create new account <i className="fas fa-chevron-right text-accent"></i>
       </Link>
-      <p className="text-xs text-gray-500 mt-3"></p>
     </>
   );
 }
