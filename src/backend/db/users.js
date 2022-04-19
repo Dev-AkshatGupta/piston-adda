@@ -24,4 +24,16 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
+   {
+    _id: uuid(),
+    firstName: "Dhruv",
+    username: "TheBestDhruv",
+    password: "Dhruv123",
+    profilePhoto:
+      "https://pbs.twimg.com/profile_images/1464407388228780036/NFY5UUPn_200x200.jpg",
+    coverPhoto:
+      "https://pbs.twimg.com/profile_banners/4025742919/1637987458/1080x360",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
 ];
