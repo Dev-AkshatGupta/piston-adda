@@ -20,8 +20,7 @@
     align-items: flex-end;
     z-index: 3;
     flex-grow: 1;
-    width: 300px;
-  
+  width: 0px;
 }
 
 .bannerSmall {
@@ -39,9 +38,7 @@
     padding-right: 0px;
     padding-top: 0px;
     position: relative;
-    z-index: 0;
-    width: 300px;
- 
+    z-index: 0; 
 }
 
 .main {
@@ -287,6 +284,7 @@
     display: flex;
     flex-basis: auto;
     flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
     margin-left: 0px;
     margin-right: 0px;
@@ -300,5 +298,26 @@
     z-index: 0;
 }
 .bottom_profile{
+        display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    min-height: 0px;
+    min-width: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    position: relative;
+    z-index: 0;
+    width: 90%;
     
+}
+.profile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

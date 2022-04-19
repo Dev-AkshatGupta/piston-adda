@@ -5,11 +5,13 @@ import { GiHomeGarage } from "react-icons/gi";
 import { HiHashtag } from "react-icons/hi";
 import { BsBell, BsEnvelope } from "react-icons/bs";
 
+import { FaEllipsisH } from "react-icons/fa";
+
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 function LeftAside() {
   return (
-    <aside className={styles.banner}>
+    <aside className={`${styles.banner} `}>
       <div className={styles.bannerSmall}>
         <div className={styles.main}>
           <div className={`${styles.main_banner} px-3`}>
@@ -79,7 +81,18 @@ function LeftAside() {
             </div>
             <div className={`${styles.banner_bottom} my-3`}>
               <div className={`${styles.bottom_profile}`}>
-                Akshat Gupta
+                <div className={`${styles.profile}`}>
+                  <span className="avatar avatar-sm">
+                    <img
+                      src="https://pps.whatsapp.net/v/t61.24694-24/263791054_1403105616787621_2864310468495639335_n.jpg?ccb=11-4&oh=ce63379d09f2ee919b60f808bf09fd9c&oe=626AD054"
+                      alt="Profile photo"
+                    />
+                  </span>
+                  <p>Akshat</p>
+                  <span>
+                    <FaEllipsisH />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
