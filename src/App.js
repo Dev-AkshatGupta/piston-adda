@@ -1,12 +1,13 @@
-// import {LandingPage} from "Pages/LandingPage/LandingPage";
+import {LandingPage} from "Pages/LandingPage/LandingPage";
 import Mockman from "mockman-js";
 import { ToastContainer, } from 'react-toastify';
-import {HomePage} from "Pages/HomePage/HomePage"
+import {HomePage} from "Pages/HomePage/HomePage";
+import {ProfilePage} from "Pages/ProfilePage/ProfilePage";
 function App() {
   return (
     <div className="App">
-   {/* <LandingPage/> */}
-   <HomePage/>
+   <ProfilePage/>
+   {/* <HomePage/> */}
    <ToastContainer/>
     </div>
   );

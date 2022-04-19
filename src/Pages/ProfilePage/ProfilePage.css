@@ -33,3 +33,11 @@ margin-right: 2px;
 .layout__main-header > .text {
   font-size: 20px;
 }
+.profile___banner-img{
+    height: 12.5rem;
+
+}
+.profile__dp-img{
+    border: var(--ICONS-ORANGE) 2px solid;
+    margin-top: -5rem;
+}
