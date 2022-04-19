@@ -34,7 +34,16 @@ function ProfilePage() {
             <button className="btn btn-sec p-2 rounded-xl">Edit Profile</button>
           </div>
         </div>
-        <div ></div>
+        <div className="text-left font-extrabold pl-6 text-xl">
+          Akshat Gupta
+        </div>
+        <p className="text-left text-base  text-slate-500 font-thin pl-5">
+          @akshatgupta105
+        </p>
+        <p className="text-left text-base font-thin pl-5 text-slate-800">
+          JavaScript | React is ❤️ | Neog-2022 | Chess
+        </p>
+        {/* Followers count */}
         <Post />
         <Post />
         <Post />
