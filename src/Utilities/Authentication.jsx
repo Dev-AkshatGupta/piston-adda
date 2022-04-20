@@ -1,5 +1,6 @@
 import axios from "axios";
-import { notifySuccess ,notifyWarn} from "Utilities/Notifications";
+import { notifySuccess, notifyWarn } from "Utilities/Notifications";
+import {useNavigate} from "react-router-dom"; 
 const signUpHandler = async (
   firstName,
   lastName,
@@ -21,8 +22,9 @@ const signUpHandler = async (
       type: "SIGN_IN",
       payload: response.data,
     });
-    userDispatch({type:"SIGN_UP",payload:response.data})
-    notifySuccess("Signed in succesfully");
+    userDispatch({ type: "SIGN_UP", payload: response.data });
+    notifySuccess("Signed in successfully");
+    
   } catch (error) {
     notifyWarn(error);
     console.log(error.response);
@@ -41,7 +43,7 @@ const logInHandler = async (username, password, dispatch) => {
     localStorage.setItem("username", response.data.foundUser.username);
     console.log(response.data);
 
-    dispatch({ type: "LOG_IN", payload: response.data });
+    // dispatch({ type: "LOG_IN", payload: response.data });
     notifySuccess("Logged-in succesfully");
   } catch (error) {
     notifyWarn("Error in Log in ");

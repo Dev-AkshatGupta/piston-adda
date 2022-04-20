@@ -4,7 +4,7 @@ import React, {
   useReducer,
 } from "react";
 
-import { signUpHandler, logInHandler } from "Utilities/UserDetails";
+import { signUpHandler, logInHandler } from "Utilities/Authentication";
 import { reducer, authInitialState } from "Reducers/AuthReducer";
 const AuthContext = createContext();
 const useAuthorization = () => useContext(AuthContext);
