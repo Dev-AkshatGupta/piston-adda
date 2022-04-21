@@ -1,6 +1,6 @@
 import axios from "axios";
 import { notifySuccess, notifyWarn } from "Utilities/Notifications";
-import {useNavigate} from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 const signUpHandler = async (
   firstName,
   lastName,
@@ -24,7 +24,6 @@ const signUpHandler = async (
     });
     userDispatch({ type: "SIGN_UP", payload: response.data });
     notifySuccess("Signed in successfully");
-    
   } catch (error) {
     notifyWarn(error);
     console.log(error.response);

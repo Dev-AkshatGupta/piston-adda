@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { reducer } from "Reducers/MultiUseReducer";
+import { reducer, initialState } from "Reducers/MultiUseReducer";
 import {
   notifyError,
   notifySuccess,
@@ -11,7 +11,7 @@ const MultiUseContext = createContext();
 const useMulti = () => useContext(MultiUseContext);
 
 const MultiUseContextProvider = ({ children }) => {
-  const [multiState, multiDispatch] = useReducer(reducer, {});
+  const [multiState, multiDispatch] = useReducer(reducer, initialState);
   return (
     <MultiUseContext.Provider
       value={{
