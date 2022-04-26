@@ -20,6 +20,12 @@ function reducer(state, action) {
         following: action.payload.createdUser.following,
         bookmarks: action.payload.createdUser.bookmarks,
       };
+      case "CHANGED_USER_DATA":
+        return{
+
+        }
+        case "SINGLE_USER":
+          return action.payload
     default:
       break;
   }
