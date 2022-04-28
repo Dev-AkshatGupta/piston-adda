@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+ import { useAllUsersData } from "Utilities/UsersDetails";
 import { reducer, initialState } from "Reducers/MultiUseReducer";
 import {
   notifyError,
@@ -12,6 +13,7 @@ const useMulti = () => useContext(MultiUseContext);
 
 const MultiUseContextProvider = ({ children }) => {
   const [multiState, multiDispatch] = useReducer(reducer, initialState);
+   const { getAllUser, getAUser, postUsersData } = useAllUsersData();
   return (
     <MultiUseContext.Provider
       value={{
@@ -21,6 +23,9 @@ const MultiUseContextProvider = ({ children }) => {
         notifySuccess,
         notifyInfo,
         notifyWarn,
+        getAllUser,
+        getAUser,
+        postUsersData,
       }}
     >
       {children}

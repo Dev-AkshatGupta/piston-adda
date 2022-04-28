@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./RightAside.css";
 import { FollowCard } from "Components/FollowCard/FollowCard";
-import { useEffect } from "react";
 import { useAllUsersData } from "Utilities/UsersDetails";
 import { useMulti } from "Context/MultiUseContext";
+import { Link } from "react-router-dom";
+import { useUser } from "Context/UserContext";
 function RightAside() {
   const { getAllUser } = useAllUsersData();
   useEffect(() => {
     getAllUser();
   }, []);
   const { multiState } = useMulti();
-
+const {userState}=useUser();
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">
@@ -46,12 +47,10 @@ function RightAside() {
           <div className="who-to-follow__block">
             <div className="who-to-follow__heading">Who to follow</div>
           </div>
-          {
-          // multiState.users.length > 0 &&
-            multiState.users.map((user) => {
-              return <FollowCard userObj={user} />;
-            })}
-          {multiState.users.map((user) => console.log(user))}
+       
+          {userState.all_users.map((user) => (
+            <FollowCard userObj={user} key={user._id} />
+          ))}
         </div>
       </div>
     </div>

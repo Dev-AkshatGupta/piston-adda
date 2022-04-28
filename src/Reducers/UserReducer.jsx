@@ -1,5 +1,7 @@
 function reducer(state, action) {
   switch (action.type) {
+    case "ALL_USERS_DATA":
+      return { ...state,  all_users: action.payload };
     case "LOG_IN":
       return {
         ...state,
@@ -20,15 +22,14 @@ function reducer(state, action) {
         following: action.payload.createdUser.following,
         bookmarks: action.payload.createdUser.bookmarks,
       };
-      case "CHANGED_USER_DATA":
-        return{
-
-        }
-        case "SINGLE_USER":
-          return action.payload
+    case "CHANGED_USER_DATA":
+      return {};
+    case "SINGLE_USER":
+      return action.payload;
     default:
       break;
   }
+
 }
 const initialState = {
   firstName: "",
@@ -37,5 +38,6 @@ const initialState = {
   followers: [],
   following: [],
   bookmarks: [],
+  all_users:[]
 };
 export { reducer, initialState };

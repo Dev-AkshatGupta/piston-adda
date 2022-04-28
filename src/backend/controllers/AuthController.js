@@ -30,17 +30,22 @@ export const signupHandler = function (schema, request) {
     }
     const _id = uuid();
 
-    const newUser = {
-      _id,
-      createdAt: formatDate(),
-      updatedAt: formatDate(),
-      username,
-      password,
-      ...rest,
-      followers: [],
-      following: [],
-      bookmarks: [],
-    };
+    const newUser={
+       _id: uuid(),
+    username,
+    password,
+      profilePhoto:{
+      default:"",
+      chosen:"",},
+       coverPhoto:
+     {default:"" ,chosen:"",},
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    followers:[],
+following:[],
+bookmarks:[],
+...rest
+    }
     const createdUser = schema.users.create(newUser);
     const encodedToken = sign(
       { _id, username },

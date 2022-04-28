@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
@@ -10,17 +10,19 @@ import {UserContextProvider} from "Context/UserContext";
 // Call make Server
 makeServer();
 
-ReactDOM.render(
+const root=ReactDOM.createRoot(  document.getElementById("root"))
+root.render(
   <React.StrictMode>
-        <Router>
-          < MultiUseContextProvider>   
-          <UserContextProvider>     
-           <AuthProvider>
-             <App />
-           </AuthProvider>
-           </UserContextProvider>
-          </ MultiUseContextProvider>
-        </Router>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+         <Router>
+        
+           <UserContextProvider>     
+              < MultiUseContextProvider> 
+            <AuthProvider>
+              <App/>
+            </AuthProvider>
+             </MultiUseContextProvider> 
+            </UserContextProvider>
+        
+         </Router>
+   </React.StrictMode>
+)

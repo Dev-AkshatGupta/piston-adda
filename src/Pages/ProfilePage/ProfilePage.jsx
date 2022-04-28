@@ -1,13 +1,21 @@
-import React from "react";
-
-// import "./HomePage.css";
+import React , {useEffect} from "react";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
 import { useParams } from "react-router-dom";
+import {useMulti} from "Context/MultiUseContext";
+import {useUser} from "Context/UserContext";
 import "./ProfilePage.css";
+
 function ProfilePage() {
   const {profileId}=useParams();
+  console.log(profileId);
+   const { getAUser } = useMulti();
+   useEffect(()=>{
+ getAUser(profileId);
+  },[])
+
+  
   return (
     <div className="layout">
       <div className="layout__left-sidebar">

@@ -6,6 +6,7 @@ const useUser = () => useContext(UserContext);
 
 const UserContextProvider = ({ children }) => {
   const [userState, userDispatch] = useReducer(reducer, initialState);
+
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>
       {children}

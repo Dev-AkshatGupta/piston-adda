@@ -3,7 +3,8 @@ import "./HomePage.css";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
-import {PostInput} from "Components/PostInput/PostInput";
+import { PostInput } from "Components/PostInput/PostInput";
+import { Outlet } from "react-router-dom";
 function HomePage() {
   return (
     <div className="layout">
@@ -15,7 +16,7 @@ function HomePage() {
           <span className="text">Home</span>
         </header>
         <div className="empty"></div>
-        <PostInput/>
+        <PostInput />
         <Post />
         <Post />
         <Post />
@@ -23,6 +24,7 @@ function HomePage() {
         <Post />
       </div>
       <RightAside />
+      <Outlet />
     </div>
   );
 }
