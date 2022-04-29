@@ -3,21 +3,21 @@ import "./authentication.css";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "Context/AuthProvider";
 import { useUser } from "Context/UserContext";
-import {login} from "Redux/Reducers-Redux/authSlice";
-import {useDispatch} from "react-redux";
+import { login } from "Redux/Reducers-Redux/authSlice";
+import { useDispatch } from "react-redux";
 function LogInForm() {
   const [viewPassword, setViewPassword] = useState(false);
   const [details, setDetails] = useState({
     userName: "",
     password: "",
   });
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { logInHandler, authDispatch } = useAuthorization();
   const { userDispatch } = useUser();
   function clickHandler(e) {
     //  to prevent initial refreshing of the page
     e.preventDefault(details);
-// dispatch(login(details));
+    // dispatch(login(details));
     logInHandler(
       details.userName,
       details.password,
@@ -78,7 +78,7 @@ function LogInForm() {
         className="btn btn-outline-pri  py-2 px-8  rounded text-lg mt-1.5"
         onClick={(e) => {
           e.preventDefault();
-dispatch(login({username:"akshat",password:"akshat"}));
+          dispatch(login({ username: "akshat", password: "akshat" }));
         }}
       >
         Guest Log-In
