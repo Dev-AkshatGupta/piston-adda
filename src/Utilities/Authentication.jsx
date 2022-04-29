@@ -45,7 +45,7 @@ const logInHandler = async (username, password, dispatch) => {
       password,
     });
     localStorage.setItem("token", response.data.encodedToken);
-   
+   console.log(response);
     localStorage.setItem("userObj", passwordRemover(response.data.foundUser));
     
 

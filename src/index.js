@@ -7,6 +7,8 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {AuthProvider} from "Context/AuthProvider";
 import { MultiUseContextProvider} from "Context/MultiUseContext";
 import {UserContextProvider} from "Context/UserContext";
+import {Provider} from "react-redux";
+import store from "Redux/store";
 // Call make Server
 makeServer();
 
@@ -18,7 +20,9 @@ root.render(
            <UserContextProvider>     
               < MultiUseContextProvider> 
             <AuthProvider>
+              <Provider store={store}>
               <App/>
+              </Provider>
             </AuthProvider>
              </MultiUseContextProvider> 
             </UserContextProvider>
