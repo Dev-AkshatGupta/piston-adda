@@ -110,3 +110,32 @@ export const loginHandler = function (schema, request) {
     );
   }
 };
+export const verifyUser=function(schema,request){
+const { encodedToken} = JSON.parse(request.requestBody);
+   const decodedToken = jwt_decode(
+    encodedToken,
+    process.env.REACT_APP_JWT_SECRET
+  );
+ try {
+    if (decodedToken) {
+     const user = this.db.users.findBy({ username: decodedToken.username });
+  
+      if (user) {
+        return new Response(200, {}, { user });
+      }
+    }
+    return new Response(
+      401,
+      {},
+      { errors: ["The token is invalid. Unauthorized access error."] }
+    );
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+}
