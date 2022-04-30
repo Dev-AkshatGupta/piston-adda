@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function RightAside() {
   
 const usersArr=useSelector((state)=>state.users.users);
-console.log(usersArr);
+
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">

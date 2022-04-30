@@ -5,7 +5,7 @@ import { BsSuitHeart } from "react-icons/bs";
 import { BiDotsHorizontalRounded, BiComment } from "react-icons/bi";
 import { AiOutlineRetweet } from "react-icons/ai";
 
-function Post() {
+function Post({postObj}) {
   return (
     <>
       <div className="post">

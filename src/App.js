@@ -12,11 +12,13 @@ import PrivateRoute from "Components/CustomRoute/PrivateRoute";
 import {Link} from "react-router-dom";
 import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
 import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
+import {getAllPosts} from "Redux/Reducers-Redux/postsSlice";
 function App() {
   const dispatch=useDispatch()
   useEffect(()=>{
       dispatch(checkToken());
       dispatch(getAllUsers());
+      dispatch(getAllPosts());
   },[])
   const location =useLocation();
 
