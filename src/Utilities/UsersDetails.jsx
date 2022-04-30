@@ -19,7 +19,7 @@ const useAllUsersData = () => {
     // axios call to get all the users from the backend
     try {
       const { data } = await axios.get(`/api/users/:${userId}`);
-      console.log(data);
+
       // userDispatch({ type: "SINGLE_USER", payload: data.user });
     } catch (error) {
       console.log(error.response);

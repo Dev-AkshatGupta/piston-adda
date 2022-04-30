@@ -4,15 +4,32 @@ import { ToastContainer, } from 'react-toastify';
 import {HomePage} from "Pages/HomePage/HomePage";
 import {ProfilePage} from "Pages/ProfilePage/ProfilePage";
 import {Page404} from "Pages/Page-404/Page404";
-import {Route,Routes,Outlet} from "react-router-dom";
-
+import {Route,Routes,Outlet, useLocation} from "react-router-dom";
+import { useEffect } from "react";
+import {useDispatch} from "react-redux";
+import { checkToken} from "Redux/Reducers-Redux/authSlice";
+import PrivateRoute from "Components/CustomRoute/PrivateRoute";
+import {Link} from "react-router-dom";
+import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
 function App() {
+  const dispatch=useDispatch()
+  useEffect(()=>{
+      dispatch(checkToken());
+  },[])
+  const location =useLocation();
+
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/landingPage" element={<LandingPage/>}/>
-        <Route path={`/profilePage/:profileId`} element={<ProfilePage/>}/>
+       
+        <Route element={<RestrictedRoute/>}>
+          <Route path="/" element={<LandingPage/>}/> 
+        </Route>
+        <Route element={<PrivateRoute/>}>
+          <Route path="/homePage"  element={<HomePage/>}/>
+          <Route path={`/profilePage/:profileId`}  element={<ProfilePage/>}/>
+        </Route>
+     
         <Route path="*" element={<Page404/>}/>
         <Route path="/mock" element={<Mockman/>}/>
       </Routes>

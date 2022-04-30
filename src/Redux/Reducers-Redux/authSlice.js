@@ -5,7 +5,8 @@ import {notifySuccess,notifyError} from "Utilities/Notifications";
 const initialState={
     currentUser:{},
     loading:false
-}
+    }
+
 export const login=createAsyncThunk("auth/login",async(userDetails)=>{
 try {
     const response=await axios.post(`/api/auth/login`,{
@@ -67,6 +68,6 @@ const authSlice=createSlice({
             state.currentUser=action.payload.user;
             }
         })
-    }
+    },
 })
 export default authSlice.reducer;

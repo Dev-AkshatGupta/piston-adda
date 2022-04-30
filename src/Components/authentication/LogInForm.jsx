@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./authentication.css";
 import { Link } from "react-router-dom";
-import { useAuthorization } from "Context/AuthProvider";
-import { useUser } from "Context/UserContext";
+
 import { login } from "Redux/Reducers-Redux/authSlice";
 import { useDispatch } from "react-redux";
 function LogInForm() {
@@ -12,18 +11,10 @@ function LogInForm() {
     password: "",
   });
   const dispatch = useDispatch();
-  const { logInHandler, authDispatch } = useAuthorization();
-  const { userDispatch } = useUser();
   function clickHandler(e) {
     //  to prevent initial refreshing of the page
     e.preventDefault(details);
-    // dispatch(login(details));
-    logInHandler(
-      details.userName,
-      details.password,
-      authDispatch,
-      userDispatch
-    );
+    dispatch(login(details));
   }
 
   return (
