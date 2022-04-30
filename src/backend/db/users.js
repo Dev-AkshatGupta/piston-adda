@@ -11,9 +11,7 @@ export const users = [
     _id: uuid(),
     id:1,
     firstName: "Akshat",
-    lastName: "Gupta",
     username: "akshat",
-    email: "akshat",
     password: "akshat",
       profilePhoto:{
       default:"",

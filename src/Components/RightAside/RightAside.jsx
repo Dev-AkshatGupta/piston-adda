@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
 import "./RightAside.css";
 import { FollowCard } from "Components/FollowCard/FollowCard";
-import { useAllUsersData } from "Utilities/UsersDetails";
-import { useMulti } from "Context/MultiUseContext";
-import { Link } from "react-router-dom";
-import { useUser } from "Context/UserContext";
+import { useSelector } from "react-redux";
+
 function RightAside() {
-  const { getAllUser } = useAllUsersData();
-  useEffect(() => {
-    getAllUser();
-  }, []);
-  const { multiState } = useMulti();
-const {userState}=useUser();
+  
+const usersArr=useSelector((state)=>state.users.users);
+console.log(usersArr);
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">
@@ -47,8 +42,8 @@ const {userState}=useUser();
           <div className="who-to-follow__block">
             <div className="who-to-follow__heading">Who to follow</div>
           </div>
-       
-          {userState.all_users.map((user) => (
+
+          {usersArr.map((user) => (
             <FollowCard userObj={user} key={user._id} />
           ))}
         </div>

@@ -11,10 +11,12 @@ import { checkToken} from "Redux/Reducers-Redux/authSlice";
 import PrivateRoute from "Components/CustomRoute/PrivateRoute";
 import {Link} from "react-router-dom";
 import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
+import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
 function App() {
   const dispatch=useDispatch()
   useEffect(()=>{
       dispatch(checkToken());
+      dispatch(getAllUsers());
   },[])
   const location =useLocation();
 
