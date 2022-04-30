@@ -26,7 +26,7 @@ function LeftAside() {
                   </Link>
                 </h1>
               </div>
-              {/* mt-0.5 */}
+       
               <div className={`${styles.navigation} mt-2 mb-1 `}>
                 <nav>
                   <NavLink to="">
@@ -84,7 +84,7 @@ function LeftAside() {
                 <div className={`${styles.profile}`}>
                   <span className="avatar avatar-sm">
                     <img
-                      src="https://pps.whatsapp.net/v/t61.24694-24/263791054_1403105616787621_2864310468495639335_n.jpg?ccb=11-4&oh=ce63379d09f2ee919b60f808bf09fd9c&oe=626AD054"
+                      src="https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg"
                       alt="Profile photo"
                     />
                   </span>

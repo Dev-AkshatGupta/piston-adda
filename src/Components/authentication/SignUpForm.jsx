@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import { useUserDetails } from "../../pages/authenticationPages/dataFetchingAndAuthentication";
 function SignUpForm() {
- 
   const { signUpHandler } = useUserDetails();
   const [details, setDetails] = useState({
     firstName: "",
@@ -21,8 +20,6 @@ function SignUpForm() {
       details.email,
       details.password
     );
- 
- 
   }
   const [viewPassword, setViewPassword] = useState(false);
   return (
