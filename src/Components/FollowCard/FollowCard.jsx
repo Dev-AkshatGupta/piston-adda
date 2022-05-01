@@ -11,13 +11,13 @@ function FollowCard({ userObj }) {
 
   return (
     <div className="who-to-follow__block" key={_id}>
-      <Link to={`/profilePage/${userObj._id}`}>
+      <Link to={`/profilePage/${userObj.id}`}>
         <img className="who-to-follow__author-logo" src={chosen} />
       </Link>
 
       <div className="who-to-follow__content">
         <div>
-          <Link to={`/profilePage/${userObj._id}`}>
+          <Link to={`/profilePage/${userObj.id}`}>
             <div className="who-to-follow__author-name">{firstName}</div>
             <div className="who-to-follow__author-slug">{username}</div>
           </Link>

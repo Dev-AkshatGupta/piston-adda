@@ -8,6 +8,7 @@ import {notifySuccess,notifyError} from "Utilities/Notifications";
 
 const initialState={
     users:[],
+    profile:{}
 }
 
 
@@ -20,7 +21,10 @@ export const getAllUsers= createAsyncThunk("users/getAllUsers",async()=>{
       console.log(error.response.data.errors);
     }
 } )
-
+ export const getAUser=createAsyncThunk("users/getAUser",async(userId)=>{
+     const {data}=await axios.get(`/api/users/${userId}`)
+     return data.user;
+ })
 
 
 
@@ -32,6 +36,10 @@ const usersSlice=createSlice({
     extraReducers(builder){
         builder.addCase(getAllUsers.fulfilled,(state,action)=>{
             state.users=action.payload.users;
+        })
+        builder.addCase(getAUser.fulfilled,(state,action)=>{
+            console.log(action.payload);
+            state.profile=action.payload;
         })
     }
 }) 

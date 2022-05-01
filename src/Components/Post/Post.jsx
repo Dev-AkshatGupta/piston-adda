@@ -6,12 +6,13 @@ import { BiDotsHorizontalRounded, BiComment } from "react-icons/bi";
 import { AiOutlineRetweet } from "react-icons/ai";
 
 function Post({postObj}) {
+  const { content, username, userPhoto,_id } = postObj;
   return (
     <>
-      <div className="post">
+      <div className="post" >
         <img
           className="post__author-logo"
-          src="https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg"
+          src={userPhoto}
         />
         <div className="post__main">
           <div
@@ -19,15 +20,14 @@ function Post({postObj}) {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div style={{}}>
-              <span className="post__author-name">Elixir Digest</span>
-              <span className="post__author-slug">@elixirdigest</span>
+              <span className="post__author-name">{username}</span>
+              <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
             <BiDotsHorizontalRounded />
           </div>
           <div className="post__content">
-            Yet Another Guide To Build a JSON API with Phoenix 1.5 shared in the
-            latest Elixir Digest
+           {content}
             <a href="https://elixirdigest.net/digests/276">
               https://elixirdigest.net/digests/276
             </a>

@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 function HomePage() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const loadingStatus = useSelector((state) => state.auth.loading);
-  const posts=useSelector(state=>state.posts.posts);
-  console.log(posts);
+  const postsArr=useSelector(state=>state.posts.posts);
+
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -21,13 +21,10 @@ function HomePage() {
           <span className="text">Home</span>
         </header>
         <div className="empty"></div>
-        {console.log()}
-        <PostInput />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        <PostInput userObj={currentUser}/>
+        {postsArr.map((post) => (
+          <Post postObj={post} key={post._id} />
+        ))}
       </div>
       <RightAside />
       <Outlet />

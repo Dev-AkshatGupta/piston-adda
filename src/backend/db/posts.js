@@ -17,7 +17,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "akshat",
-    userPhoto:"",
+    userPhoto:"https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
