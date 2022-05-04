@@ -40,23 +40,30 @@ export const createPost=createAsyncThunk("posts/createPost",async(post)=>{
     }
 });
 export const likePost=createAsyncThunk("posts/likePost",async(postId)=>{
-    const encodedToken=localStorage.getItem("token");
+    try {
+        const encodedToken=localStorage.getItem("token");
     const {data}=await axios.post(`/api/posts/like/${postId}`,{},{headers:{authorization:encodedToken}});
     return data.posts;
+    } catch (error) {
+        console.log(error.response.data[0].errors)
+    }
 });
 export const disLikePost=createAsyncThunk("posts/disLikePost",async(postId)=>{
-    const encodedToken=localStorage.getItem("token");
+    try {
+        const encodedToken=localStorage.getItem("token");
      const {data}=await axios.post(`/api/posts/dislike/${postId}`,{},{headers:{authorization:encodedToken}});
     return data.posts;
+    } catch (error) {
+        console.log(error.response.data[0].errors)
+    }
+    
 });
 export const bookMark=createAsyncThunk("posts/bookMark",async(postId)=>{
   try{  const encodedToken=localStorage.getItem("token");
     const {data}=await axios.post(
-        // `/api/posts/bookmark/${postId}`,
          `/api/users/bookmark/${postId}`,
     {},
     {headers:{authorization:encodedToken}});
-    console.log(data);
 return data.bookmarks;
 }
     catch(error){console.log(error.response.data.errors)}
@@ -73,7 +80,7 @@ export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
     try{
         // const encodedToken=localStorage.getItem("token");
     const {data}=await axios.get(`/api/users/bookmark`);
-    console.log(data);
+    
     return data.bookmarks;}
     catch(error){
         console.log(error.response.data.errors);
@@ -84,32 +91,30 @@ export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
     name:"posts",
     initialState,
     extraReducers(builder){
-        builder.addCase(getAllPosts.fulfilled,(state,action)=>{
+        builder
+        .addCase(getAllPosts.fulfilled,(state,action)=>{
             state.posts=action.payload;
-        });
-        builder.addCase(getProfilePosts.fulfilled,(state,action)=>{
-            console.log();
+        })
+        .addCase(getProfilePosts.fulfilled,(state,action)=>{
             state.profilePosts=action.payload;
-            
-        });
-        builder.addCase(createPost.fulfilled,(state,action)=>{
+        })
+        .addCase(createPost.fulfilled,(state,action)=>{
             state.posts=action.payload;
-            console.log(action.payload);
-        });
-        builder.addCase(likePost.fulfilled,(state,action)=>{
+            // console.log(action.payload);
+        })
+        .addCase(likePost.fulfilled,(state,action)=>{
             state.posts=action.payload;
-        });
-        builder.addCase(disLikePost.fulfilled,(state,action)=>{
+        })
+        .addCase(disLikePost.fulfilled,(state,action)=>{
             state.posts=action.payload;
-        });
-        builder.addCase(getBookMarks.fulfilled,(state,action)=>{
-            console.log(action.payload);
+        })
+        .addCase(getBookMarks.fulfilled,(state,action)=>{
             state.bookmark=action.payload;
-        });
-        builder.addCase(bookMark.fulfilled,(state,action)=>{
+        })
+        .addCase(bookMark.fulfilled,(state,action)=>{
             state.bookmark=action.payload;
-        });
-        builder.addCase(deleteBookMark.fulfilled,(state,action)=>{
+        })
+        .addCase(deleteBookMark.fulfilled,(state,action)=>{
             state.bookmark=action.payload;
         });
     }

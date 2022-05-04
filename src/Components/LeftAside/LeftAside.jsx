@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./LeftAside.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
-import { HiHashtag } from "react-icons/hi";
+import { HiHashtag, HiLogout } from "react-icons/hi";
 import { BsBell, BsEnvelope } from "react-icons/bs";
-
+import { useSelector } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
-
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 function LeftAside() {
+  const currentUser = useSelector((state) => state.auth.currentUser);
   return (
     <aside className={`${styles.banner} `}>
       <div className={styles.bannerSmall}>
@@ -26,7 +26,7 @@ function LeftAside() {
                   </Link>
                 </h1>
               </div>
-       
+
               <div className={`${styles.navigation} mt-2 mb-1 `}>
                 <nav>
                   <NavLink to="">
@@ -35,12 +35,17 @@ function LeftAside() {
                     </span>
                     <span className={` ${styles.navigation_text}`}> Home</span>
                   </NavLink>
-                  <NavLink to="">
+                  <NavLink
+                    to="/bookMarkPage"
+                    className={({ isActive }) =>
+                      isActive ? `${styles.active_link}` : null
+                    }
+                  >
                     <span className={`${styles.navigation_svg} `}>
                       <HiHashtag />
                     </span>
                     <span className={` ${styles.navigation_text}`}>
-                      Hashtag
+                      BookMark
                     </span>
                   </NavLink>
                   <NavLink to="">
@@ -69,7 +74,9 @@ function LeftAside() {
                   </NavLink>
                   <NavLink
                     to=""
-                    // className={({isActive})=>}
+                    className={({ isActive }) =>
+                      isActive ? "active-link" : null
+                    }
                   >
                     <span className={`${styles.navigation_svg} `}>
                       <HiOutlineDotsCircleHorizontal />
@@ -84,13 +91,13 @@ function LeftAside() {
                 <div className={`${styles.profile}`}>
                   <span className="avatar avatar-sm">
                     <img
-                      src="https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg"
+                      src={currentUser?.profilePhoto?.chosen}
                       alt="Profile photo"
                     />
                   </span>
                   <p>Akshat</p>
                   <span>
-                    <FaEllipsisH />
+                    <HiLogout />
                   </span>
                 </div>
               </div>

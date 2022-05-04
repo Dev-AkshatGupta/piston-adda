@@ -58,18 +58,19 @@ const usersSlice=createSlice({
     name:"users",
     initialState,
     extraReducers(builder){
-        builder.addCase(getAllUsers.fulfilled,(state,action)=>{
+        builder
+        .addCase(getAllUsers.fulfilled,(state,action)=>{
             state.users=action.payload.users;
-        });
-        builder.addCase(getAUser.fulfilled,(state,action)=>{
+        })
+        .addCase(getAUser.fulfilled,(state,action)=>{
             console.log(action.payload);
             state.profile=action.payload;
-        });
-        builder.addCase(followUser.fulfilled,(state,action)=>{
+        })
+        .addCase(followUser.fulfilled,(state,action)=>{
             console.log(action.payload);
             state.currentUser=action.payload.user;
-        });
-        builder.addCase(unFollowUser.fulfilled,(state,action)=>{
+        })
+        .addCase(unFollowUser.fulfilled,(state,action)=>{
             console.log(action.payload);
             state.currentUser=action.payload?.user;
         });

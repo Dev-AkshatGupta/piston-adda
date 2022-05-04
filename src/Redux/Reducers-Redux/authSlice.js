@@ -46,24 +46,25 @@ const authSlice=createSlice({
     name:"auth",
     initialState,
     extraReducers(builder){
-        builder.addCase(login.pending,(state,action)=>{
+        builder
+        .addCase(login.pending,(state,action)=>{
             state.loading=true;
         })
-        builder.addCase(login.fulfilled,(state,action)=>{
+        .addCase(login.fulfilled,(state,action)=>{
             state.currentUser=action.payload.foundUser;
             state.loading=false;
             localStorage.setItem("token",action.payload.encodedToken);
             notifySuccess("Hey you loge'd in man")        
         })
-        builder.addCase(signUp.fulfilled,(state,action)=>{
+        .addCase(signUp.fulfilled,(state,action)=>{
             state.currentUser=action.payload.createdUser;
              localStorage.setItem("token",action.payload.encodedToken)
         })
-        builder.addCase(logOut.fulfilled,(state,action)=>{
+        .addCase(logOut.fulfilled,(state,action)=>{
             notifyError("you logged out");
             state.currentUser={};
         })
-        builder.addCase(checkToken.fulfilled,(state,action)=>{
+        .addCase(checkToken.fulfilled,(state,action)=>{
             if(action.payload){
             state.currentUser=action.payload.user;
             }
