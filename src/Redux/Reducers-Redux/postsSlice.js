@@ -9,8 +9,8 @@ const initialState={
 }
 export const getAllPosts=createAsyncThunk("posts/getAllPosts",async()=>{
     try{
-        const {data:{posts}}=await axios.get("/api/posts");
-        return posts;
+        const {data}=await axios.get("/api/posts");
+        return data.posts;
 }    catch(error){
         console.log(error.response.data.errors);
     }
@@ -25,14 +25,13 @@ export const getProfilePosts=createAsyncThunk("posts/getProfilePosts",async(user
     }
 });
 
-// These methods still needs to be checked and verified 
+
 export const createPost=createAsyncThunk("posts/createPost",async(post)=>{
-    console.log("Outside try")
+   
     try {
         const encodedToken=localStorage.getItem("token");
         const {data}=await axios.post("/api/posts/" ,{content:post},{headers:{authorization:encodedToken}
         });
-        console.log("function triggered");
         console.log(data);
         return data.posts;
     } catch (error) {
@@ -78,7 +77,6 @@ return data.bookmarks;
 
 export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
     try{
-        // const encodedToken=localStorage.getItem("token");
     const {data}=await axios.get(`/api/users/bookmark`);
     
     return data.bookmarks;}
@@ -86,7 +84,9 @@ export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
         console.log(error.response.data.errors);
     }
 });
+export const editPost=createAsyncThunk("posts/editPost",async(editedContent,postId)=>{
 
+})
  const postsSlice=createSlice({
     name:"posts",
     initialState,

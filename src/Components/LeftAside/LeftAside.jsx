@@ -30,7 +30,7 @@ function LeftAside() {
               <div className={`${styles.navigation} mt-2 mb-1 `}>
                 <nav>
                   <NavLink
-                    to="/"
+                    to="/homePage"
                     className={({ isActive }) =>
                       isActive ? `${styles.active_link}` : null
                     }
@@ -62,7 +62,7 @@ function LeftAside() {
                     </span>
                   </NavLink>
                   <NavLink
-                    to=""
+                    to="/"
                     className={({ isActive }) =>
                       isActive ? `${styles.active_link}` : null
                     }
@@ -75,7 +75,7 @@ function LeftAside() {
                     </span>
                   </NavLink>
                   <NavLink
-                    to=""
+                    to="/"
                     className={({ isActive }) =>
                       isActive ? `${styles.active_link}` : null
                     }
@@ -88,7 +88,7 @@ function LeftAside() {
                     </span>
                   </NavLink>
                   <NavLink
-                    to=""
+                    to="/"
                     className={({ isActive }) =>
                       isActive ? "active-link" : null
                     }
@@ -104,12 +104,15 @@ function LeftAside() {
             <div className={`${styles.banner_bottom} my-3`}>
               <div className={`${styles.bottom_profile}`}>
                 <div className={`${styles.profile}`}>
-                  <span className="avatar avatar-sm">
+                  <Link
+                    className="avatar avatar-sm"
+                     to={`/profilePage/${currentUser?.id}`}
+                  >
                     <img
                       src={currentUser?.profilePhoto?.chosen}
                       alt="Profile photo"
                     />
-                  </span>
+                  </Link>
                   <p>{currentUser?.username}</p>
                   <span>
                     <HiLogout />

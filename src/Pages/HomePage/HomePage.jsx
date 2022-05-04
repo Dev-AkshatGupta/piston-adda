@@ -27,7 +27,7 @@ function HomePage() {
         <PostInput userObj={currentUser} setPost={setPost}>
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
-            onClick={() => dispatch(createPost("This is shit"))}
+            onClick={() => dispatch(createPost(post))}
           >
             Vroom
           </button>
