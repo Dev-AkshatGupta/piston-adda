@@ -30,13 +30,13 @@ export const createPost=createAsyncThunk("posts/createPost",async(post)=>{
     console.log("Outside try")
     try {
         const encodedToken=localStorage.getItem("token");
-        const {data}=await axios.post("/api/user/posts/",{content:post},{headers:{authorization:encodedToken}
+        const {data}=await axios.post("/api/posts/" ,{content:post},{headers:{authorization:encodedToken}
         });
-        console.log("function triggered")
-        console.log(data.posts);
+        console.log("function triggered");
+        console.log(data);
         return data.posts;
     } catch (error) {
-        console.log(error.response)
+        console.log(error)
     }
 });
 export const likePost=createAsyncThunk("posts/likePost",async(postId)=>{
@@ -100,7 +100,7 @@ export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
         })
         .addCase(createPost.fulfilled,(state,action)=>{
             state.posts=action.payload;
-            // console.log(action.payload);
+
         })
         .addCase(likePost.fulfilled,(state,action)=>{
             state.posts=action.payload;

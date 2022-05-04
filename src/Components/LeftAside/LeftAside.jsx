@@ -29,7 +29,12 @@ function LeftAside() {
 
               <div className={`${styles.navigation} mt-2 mb-1 `}>
                 <nav>
-                  <NavLink to="">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive ? `${styles.active_link}` : null
+                    }
+                  >
                     <span className={`${styles.navigation_svg} `}>
                       <GiHomeGarage />
                     </span>
@@ -56,7 +61,12 @@ function LeftAside() {
                       Notifications{" "}
                     </span>
                   </NavLink>
-                  <NavLink to="">
+                  <NavLink
+                    to=""
+                    className={({ isActive }) =>
+                      isActive ? `${styles.active_link}` : null
+                    }
+                  >
                     <span className={`${styles.navigation_svg} `}>
                       <BsEnvelope />
                     </span>
@@ -64,7 +74,12 @@ function LeftAside() {
                       Message
                     </span>
                   </NavLink>
-                  <NavLink to="">
+                  <NavLink
+                    to=""
+                    className={({ isActive }) =>
+                      isActive ? `${styles.active_link}` : null
+                    }
+                  >
                     <span className={`${styles.navigation_svg} `}>
                       <CgProfile />
                     </span>
@@ -95,7 +110,7 @@ function LeftAside() {
                       alt="Profile photo"
                     />
                   </span>
-                  <p>Akshat</p>
+                  <p>{currentUser?.username}</p>
                   <span>
                     <HiLogout />
                   </span>

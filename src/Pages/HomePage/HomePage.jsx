@@ -7,7 +7,6 @@ import { PostInput } from "Components/PostInput/PostInput";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "Redux/Reducers-Redux/postsSlice";
-
 function HomePage() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const loadingStatus = useSelector((state) => state.auth.loading);
@@ -28,12 +27,12 @@ function HomePage() {
         <PostInput userObj={currentUser} setPost={setPost}>
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
-            onClick={() => createPost("This is shit")}
+            onClick={() => dispatch(createPost("This is shit"))}
           >
             Vroom
           </button>
         </PostInput>
-        {postsArr.map((post) => (
+        {postsArr?.map((post) => (
           <Post postObj={post} key={post._id} currentUserObj={currentUser} />
         ))}
       </div>

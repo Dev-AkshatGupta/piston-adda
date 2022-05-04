@@ -3,7 +3,7 @@ import "./authentication.css";
 import { Link } from "react-router-dom";
 import { login } from "Redux/Reducers-Redux/authSlice";
 import { useDispatch } from "react-redux";
-function LogInForm() {
+function LogInForm({children}) {
   const [viewPassword, setViewPassword] = useState(false);
   const [details, setDetails] = useState({
     userName: "",
@@ -73,9 +73,10 @@ function LogInForm() {
       >
         Guest Log-In
       </button>
-      <Link to="/" className="link-btn text-center text-base">
+      {children}
+      {/* <a  className="link-btn text-center text-base">
         Create new account <i className="fas fa-chevron-right text-accent"></i>
-      </Link>
+      </a> */}
     </>
   );
 }

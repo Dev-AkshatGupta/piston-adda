@@ -29,24 +29,14 @@ function Post({ postObj, currentUserObj }) {
       <div className="post">
         <img className="post__author-logo" src={userPhoto} />
         <div className="post__main">
-          <div
-            className="post__header"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
+          <div className="post__header flex justify-between">
             <div>
               <span className="post__author-name">{username}</span>
               <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
-            <BiDotsHorizontalRounded />
           </div>
-          <div className="post__content">
-            {content}
-            <a href="https://elixirdigest.net/digests/276">
-              https://elixirdigest.net/digests/276
-            </a>
-            @_tamas_soos #myelixirstatus #elixirlang #phoenixframework
-          </div>
+          <div className="post__content">{content}</div>
         </div>
       </div>
       <div className="post__bottom">

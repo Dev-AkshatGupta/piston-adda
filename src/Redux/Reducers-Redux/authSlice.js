@@ -21,7 +21,7 @@ try {
 export const signUp=createAsyncThunk("auth/signUp",async(userDetails)=>{
     try {
         const response= await axios.post(`/api/auth/signup`,{
-            username:userDetails.userName,
+            username:userDetails.username,
             password:userDetails.password,
             name:userDetails.name
         });
