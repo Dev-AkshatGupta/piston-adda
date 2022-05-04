@@ -22,7 +22,7 @@ export const users = [
     updatedAt: formatDate(),
     followers:[],
 following:[],
-bookmarks:[]
+bookmarks:[],
   },
    {
     _id: uuid(),

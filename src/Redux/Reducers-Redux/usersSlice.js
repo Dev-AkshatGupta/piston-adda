@@ -8,7 +8,9 @@ import {notifySuccess,notifyError} from "Utilities/Notifications";
 
 const initialState={
     users:[],
-    profile:{}
+    profile:{},
+    currentUser:{},
+    followedUser:[]
 }
 
 
@@ -20,12 +22,34 @@ export const getAllUsers= createAsyncThunk("users/getAllUsers",async()=>{
     } catch (error) {
       console.log(error.response.data.errors);
     }
-} )
+} );
+
+
+
  export const getAUser=createAsyncThunk("users/getAUser",async(userId)=>{
      const {data}=await axios.get(`/api/users/${userId}`)
      return data.user;
- })
-
+ });
+export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUserId)=>{
+    const encodedToken=localStorage.getItem("token");
+    try {
+    const {data}=await axios.post(`/api/users/unfollow/${followUserId}`,{},{headers:{authorization: encodedToken}})
+    console.log(data.user);    
+    return data;
+    } catch (error) {
+        console.log(error.response.data.errors)
+    }
+})
+export const followUser=createAsyncThunk("users/followUser",async(followUserId)=>{
+    const encodedToken=localStorage.getItem("token");
+    try {
+    const {data}=await axios.post(`/api/users/follow/${followUserId}`,{},{headers:{authorization: encodedToken}})
+    console.log(data.user);    
+    return data;
+    } catch (error) {
+        console.log(error.response.data.errors)
+    }
+})
 
 
 
@@ -36,11 +60,19 @@ const usersSlice=createSlice({
     extraReducers(builder){
         builder.addCase(getAllUsers.fulfilled,(state,action)=>{
             state.users=action.payload.users;
-        })
+        });
         builder.addCase(getAUser.fulfilled,(state,action)=>{
             console.log(action.payload);
             state.profile=action.payload;
-        })
+        });
+        builder.addCase(followUser.fulfilled,(state,action)=>{
+            console.log(action.payload);
+            state.currentUser=action.payload.user;
+        });
+        builder.addCase(unFollowUser.fulfilled,(state,action)=>{
+            console.log(action.payload);
+            state.currentUser=action.payload?.user;
+        });
     }
 }) 
 export default usersSlice.reducer;

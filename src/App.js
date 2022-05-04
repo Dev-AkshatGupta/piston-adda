@@ -12,13 +12,17 @@ import PrivateRoute from "Components/CustomRoute/PrivateRoute";
 import {Link} from "react-router-dom";
 import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
 import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
-import {getAllPosts} from "Redux/Reducers-Redux/postsSlice";
+import {getAllPosts,getBookMarks} from "Redux/Reducers-Redux/postsSlice";
+import BookMarkPage from "Pages/BookMarkPage/BookMarkPage";
 function App() {
-  const dispatch=useDispatch()
+  const dispatch=useDispatch();
   useEffect(()=>{
       dispatch(checkToken());
       dispatch(getAllUsers());
       dispatch(getAllPosts());
+      
+      // This call is not working have to check it once done with it
+      // dispatch(getBookMarks());
   },[])
   const location =useLocation();
 
@@ -32,6 +36,7 @@ function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/homePage"  element={<HomePage/>}/>
           <Route path={`/profilePage/:profileId`}  element={<ProfilePage/>}/>
+          <Route path={`/bookMarkPage`}  element={<BookMarkPage/>}/>
         </Route>
      
         <Route path="*" element={<Page404/>}/>

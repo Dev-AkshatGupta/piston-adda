@@ -4,9 +4,11 @@ import { FollowCard } from "Components/FollowCard/FollowCard";
 import { useSelector } from "react-redux";
 
 function RightAside() {
-  
-const usersArr=useSelector((state)=>state.users.users);
-
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const usersArr = useSelector((state) => state.users.users).filter((user) => user.id !== currentUser.id
+  );
+  // This state is being continiously updated on follow and un-follow and used for that only
+  const currentUserObj=useSelector(state=>state.users.currentUser);
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">
@@ -44,7 +46,11 @@ const usersArr=useSelector((state)=>state.users.users);
           </div>
 
           {usersArr.map((user) => (
-            <FollowCard userObj={user} key={user._id} />
+            <FollowCard
+              userObj={user}
+              key={user._id}
+              currentUserObj={currentUserObj}
+            />
           ))}
         </div>
       </div>

@@ -9,16 +9,13 @@ import { getAUser } from "Redux/Reducers-Redux/usersSlice";
 import { getProfilePosts } from "Redux/Reducers-Redux/postsSlice";
 function ProfilePage() {
   const { profileId } = useParams();
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAUser(profileId));
-    //  username?dispatch(getProfilePosts(username)):null;
-  }, []);
+  }, [profileId]);
   const profile = useSelector((state) => state.users.profile);
   const {
     id,
-    _id,
     username,
     profilePhoto,
     followers,
@@ -27,8 +24,12 @@ function ProfilePage() {
     coverPhoto,
     firstName,
   } = profile;
-
-  const postsArr = useSelector((state) => state.posts.getProfilePosts);
+  useEffect(() => {
+    dispatch(getProfilePosts(username));
+  }, [id]);
+  const postsArr = useSelector((state) => state.posts.profilePosts);
+  const currentUser = useSelector((state) => state?.auth?.currentUser);
+  console.log(currentUser);
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -40,12 +41,12 @@ function ProfilePage() {
         </header>
         <div className="empty"></div>
         <div className="profile___banner-img ">
-          <img src={coverPhoto.chosen} alt="banner-img" />
+          <img src={coverPhoto?.chosen} alt="banner-img" />
         </div>
         <div className="profile p-2 flex-center-space-betw">
           <div className="profile__dp-img rounded-full w-32 h-32 rounded-full border-solid">
             <img
-              src={profilePhoto.chosen}
+              src={profilePhoto?.chosen}
               alt="profile dp"
               className="rounded-full"
             />
@@ -54,16 +55,24 @@ function ProfilePage() {
             <button className="btn btn-sec p-2 rounded-xl">Edit Profile</button>
           </div>
         </div>
-        <div className="text-left font-extrabold pl-6 text-xl">{firstName}</div>
+
+        <div className="text-left font-extrabold pl-5 text-xl">{firstName}</div>
         <p className="text-left text-base  text-slate-500 font-thin pl-5">
           {username}
         </p>
-        <p className="text-left text-base font-thin pl-5 text-slate-800">
+        <p className="text-left text-base font-thin pl-5 text-slate-800 ">
           JavaScript | React is ❤️ | Neog-2022 | Chess
         </p>
         {/* Followers count */}
+        <div className="flex justify-between px-2 mb-3.5 border-slate-300 border-b-2 pb-1">
+          <span className={`w-{1/2} flex justify-evenly self-end pl-2`}>
+            <span className="pl-1">{followers?.length} Followers</span>
+            <span className="pl-3">{following?.length} Following</span>
+          </span>
+          <button className="btn btn-pri p-2 rounded-xl px-5">Follow</button>
+        </div>
         {postsArr.map((post) => (
-          <Post postObj={post} key={post._id} />
+          <Post postObj={post} key={post._id} currentUserObj={currentUser} />
         ))}
       </div>
       <RightAside />
