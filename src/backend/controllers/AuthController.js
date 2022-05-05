@@ -112,16 +112,15 @@ export const loginHandler = function (schema, request) {
     );
   }
 };
-export const verifyUser=function(schema,request){
-const { encodedToken} = JSON.parse(request.requestBody);
-   const decodedToken = jwt_decode(
+export const verifyUser = function (schema, request) {
+  const { encodedToken } = JSON.parse(request.requestBody);
+  const decodedToken = jwt_decode(
     encodedToken,
     process.env.REACT_APP_JWT_SECRET
   );
- try {
+  try {
     if (decodedToken) {
-     const user = this.db.users.findBy({ username: decodedToken.username });
-  
+      const user = this.db.users.findBy({ username: decodedToken.username });
       if (user) {
         return new Response(200, {}, { user });
       }
@@ -140,4 +139,4 @@ const { encodedToken} = JSON.parse(request.requestBody);
       }
     );
   }
-}
+};

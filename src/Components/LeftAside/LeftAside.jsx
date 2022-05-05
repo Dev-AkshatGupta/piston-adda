@@ -3,7 +3,7 @@ import styles from "./LeftAside.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
 import { HiHashtag, HiLogout } from "react-icons/hi";
-import { BsBell, BsEnvelope } from "react-icons/bs";
+import { BsBell, BsEnvelope, BsGear } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
@@ -88,15 +88,18 @@ function LeftAside() {
                     </span>
                   </NavLink>
                   <NavLink
-                    to="/"
+                    to="/settings"
                     className={({ isActive }) =>
                       isActive ? "active-link" : null
                     }
                   >
                     <span className={`${styles.navigation_svg} `}>
-                      <HiOutlineDotsCircleHorizontal />
+                      <BsGear />
                     </span>
-                    <span className={` ${styles.navigation_text}`}> More</span>
+                    <span className={` ${styles.navigation_text}`}>
+                      {" "}
+                      Settings
+                    </span>
                   </NavLink>
                 </nav>
               </div>
@@ -106,7 +109,7 @@ function LeftAside() {
                 <div className={`${styles.profile}`}>
                   <Link
                     className="avatar avatar-sm"
-                     to={`/profilePage/${currentUser?.id}`}
+                    to={`/profilePage/${currentUser?.id}`}
                   >
                     <img
                       src={currentUser?.profilePhoto?.chosen}

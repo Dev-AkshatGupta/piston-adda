@@ -20,8 +20,6 @@ function App() {
       dispatch(checkToken());
       dispatch(getAllUsers());
       dispatch(getAllPosts());
-      
-      // This call is not working have to check it once done with it
       dispatch(getBookMarks());
   },[])
   const location =useLocation();

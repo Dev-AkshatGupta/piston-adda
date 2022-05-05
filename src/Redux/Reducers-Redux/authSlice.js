@@ -27,7 +27,7 @@ export const signUp=createAsyncThunk("auth/signUp",async(userDetails)=>{
         });
         return response.data
     } catch (error) {
-console.log(error.response.data.errors);        
+console.log(error.response);        
     }
 })
 export const logOut=createAsyncThunk("auth/logOut",async()=>{
@@ -35,10 +35,13 @@ export const logOut=createAsyncThunk("auth/logOut",async()=>{
 })
 export const checkToken=createAsyncThunk("auth/checkToken",async()=>{
     const encodedToken=localStorage.getItem("token");
-    try{const response=await axios.get("api/auth/verifyUser")}
+    if(encodedToken){
+        try{
+const response=await axios.get("api/auth/verify",{encodedToken});    
+    return response.data}
     catch(error){
-console.log(error.response.data.errors);        
- }
+console.log(error.response);        
+ }}
 
 })
 export const editUser=createAsyncThunk("auth/editUser",async(userData)=>{
@@ -46,7 +49,7 @@ try {
     const encodedToken=localStorage.getItem("token");
     const {data}=await axios.post(`/api/users/edit`,{userData},{headers:{authorization:encodedToken}}
     );
-    console.log(data);
+    
     return data;
 } catch (error) {
   console.log(error.response.data.errors[0]);  
@@ -78,6 +81,9 @@ const authSlice=createSlice({
             if(action.payload){
             state.currentUser=action.payload.user;
             }
+        })
+        .addCase(editUser.fulfilled,(state,action)=>{
+            state.currentUser=action.payload
         })
     },
 })

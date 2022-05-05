@@ -8,8 +8,8 @@ export default function RestrictedRoute() {
     
   return (
       currentUser._id?
-    <Navigate to={
-        // location.state!==null? location.state.from.pathName :
-         "/homePage"} replace state={{from:location}} />
-:<Outlet/>  )
+   ( <Navigate to={
+location.state!==null? location?.state?.from?.pathName :"/homePage"} replace 
+state={{from:location}} />)
+:(<Outlet/>)  )
 }
