@@ -13,6 +13,7 @@ export const users = [
     firstName: "Akshat",
     username: "akshat",
     password: "akshat",
+    bio:"",
       profilePhoto:{
       default:"",
       chosen:"https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",},
@@ -39,7 +40,8 @@ bookmarks:[],
     updatedAt: formatDate(),
      followers:[],
 following:[],
-bookmarks:[]
+bookmarks:[],
+bio:"",
   },
    {
     _id: uuid(),
@@ -56,7 +58,8 @@ bookmarks:[]
     updatedAt: formatDate(),
      followers:[],
 following:[],
-bookmarks:[]
+bookmarks:[],
+bio:"",
   },
    {
     _id: uuid(),
@@ -73,7 +76,8 @@ bookmarks:[]
     updatedAt: formatDate(),
      followers:[],
 following:[],
-bookmarks:[]
+bookmarks:[],
+bio:"",
   },
    {
     _id: uuid(),
@@ -90,6 +94,7 @@ bookmarks:[]
     updatedAt: formatDate(),
      followers:[],
 following:[],
-bookmarks:[]
+bookmarks:[],
+bio:"",
   },
 ];

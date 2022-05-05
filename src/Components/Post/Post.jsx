@@ -20,7 +20,7 @@ function Post({ postObj, currentUserObj }) {
   } = postObj;
   const dispatch = useDispatch();
   const { id } = currentUserObj;
-  const isPostInBookMark = useSelector((state) => state.posts.bookmark).some(
+  const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
     (post) => post._id === _id
   );
 

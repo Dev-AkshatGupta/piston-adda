@@ -15,12 +15,12 @@ const currentUser=useSelector((state)=>state.auth.currentUser);
       </div>
       <div className="layout__main">
         <header className=" layout__main-header">
-          <span className="text">Home</span>
+          <span className="text">BookMarks</span>
         </header>
         {/* {console.log(post)} */}
         <div className="empty"></div>
 
-        {bookMarkPostArr.map((post) => (
+        {bookMarkPostArr?.map((post) => (
           <Post postObj={post} key={post._id} currentUserObj={currentUser} />
         ))}
       </div>

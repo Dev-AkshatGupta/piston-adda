@@ -15,7 +15,7 @@ try {
     });
     return response.data;
 } catch (error) {
-  console.log(error.response.data.errors);  
+  console.log(error.response.data.errors[0]);  
 }
 })
 export const signUp=createAsyncThunk("auth/signUp",async(userDetails)=>{
@@ -41,7 +41,17 @@ console.log(error.response.data.errors);
  }
 
 })
-
+export const editUser=createAsyncThunk("auth/editUser",async(userData)=>{
+try {
+    const encodedToken=localStorage.getItem("token");
+    const {data}=await axios.post(`/api/users/edit`,{userData},{headers:{authorization:encodedToken}}
+    );
+    console.log(data);
+    return data;
+} catch (error) {
+  console.log(error.response.data.errors[0]);  
+}
+})
 const authSlice=createSlice({
     name:"auth",
     initialState,

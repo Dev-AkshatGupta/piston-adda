@@ -24,10 +24,10 @@ function HomePage() {
         </header>
       
         <div className="empty"></div>
-        <PostInput userObj={currentUser} setPost={setPost}>
+        <PostInput userObj={currentUser} setPost={setPost} post={post}>
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
-            onClick={() => dispatch(createPost(post))}
+            onClick={() =>{ dispatch(createPost(post));setPost("");}}
           >
             Vroom
           </button>

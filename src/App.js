@@ -9,11 +9,11 @@ import { useEffect } from "react";
 import {useDispatch} from "react-redux";
 import { checkToken} from "Redux/Reducers-Redux/authSlice";
 import PrivateRoute from "Components/CustomRoute/PrivateRoute";
-import {Link} from "react-router-dom";
 import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
 import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
 import {getAllPosts,getBookMarks} from "Redux/Reducers-Redux/postsSlice";
 import BookMarkPage from "Pages/BookMarkPage/BookMarkPage";
+import SettingsPage from "Pages/SettingsPage/SettingsPage";
 function App() {
   const dispatch=useDispatch();
   useEffect(()=>{
@@ -22,7 +22,7 @@ function App() {
       dispatch(getAllPosts());
       
       // This call is not working have to check it once done with it
-      // dispatch(getBookMarks());
+      dispatch(getBookMarks());
   },[])
   const location =useLocation();
 
@@ -36,12 +36,14 @@ function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/homePage"  element={<HomePage/>}/>
           <Route path={`/profilePage/:profileId`}  element={<ProfilePage/>}/>
+          <Route path={`/settings`}  element={<SettingsPage/>}/>
           <Route path={`/bookMarkPage`}  element={<BookMarkPage/>}/>
         </Route>
      
         <Route path="*" element={<Page404/>}/>
         <Route path="/mock" element={<Mockman/>}/>
       </Routes>
+  
    <ToastContainer/>
    <Outlet/>
     </div>

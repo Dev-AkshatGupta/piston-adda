@@ -1,6 +1,6 @@
 import React from "react";
 import "./FollowCard.css";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unFollowUser } from "Redux/Reducers-Redux/usersSlice";
 function FollowCard({ userObj, currentUserObj }) {

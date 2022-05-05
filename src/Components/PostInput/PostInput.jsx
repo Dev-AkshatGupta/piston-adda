@@ -4,7 +4,7 @@ import { TextArea } from "./TextArea";
 import { GrGallery } from "react-icons/gr";
 import { AiOutlineFileGif } from "react-icons/ai";
 import { BsEmojiSmile } from "react-icons/bs";
-function PostInput({ children, userObj, setPost }) {
+function PostInput({ children, userObj, setPost, post }) {
   const { profilePhoto, username } = userObj;
   return (
     <>
@@ -12,7 +12,7 @@ function PostInput({ children, userObj, setPost }) {
         <img className="post__author-logo" src={profilePhoto.chosen} />
         <div className="post__main">
           <div className="post__content">
-            <TextArea setPost ={setPost}/>
+            <TextArea setPost={setPost} post={post}/>
           </div>
         </div>
       </div>
@@ -24,9 +24,6 @@ function PostInput({ children, userObj, setPost }) {
           <BsEmojiSmile />
         </div>
         <div className="postInput__bottom-secondBlock">
-          {/* <button className="btn btn-outline-pri p-3 rounded-xl py-1.5">
-            Vroom
-          </button> */}
           {children}
         </div>
       </div>

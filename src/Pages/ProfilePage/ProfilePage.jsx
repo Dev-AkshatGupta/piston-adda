@@ -7,6 +7,7 @@ import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAUser } from "Redux/Reducers-Redux/usersSlice";
 import { getProfilePosts } from "Redux/Reducers-Redux/postsSlice";
+import {followUser,unFollowUser} from "Redux/Reducers-Redux/usersSlice";
 function ProfilePage() {
   const { profileId } = useParams();
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function ProfilePage() {
   const profile = useSelector((state) => state.users.profile);
   const {
     id,
+    _id,
     username,
     profilePhoto,
     followers,
@@ -28,8 +30,11 @@ function ProfilePage() {
     dispatch(getProfilePosts(username));
   }, [id]);
   const postsArr = useSelector((state) => state.posts.profilePosts);
-  const currentUser = useSelector((state) => state?.auth?.currentUser);
-  console.log(currentUser);
+  const currentUser = useSelector((state) => state?.users?.currentUser);
+  const isProfileFollowedByUser = currentUser?.following?.some(
+    (profile) => profile?.id === id
+  );
+
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -69,7 +74,21 @@ function ProfilePage() {
             <span className="pl-1">{followers?.length} Followers</span>
             <span className="pl-3">{following?.length} Following</span>
           </span>
-          <button className="btn btn-pri p-2 rounded-xl px-5">Follow</button>
+          {isProfileFollowedByUser ?? false ? (
+            <button
+              className="btn btn-outline-pri p-1 rounded-xl px-2"
+              onClick={() => dispatch(unFollowUser(_id))}
+            >
+              Un-Follow
+            </button>
+          ) : (
+            <button
+              className="btn btn-outline-pri p-1 rounded-xl px-2"
+              onClick={() => dispatch(followUser(_id))}
+            >
+              Follow
+            </button>
+          )}
         </div>
         {postsArr.map((post) => (
           <Post postObj={post} key={post._id} currentUserObj={currentUser} />

@@ -1,6 +1,6 @@
 import React from "react";
 import "./PostInput.css";
-function TextArea({ setPost }) {
+function TextArea({ setPost,post }) {
   return (
     <textarea
       role="textbox"
@@ -10,7 +10,7 @@ function TextArea({ setPost }) {
       placeholder="Write something in this"
       rows="3"
       onChange={(e) => {setPost(e.target.value);}}
-      // value={(e) => e.target.value}
+      value={post}
     ></textarea>
   );
 }

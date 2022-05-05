@@ -32,12 +32,48 @@ export const createPost=createAsyncThunk("posts/createPost",async(post)=>{
         const encodedToken=localStorage.getItem("token");
         const {data}=await axios.post("/api/posts/" ,{content:post},{headers:{authorization:encodedToken}
         });
+        return data.posts;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const editPost=createAsyncThunk("posts/editPost",async(content,postId)=>{
+ 
+    try {
+        const encodedToken=localStorage.getItem("token");
+        const {data}=await axios.post(`/api/posts/edit/${postId}` ,{content:content},{headers:{authorization:encodedToken}
+        });
         console.log(data);
         return data.posts;
     } catch (error) {
         console.log(error)
     }
 });
+export const deletePost=createAsyncThunk("posts/deletePost",async(content,postId)=>{
+ 
+    try {
+        const encodedToken=localStorage.getItem("token");
+        const {data}=await axios.delete(`/api/posts/${postId}` ,{},{headers:{authorization:encodedToken}
+        });
+        console.log(data);
+        return data.posts;
+    } catch (error) {
+        console.log(error)
+    }
+});
+// export const deletePost=createAsyncThunk("posts/deletePost",async(content,postId)=>{
+ 
+//     try {
+//         const encodedToken=localStorage.getItem("token");
+//         const {data}=await axios.delete(`/api/posts/${postId}` ,{},{headers:{authorization:encodedToken}
+//         });
+//         console.log(data);
+//         return data.posts;
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 export const likePost=createAsyncThunk("posts/likePost",async(postId)=>{
     try {
         const encodedToken=localStorage.getItem("token");
@@ -77,16 +113,16 @@ return data.bookmarks;
 
 export const getBookMarks=createAsyncThunk("posts/getBookMarks",async ()=>{
     try{
-    const {data}=await axios.get(`/api/users/bookmark`);
-    
+        const encodedToken=localStorage.getItem("token");
+    const {data}=await axios.get(`/api/users/bookmark/`,{},{headers:{authorization:encodedToken}
+    });
+    console.log(data);
     return data.bookmarks;}
     catch(error){
         console.log(error.response.data.errors);
     }
 });
-export const editPost=createAsyncThunk("posts/editPost",async(editedContent,postId)=>{
 
-})
  const postsSlice=createSlice({
     name:"posts",
     initialState,
