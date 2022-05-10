@@ -10,12 +10,14 @@ import {
   bookMark,
   deleteBookMark,
 } from "Redux/Reducers-Redux/postsSlice";
+import {Link} from "react-router-dom";
 function Post({ postObj, currentUserObj }) {
   const {
     content,
     username,
     userPhoto,
     _id,
+    id:postId,
     likes: { likedBy, likeCount },
   } = postObj;
   const dispatch = useDispatch();
@@ -60,7 +62,9 @@ function Post({ postObj, currentUserObj }) {
             onClick={() => dispatch(likePost(_id))}
           ></i>
         )}
-        <BiComment />
+        <Link to={`/post/${postId}`}>
+          <BiComment />
+        </Link>
       </div>
     </>
   );

@@ -14,6 +14,7 @@ import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
 import {getAllPosts,getBookMarks} from "Redux/Reducers-Redux/postsSlice";
 import BookMarkPage from "Pages/BookMarkPage/BookMarkPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
+import PostPage from "Pages/PostsPage/PostPage";
 function App() {
   const dispatch=useDispatch();
   useEffect(()=>{
@@ -36,6 +37,7 @@ function App() {
           <Route path={`/profilePage/:profileId`}  element={<ProfilePage/>}/>
           <Route path={`/settings`}  element={<SettingsPage/>}/>
           <Route path={`/bookMarkPage`}  element={<BookMarkPage/>}/>
+          <Route path="/post/:postId" element={<PostPage/>}/>
         </Route>
      
         <Route path="*" element={<Page404/>}/>

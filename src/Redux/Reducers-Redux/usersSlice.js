@@ -6,12 +6,12 @@ import {notifySuccess,notifyError} from "Utilities/Notifications";
 
 
 
-const initialState={
-    users:[],
-    profile:{},
-    currentUser:{},
-    followedUser:[]
-}
+const initialState = {
+  users: [],
+  profile: {},
+  currentUser:{},
+  followedUser: [],
+};
 
 
 
@@ -44,7 +44,6 @@ export const followUser=createAsyncThunk("users/followUser",async(followUserId)=
     const encodedToken=localStorage.getItem("token");
     try {
     const {data}=await axios.post(`/api/users/follow/${followUserId}`,{},{headers:{authorization: encodedToken}})
-    console.log(data.user);    
     return data;
     } catch (error) {
         console.log(error.response.data.errors)
@@ -63,15 +62,12 @@ const usersSlice=createSlice({
             state.users=action.payload.users;
         })
         .addCase(getAUser.fulfilled,(state,action)=>{
-            console.log(action.payload);
             state.profile=action.payload;
         })
         .addCase(followUser.fulfilled,(state,action)=>{
-            console.log(action.payload);
             state.currentUser=action.payload.user;
         })
         .addCase(unFollowUser.fulfilled,(state,action)=>{
-            console.log(action.payload);
             state.currentUser=action.payload?.user;
         });
     }
