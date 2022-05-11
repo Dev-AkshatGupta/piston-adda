@@ -10,17 +10,19 @@ import {
   bookMark,
   deleteBookMark,
 } from "Redux/Reducers-Redux/postsSlice";
-import {Link} from "react-router-dom";
+import  DropDown  from "Components/DropDown/DropDown";
+import { Link } from "react-router-dom";
 function Post({ postObj, currentUserObj }) {
+  const dispatch = useDispatch();
+
   const {
     content,
     username,
     userPhoto,
     _id,
-    id:postId,
-    likes: { likedBy, likeCount },
+    id: postId,
+    // likes: { likedBy, likeCount },
   } = postObj;
-  const dispatch = useDispatch();
   const { id } = currentUserObj;
   const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
     (post) => post._id === _id
@@ -37,6 +39,7 @@ function Post({ postObj, currentUserObj }) {
               <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
+            <DropDown />
           </div>
           <div className="post__content">{content}</div>
         </div>
@@ -51,7 +54,7 @@ function Post({ postObj, currentUserObj }) {
           ></i>
         )}
         <AiOutlineRetweet />
-        {likedBy.some((post) => post.id === id) ? (
+        {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
           <i
             className="fas fa-heart"
             onClick={() => dispatch(disLikePost(_id))}
@@ -62,7 +65,7 @@ function Post({ postObj, currentUserObj }) {
             onClick={() => dispatch(likePost(_id))}
           ></i>
         )}
-        <Link to={`/post/${postId}`}>
+        <Link to={`/post/${_id}`}>
           <BiComment />
         </Link>
       </div>
