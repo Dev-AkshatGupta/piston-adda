@@ -56,28 +56,30 @@ export const deleteComment = createAsyncThunk(
     }
   }
 );
-// export const editComment = createAsyncThunk(
-//   "comments/editComment",
-//   async (details) => {
-//     const { postId, commentData, commentId } = details;
-//     console.log(postId,commentData,commentId);
-//     try {
-//       const encodedToken = localStorage.getItem("token");
-//       const { data } = await axios.post(
-//         `/api/comments/edit/${postId}/${commentId}`,
-//         { content: commentData },
-//         { headers: { authorization: encodedToken } }
-//       );
-//       return data.comments;
-//     } catch (error) {
-//       console.log(error.response);
-//     }
-//   }
-// );
+export const editCommentData = createAsyncThunk(
+  "comments/editComment",
+  async (details) => {
+    const { postId, commentData, commentId } = details;
+    console.log(postId,commentData,commentId);
+    try {
+      const encodedToken = localStorage.getItem("token");
+      const { data } = await axios.post(
+        `/api/comments/edit/${postId}/${commentId}`,
+        { content: commentData },
+        { headers: { authorization: encodedToken } }
+      );
+      return data.comments;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+
 export const editComment=createAsyncThunk("comments/editComment",async(details)=>{
   const { postId, commentData, commentId } = details;
   console.log(details);
-})
+});
+
 export const upVoteComment = createAsyncThunk(
   "comments/upVoteComment",
   async (details) => {

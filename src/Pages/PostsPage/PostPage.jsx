@@ -8,9 +8,8 @@ import { getAPost } from "Redux/Reducers-Redux/postsSlice";
 import {
   getComments,
   createComment,
-  // editComment,
+  editCommentData,
 } from "Redux/Reducers-Redux/commentsSlice";
-import { editComment } from "Redux/Reducers-Redux/commentsSlice";
 import "./PostPage.css";
 import { PostInput } from "Components/PostInput/PostInput";
 import { Loader } from "Components/Loader/Loader";
@@ -101,9 +100,9 @@ const PostPage = () => {
                   ...editCommentDetails,
                   comment: editComment,
                 }));
-                console.log(editCommentDetails);
+  
                 dispatch(
-                  editComment({
+                  editCommentData({
                     postId,
                     commentData: editCommentDetails.comment,
                     commentId: editCommentDetails.id,

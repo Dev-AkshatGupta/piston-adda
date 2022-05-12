@@ -93,7 +93,8 @@ export const editPostCommentHandler = function (schema, request) {
       );
     }
     const { postId, commentId } = request.params;
-    const { commentData } = JSON.parse(request.requestBody);
+    // const { commentData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
     const post = schema.posts.findBy({ _id: postId }).attrs;
     const commentIndex = post.comments.findIndex(
       (comment) => comment._id === commentId
@@ -107,7 +108,8 @@ export const editPostCommentHandler = function (schema, request) {
     }
     post.comments[commentIndex] = {
       ...post.comments[commentIndex],
-      ...commentData,
+      
+      content,
       updatedAt: formatDate(),
     };
     this.db.posts.update({ _id: postId }, post);
