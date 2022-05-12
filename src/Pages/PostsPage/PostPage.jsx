@@ -4,11 +4,19 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Post } from "Components/Post/Post";
 import { useSelector, useDispatch } from "react-redux";
-import { getAPost, } from "Redux/Reducers-Redux/postsSlice";
-import { getComments,createComment} from "Redux/Reducers-Redux/commentsSlice";
+import { getAPost } from "Redux/Reducers-Redux/postsSlice";
+import {
+  getComments,
+  createComment,
+  // editComment,
+} from "Redux/Reducers-Redux/commentsSlice";
+import { editComment } from "Redux/Reducers-Redux/commentsSlice";
 import "./PostPage.css";
 import { PostInput } from "Components/PostInput/PostInput";
-import {Loader} from "Components/Loader/Loader";
+import { Loader } from "Components/Loader/Loader";
+import CommentBox from "Components/CommentBox/CommentBox";
+import EditModal from "Components/EditModal/EditModal";
+import { TextArea } from "Components/PostInput/TextArea";
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -20,9 +28,16 @@ const PostPage = () => {
 
   const selectedPost = useSelector((state) => state?.posts?.currentPost);
   const comments = useSelector((state) => state?.comments?.comments);
-  console.log(comments);
-  const loadingStatus=useSelector(state=>state.posts.loadingStatus);
-  const [comment,setComment]=useState("");
+  const loadingStatus = useSelector((state) => state.posts.loadingStatus);
+  const [comment, setComment] = useState("");
+  const [modalDisplay, setModalDisplay] = useState(false);
+  const [editComment, setEditComment] = useState("");
+  // const[currentCommentId,setCurrentCommentId]=useState("");
+  const [editCommentDetails, setEditCommentDetails] = useState({
+    comment: editComment,
+    id: "",
+  });
+
   return (
     <div className="layout">
       <LeftAside />
@@ -37,13 +52,69 @@ const PostPage = () => {
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              dispatch(createComment({commentData:comment, postId:selectedPost?._id}));
+              dispatch(
+                createComment({
+                  commentData: comment,
+                  postId: selectedPost?._id,
+                })
+              );
               setComment("");
             }}
           >
             Vroom
           </button>
         </PostInput>
+        {comments.map((comment, i) => (
+          <CommentBox
+            commentObj={comments[comments.length - 1 - i]}
+            key={comments[comments.length - 1 - i]._id}
+            postObj={selectedPost}
+            setModalDisplay={setModalDisplay}
+            setEditCommentDetails={setEditCommentDetails}
+          />
+        ))}
+        {modalDisplay && (
+          <EditModal
+            setModalDisplay={setModalDisplay}
+            setEditCommentDetails={setEditCommentDetails}
+            textArea={<TextArea setPost={setEditComment} post={editComment} />}
+          >
+            <button
+              className="
+                  block
+                  text-center
+                  w-full
+                  p-3
+                  text-base
+                  font-medium
+                  rounded-lg
+                  bg-primary
+                  text-white
+                  border border-primary
+                  hover:bg-opacity-90
+                  transition
+                  btn
+                  "
+              // { setEditCommentDetails((editCommentDetails)=>({...editCommentDetails,comment: editComment}))}
+              onClick={() => {
+                setEditCommentDetails(({ comment }) => ({
+                  ...editCommentDetails,
+                  comment: editComment,
+                }));
+                console.log(editCommentDetails);
+                dispatch(
+                  editComment({
+                    postId,
+                    commentData: editCommentDetails.comment,
+                    commentId: editCommentDetails.id,
+                  })
+                );
+              }}
+            >
+              Edit Comment
+            </button>
+          </EditModal>
+        )}
       </div>
       <RightAside />
     </div>

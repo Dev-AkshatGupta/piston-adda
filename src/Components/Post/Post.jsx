@@ -21,7 +21,6 @@ function Post({ postObj, currentUserObj }) {
     userPhoto,
     _id,
     id: postId,
-    // likes: { likedBy, likeCount },
   } = postObj;
   const { id } = currentUserObj;
   const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(

@@ -7,7 +7,7 @@ const initialState = {
   loading: false,
 };
 export const getComments = createAsyncThunk(
-  "posts/comments",
+  "comments/getComments",
   async (postId) => {
     console.log(postId);
     try {
@@ -21,7 +21,7 @@ export const getComments = createAsyncThunk(
 );
 
 export const createComment = createAsyncThunk(
-  "posts/createComment",
+  "comments/createComment",
   async (details) => {
     const { postId, commentData } = details;
 
@@ -39,7 +39,7 @@ export const createComment = createAsyncThunk(
   }
 );
 export const deleteComment = createAsyncThunk(
-  "posts/deleteComment",
+  "comments/deleteComment",
   async (details) => {
     const { postId, commentId } = details;
 
@@ -56,15 +56,54 @@ export const deleteComment = createAsyncThunk(
     }
   }
 );
-export const editComment = createAsyncThunk(
-  "posts/editPost",
+// export const editComment = createAsyncThunk(
+//   "comments/editComment",
+//   async (details) => {
+//     const { postId, commentData, commentId } = details;
+//     console.log(postId,commentData,commentId);
+//     try {
+//       const encodedToken = localStorage.getItem("token");
+//       const { data } = await axios.post(
+//         `/api/comments/edit/${postId}/${commentId}`,
+//         { content: commentData },
+//         { headers: { authorization: encodedToken } }
+//       );
+//       return data.comments;
+//     } catch (error) {
+//       console.log(error.response);
+//     }
+//   }
+// );
+export const editComment=createAsyncThunk("comments/editComment",async(details)=>{
+  const { postId, commentData, commentId } = details;
+  console.log(details);
+})
+export const upVoteComment = createAsyncThunk(
+  "comments/upVoteComment",
   async (details) => {
-    const { postId, commentData, commentId } = details;
+    const { postId, commentId } = details;
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
-        `/api/comments/edit/${postId}/${commentId}`,
-        { content: commentData },
+        `/api/comments/upvote/${postId}/${commentId}`,
+        {},
+        { headers: { authorization: encodedToken } }
+      );
+      return data.comments;
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+);
+export const downVoteComment = createAsyncThunk(
+  "comments/downVoteComment",
+  async (details) => {
+    const { postId, commentId } = details;
+    try {
+      const encodedToken = localStorage.getItem("token");
+      const { data } = await axios.post(
+        `/api/comments/downvote/${postId}/${commentId}`,
+        {},
         { headers: { authorization: encodedToken } }
       );
       return data.comments;
@@ -85,10 +124,20 @@ const commentsSlice = createSlice({
       .addCase(createComment.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
+      .addCase(deleteComment.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(deleteComment.fulfilled, (state, action) => {
+        state.loading = false;
         state.comments = action.payload;
       })
       .addCase(editComment.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
+      .addCase(upVoteComment.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
+      .addCase(downVoteComment.fulfilled, (state, action) => {
         state.comments = action.payload;
       });
   },

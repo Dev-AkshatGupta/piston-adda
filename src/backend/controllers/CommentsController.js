@@ -47,11 +47,11 @@ export const addPostCommentHandler = function (schema, request) {
       );
     }
     const { postId } = request.params;
-    const { commentData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
 
     const comment = {
       _id: uuid(),
-      ...commentData,
+      content:content,
       username: user.username,
       userPhoto: user?.profilePhoto?.chosen,
       votes: { upvotedBy: [], downvotedBy: [] },
@@ -178,53 +178,53 @@ export const deletePostCommentHandler = function (schema, request) {
  * send POST Request at /api/comments/upvote/:postId/:commentId
  * */
 
-// export const upvotePostCommentHandler = function (schema, request) {
-//   const user = requiresAuth.call(this, request);
-//   try {
-//     if (!user) {
-//       return new Response(
-//         404,
-//         {},
-//         {
-//           errors: [
-//             "The username you entered is not Registered. Not Found error",
-//           ],
-//         }
-//       );
-//     }
-//     const { postId, commentId } = request.params;
-//     const commentIndex = post.comments.findIndex(
-//       (comment) => comment._id === commentId
-//     );
-//     const post = schema.posts.findBy({ _id: postId }).attrs;
-
-//     if (
-//       post.comments[commentIndex].votes.upvotedBy.some(
-//         (currUser) => currUser._id === user._id
-//       )
-//     ) {
-//       return new Response(
-//         400,
-//         {},
-//         { errors: ["Cannot upvote a post that is already upvoted. "] }
-//       );
-//     }
-//     post.comments[commentIndex].votes.downvotedBy = post.comments[
-//       commentIndex
-//     ].votes.downvotedBy.filter((currUser) => currUser._id !== user._id);
-//     comments[commentIndex].votes.upvotedBy.push(user);
-//     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-//     return new Response(201, {}, { comments: post.comments });
-//   } catch (error) {
-//     return new Response(
-//       500,
-//       {},
-//       {
-//         error,
-//       }
-//     );
-//   }
-// };
+export const upvotePostCommentHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: [
+            "The username you entered is not Registered. Not Found error",
+          ],
+        }
+      );
+    }
+    const { postId, commentId } = request.params;
+    const commentIndex = post.comments.findIndex(
+      (comment) => comment._id === commentId
+    );
+    const post = schema.posts.findBy({ _id: postId }).attrs;
+    console.log({post});
+    // if (
+    //   post.comments[commentIndex].votes.upvotedBy.some(
+    //     (currUser) => currUser._id === user._id
+    //   )
+    // ) {
+    //   return new Response(
+    //     400,
+    //     {},
+    //     { errors: ["Cannot upvote a post that is already upvoted. "] }
+    //   );
+    // }
+    // post.comments[commentIndex].votes.downvotedBy = post.comments[
+    //   commentIndex
+    // ].votes.downvotedBy.filter((currUser) => currUser._id !== user._id);
+    // comments[commentIndex].votes.upvotedBy.push(user);
+    // this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
+    // return new Response(201, {}, { comments: post.comments });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
 
 /**
  * This handler handles downvoting a comment of a post in the db.
