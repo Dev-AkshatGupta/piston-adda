@@ -74,9 +74,7 @@ function LogInForm({children}) {
         Guest Log-In
       </button>
       {children}
-      {/* <a  className="link-btn text-center text-base">
-        Create new account <i className="fas fa-chevron-right text-accent"></i>
-      </a> */}
+     
     </>
   );
 }

@@ -16,7 +16,7 @@ import BookMarkPage from "Pages/BookMarkPage/BookMarkPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import PostPage from "Pages/PostsPage/PostPage";
 import PostEditModal from "Components/PostEditModal/PostEditModal";
-import { TextArea } from "Components/PostInput/TextArea";
+
 
 function App() {
   const dispatch=useDispatch();
