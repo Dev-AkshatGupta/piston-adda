@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import DropDown from "Components/DropDown/DropDown";
-import { deleteComment } from "Redux/Reducers-Redux/commentsSlice";
+import { deleteComment, upVoteComment } from "Redux/Reducers-Redux/commentsSlice";
 import { useDispatch } from "react-redux";
 const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
   const dispatch = useDispatch();
+  console.log(commentObj);
   return (
     <>
       <div className="post">
@@ -60,7 +61,7 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
         </div>
       </div>
       <div className="post__bottom">
-        <button className="">Up Vote</button>
+        <button className="" onClick={()=>{dispatch(upVoteComment({ postId:postObj._id, commentId:commentObj._id }));}}>Up Vote</button>
         <button className="">Down Vote</button>
       </div>
     </>

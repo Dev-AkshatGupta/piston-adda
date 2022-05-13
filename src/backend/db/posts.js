@@ -6,7 +6,6 @@ import { formatDate } from "../utils/authUtils";
  * You can add default posts of your wish with different attributes
  * */
 
-
 export const posts = [
   {
     _id: uuid(),
@@ -22,7 +21,21 @@ export const posts = [
       "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    comments: [],
+    comments: [
+      {
+        _id: "49eb98ce-6456-4f21-8a68-24c12101e834",
+        content: "fuck you man",
+        username: "akshat",
+        userPhoto:
+          "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+        createdAt: "2022-05-13T23:15:24+05:30",
+        updatedAt: "2022-05-13T23:15:24+05:30",
+      },
+    ],
   },
   {
     _id: uuid(),

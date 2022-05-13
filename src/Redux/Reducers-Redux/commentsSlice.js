@@ -9,7 +9,7 @@ const initialState = {
 export const getComments = createAsyncThunk(
   "comments/getComments",
   async (postId) => {
-    console.log(postId);
+
     try {
       const { data } = await axios.get(`/api/comments/${postId}`);
       console.log(data.comments);
@@ -32,6 +32,7 @@ export const createComment = createAsyncThunk(
         { content: commentData },
         { headers: { authorization: encodedToken } }
       );
+      console.log(data.comments);
       return data.comments;
     } catch (error) {
       console.log(error.response);
@@ -75,12 +76,11 @@ export const editCommentData = createAsyncThunk(
   }
 );
 
-
-
 export const upVoteComment = createAsyncThunk(
   "comments/upVoteComment",
   async (details) => {
     const { postId, commentId } = details;
+    console.log({ postId, commentId });
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -88,12 +88,14 @@ export const upVoteComment = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-      return data.comments;
+      console.log(data.comments);
+      // return data.comments;
     } catch (error) {
       console.log(error.response);
     }
   }
 );
+
 export const downVoteComment = createAsyncThunk(
   "comments/downVoteComment",
   async (details) => {
@@ -134,7 +136,7 @@ const commentsSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(upVoteComment.fulfilled, (state, action) => {
-        state.comments = action.payload;
+        // state.comments = action.payload;
       })
       .addCase(downVoteComment.fulfilled, (state, action) => {
         state.comments = action.payload;
