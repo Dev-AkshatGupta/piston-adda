@@ -1,9 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { changeModalDisplay } from "Redux/Reducers-Redux/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { changeModalDisplay,editPost } from "Redux/Reducers-Redux/postsSlice";
 
-const PostEditModal = () => {
+const PostEditModal = ({textArea,children}) => {
   const dispatch = useDispatch();
+  const editPostContent=useSelector(state=>state?.posts?.editedPost);
+  const editPostId=useSelector(state=>state?.posts?.editPostId);
   return (
     <section>
       <div
@@ -40,7 +42,6 @@ const PostEditModal = () => {
           </h3>
           <span className="inline-block bg-primary h-1 w-[90px] mx-auto rounded mb-6"></span>
           {textArea}
-
           <div className="flex flex-wrap -mx-3">
             <div className="w-1/2 px-3">
               <button
@@ -63,7 +64,32 @@ const PostEditModal = () => {
                 Cancel
               </button>
             </div>
-            <div className="w-1/2 px-3">{children}</div>
+            <div className="w-1/2 px-3">
+              <button
+                className="
+                  block
+                  text-center
+                  w-full
+                  p-3
+                  text-base
+                  font-medium
+                  rounded-lg
+                  bg-primary
+                  text-white
+                  border border-primary
+                  hover:bg-opacity-90
+                  transition
+                  btn
+                  "
+                onClick={() => {
+                
+                    dispatch(editPost({ content:editPostContent, postId:editPostId }));
+                }}
+              >
+                Edit Comment
+              </button>
+              
+            </div>
           </div>
         </div>
       </div>
@@ -72,3 +98,4 @@ const PostEditModal = () => {
 };
 
 export default PostEditModal;
+    // dispatch(editPostContent(e.target.value));

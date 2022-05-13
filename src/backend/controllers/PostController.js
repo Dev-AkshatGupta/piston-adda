@@ -126,7 +126,8 @@ export const editPostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    const { postData } = JSON.parse(request.requestBody);
+    // const { postData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
       return new Response(
@@ -137,7 +138,8 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
-    post = { ...post, ...postData };
+    // post = { ...post, ...postData };
+    post = { ...post, content:content };
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

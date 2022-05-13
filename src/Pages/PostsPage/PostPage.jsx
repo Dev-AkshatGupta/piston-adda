@@ -72,35 +72,7 @@ const PostPage = () => {
             setCommentId={setCommentId}
             textArea={<TextArea setPost={setEditComment} post={editComment} />}
           >
-            <button
-              className="
-                  block
-                  text-center
-                  w-full
-                  p-3
-                  text-base
-                  font-medium
-                  rounded-lg
-                  bg-primary
-                  text-white
-                  border border-primary
-                  hover:bg-opacity-90
-                  transition
-                  btn
-                  "
-            
-              onClick={() => {
-                dispatch(
-                  editCommentData({
-                    postId,
-                    commentData: editComment,
-                    commentId: commentId,
-                  })
-                );
-              }}
-            >
-              Edit Comment
-            </button>
+           
           </EditModal>
         )}
       

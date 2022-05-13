@@ -8,6 +8,8 @@ const initialState = {
   currentPost: {},
   loadingStatus: false,
   editModalDisplay: false,
+  editedPost:"",
+  editPostId:"",
 };
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   try {
@@ -46,7 +48,9 @@ export const createPost = createAsyncThunk("posts/createPost", async (post) => {
 
 export const editPost = createAsyncThunk(
   "posts/editPost",
-  async (content, postId) => {
+  async (details) => {
+    const {content, postId}=details;
+    console.log(content,postId);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -168,9 +172,13 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    changeModalDisplay(state) {
+    changeModalDisplay(state,action) {
       state.editModalDisplay=!state.editModalDisplay;
+      state.editPostId=action.payload;
     },
+    editPostContent(state,action){
+      state.editedPost=action.payload;
+    }
   },
   extraReducers(builder) {
     builder
@@ -192,6 +200,9 @@ const postsSlice = createSlice({
       .addCase(deletePost.fulfilled, (state, action) => {
         state.posts = action.payload;
       })
+      .addCase(editPost.fulfilled, (state, action) => {
+        state.posts = action.payload;
+      })
       .addCase(getBookMarks.fulfilled, (state, action) => {
         state.bookmark = action.payload;
       })
@@ -210,5 +221,5 @@ const postsSlice = createSlice({
       });
   },
 });
-export const { changeModalDisplay } = postsSlice.actions;
+export const { changeModalDisplay,editPostContent } = postsSlice.actions;
 export default postsSlice.reducer;

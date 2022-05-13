@@ -11,7 +11,7 @@ import { checkToken} from "Redux/Reducers-Redux/authSlice";
 import PrivateRoute from "Components/CustomRoute/PrivateRoute";
 import RestrictedRoute from "Components/CustomRoute/RestrictedRoute";
 import {getAllUsers} from "Redux/Reducers-Redux/usersSlice";
-import {getAllPosts,getBookMarks} from "Redux/Reducers-Redux/postsSlice";
+import {editPostContent, getAllPosts,getBookMarks} from "Redux/Reducers-Redux/postsSlice";
 import BookMarkPage from "Pages/BookMarkPage/BookMarkPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import PostPage from "Pages/PostsPage/PostPage";
@@ -27,7 +27,8 @@ function App() {
       dispatch(getBookMarks());
   },[])
   const location =useLocation();
-const editModalDisplay=useSelector(state=>state?.posts?.editModalDisplay)
+const editModalDisplay=useSelector(state=>state?.posts?.editModalDisplay);
+const contentEditPost=useSelector(state=>state?.posts?.editedPost);
   return (
     <div className="App">
       <Routes>
@@ -47,30 +48,22 @@ const editModalDisplay=useSelector(state=>state?.posts?.editModalDisplay)
       </Routes>
 
       {editModalDisplay && (
-        <PostEditModal textArea={<TextArea />}>
-          <button
-            className="
-                  block
-                  text-center
-                  w-full
-                  p-3
-                  text-base
-                  font-medium
-                  rounded-lg
-                  bg-primary
-                  text-white
-                  border border-primary
-                  hover:bg-opacity-90
-                  transition
-                  btn
-                  "
-            onClick={() => {
-              dispatch( );
-            }}
-          >
-            Edit Comment
-          </button>
-        </PostEditModal>
+        <PostEditModal
+          textArea={
+            <textarea
+              role="textbox"
+              type="text"
+              name="post"
+              className="postInput__content-input"
+              placeholder="Write something in this"
+              rows="3"
+              onChange={(e) => {
+                dispatch(editPostContent(e.target.value));
+              }}
+              value={contentEditPost}
+            ></textarea>
+          }
+        ></PostEditModal>
       )}
       <ToastContainer />
       <Outlet />

@@ -51,7 +51,7 @@ function Post({ postObj, currentUserObj }) {
                   </a>
                   <a
                     className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
-                    onClick={()=>dispatch(changeModalDisplay())}
+                    onClick={()=>dispatch(changeModalDisplay(_id))}
                   >
                     <span className="flex flex-col flex-center">
                       <span>Edit Post</span>
