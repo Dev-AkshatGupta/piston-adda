@@ -105,6 +105,7 @@ export const createPostHandler = function (schema, request) {
   }
 };
 
+
 /**
  * This handler handles updating a post in the db.
  * send POST Request at /api/posts/edit/:postId

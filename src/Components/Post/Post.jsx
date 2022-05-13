@@ -1,6 +1,6 @@
 import React from "react";
 import "./Post.css";
-import { BiDotsHorizontalRounded, BiComment } from "react-icons/bi";
+import { BiComment } from "react-icons/bi";
 import { BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,19 +9,14 @@ import {
   disLikePost,
   bookMark,
   deleteBookMark,
+  deletePost,
+  changeModalDisplay,
 } from "Redux/Reducers-Redux/postsSlice";
-import  DropDown  from "Components/DropDown/DropDown";
+import DropDown from "Components/DropDown/DropDown";
 import { Link } from "react-router-dom";
 function Post({ postObj, currentUserObj }) {
   const dispatch = useDispatch();
-
-  const {
-    content,
-    username,
-    userPhoto,
-    _id,
-    id: postId,
-  } = postObj;
+  const { content, username, userPhoto, _id, id: postId } = postObj;
   const { id } = currentUserObj;
   const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
     (post) => post._id === _id
@@ -38,7 +33,33 @@ function Post({ postObj, currentUserObj }) {
               <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
-            <DropDown />
+            <DropDown>
+              <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1 "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={() => dispatch(deletePost(_id))}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Delete Post</span>
+                    </span>
+                  </a>
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={()=>dispatch(changeModalDisplay())}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Edit Post</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </DropDown>
           </div>
           <div className="post__content">{content}</div>
         </div>

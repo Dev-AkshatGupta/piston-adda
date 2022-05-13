@@ -57,7 +57,7 @@ export const deleteComment = createAsyncThunk(
   }
 );
 export const editCommentData = createAsyncThunk(
-  "comments/editComment",
+  "comments/editCommentData",
   async (details) => {
     const { postId, commentData, commentId } = details;
     console.log(postId,commentData,commentId);
@@ -75,10 +75,7 @@ export const editCommentData = createAsyncThunk(
   }
 );
 
-export const editComment=createAsyncThunk("comments/editComment",async(details)=>{
-  const { postId, commentData, commentId } = details;
-  console.log(details);
-});
+
 
 export const upVoteComment = createAsyncThunk(
   "comments/upVoteComment",
@@ -133,7 +130,7 @@ const commentsSlice = createSlice({
         state.loading = false;
         state.comments = action.payload;
       })
-      .addCase(editComment.fulfilled, (state, action) => {
+      .addCase(editCommentData.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
       .addCase(upVoteComment.fulfilled, (state, action) => {

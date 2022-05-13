@@ -1,7 +1,9 @@
+import React from "react";
+import { useDispatch } from "react-redux";
+import { changeModalDisplay } from "Redux/Reducers-Redux/postsSlice";
 
-import React,{useState} from 'react'
-
-const EditModal = ({ setModalDisplay,children,textArea}) => {  
+const PostEditModal = () => {
+  const dispatch = useDispatch();
   return (
     <section>
       <div
@@ -34,7 +36,7 @@ const EditModal = ({ setModalDisplay,children,textArea}) => {
          "
         >
           <h3 className="font-bold text-dark text-xl sm:text-2xl pb-2">
-            Edit details
+            Edit Post
           </h3>
           <span className="inline-block bg-primary h-1 w-[90px] mx-auto rounded mb-6"></span>
           {textArea}
@@ -56,7 +58,7 @@ const EditModal = ({ setModalDisplay,children,textArea}) => {
                   transition
                   btn
                   "
-                onClick={() => setModalDisplay((display) => !display)}
+                onClick={() => dispatch(changeModalDisplay())}
               >
                 Cancel
               </button>
@@ -69,4 +71,4 @@ const EditModal = ({ setModalDisplay,children,textArea}) => {
   );
 };
 
-export default EditModal
+export default PostEditModal;

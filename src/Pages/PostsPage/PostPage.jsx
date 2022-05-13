@@ -24,19 +24,13 @@ const PostPage = () => {
     dispatch(getAPost(postId));
     dispatch(getComments(postId));
   }, []);
-
   const selectedPost = useSelector((state) => state?.posts?.currentPost);
   const comments = useSelector((state) => state?.comments?.comments);
   const loadingStatus = useSelector((state) => state.posts.loadingStatus);
   const [comment, setComment] = useState("");
   const [modalDisplay, setModalDisplay] = useState(false);
   const [editComment, setEditComment] = useState("");
-  // const[currentCommentId,setCurrentCommentId]=useState("");
-  const [editCommentDetails, setEditCommentDetails] = useState({
-    comment: editComment,
-    id: "",
-  });
-
+  const [commentId, setCommentId] = useState("");
   return (
     <div className="layout">
       <LeftAside />
@@ -44,7 +38,7 @@ const PostPage = () => {
         {loadingStatus ? (
           <p className="text-center">...loading</p>
         ) : (
-          <Post postObj={selectedPost} currentUserObj={currentUser} />
+          <Post postObj={selectedPost} currentUserObj={currentUser} setModalDisplay={setModalDisplay} />
         )}
 
         <PostInput userObj={currentUser} setPost={setComment} post={comment}>
@@ -69,13 +63,13 @@ const PostPage = () => {
             key={comments[comments.length - 1 - i]._id}
             postObj={selectedPost}
             setModalDisplay={setModalDisplay}
-            setEditCommentDetails={setEditCommentDetails}
+            setCommentId={setCommentId}
           />
         ))}
         {modalDisplay && (
           <EditModal
             setModalDisplay={setModalDisplay}
-            setEditCommentDetails={setEditCommentDetails}
+            setCommentId={setCommentId}
             textArea={<TextArea setPost={setEditComment} post={editComment} />}
           >
             <button
@@ -94,18 +88,13 @@ const PostPage = () => {
                   transition
                   btn
                   "
-              // { setEditCommentDetails((editCommentDetails)=>({...editCommentDetails,comment: editComment}))}
+            
               onClick={() => {
-                setEditCommentDetails(({ comment }) => ({
-                  ...editCommentDetails,
-                  comment: editComment,
-                }));
-  
                 dispatch(
                   editCommentData({
                     postId,
-                    commentData: editCommentDetails.comment,
-                    commentId: editCommentDetails.id,
+                    commentData: editComment,
+                    commentId: commentId,
                   })
                 );
               }}
@@ -114,6 +103,8 @@ const PostPage = () => {
             </button>
           </EditModal>
         )}
+      
+
       </div>
       <RightAside />
     </div>

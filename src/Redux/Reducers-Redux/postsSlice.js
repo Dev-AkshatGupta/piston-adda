@@ -7,6 +7,7 @@ const initialState = {
   bookmark: [],
   currentPost: {},
   loadingStatus: false,
+  editModalDisplay: false,
 };
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   try {
@@ -62,33 +63,20 @@ export const editPost = createAsyncThunk(
 );
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
-  async (content, postId) => {
+  async (postId) => {
+    console.log(postId);
+    const encodedToken = localStorage.getItem("token");
     try {
-      const encodedToken = localStorage.getItem("token");
-      const { data } = await axios.delete(
-        `/api/posts/${postId}`,
-        {},
-        { headers: { authorization: encodedToken } }
-      );
-      console.log(data);
+      const { data } = await axios.delete(`/api/posts/${postId}`, {
+        headers: { authorization: encodedToken },
+      });
+     
       return data.posts;
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   }
 );
-// export const deletePost=createAsyncThunk("posts/deletePost",async(content,postId)=>{
-
-//     try {
-//         const encodedToken=localStorage.getItem("token");
-//         const {data}=await axios.delete(`/api/posts/${postId}` ,{},{headers:{authorization:encodedToken}
-//         });
-//         console.log(data);
-//         return data.posts;
-//     } catch (error) {
-//         console.log(error)
-//     }
-// });
 
 export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
   try {
@@ -138,6 +126,7 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
 export const deleteBookMark = createAsyncThunk(
   "posts/deleteBookMark",
   async (postId) => {
+    console.log(postId);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -175,10 +164,14 @@ export const getAPost = createAsyncThunk("posts/getAPost", async (postId) => {
   } catch (error) {}
 });
 
-
 const postsSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {
+    changeModalDisplay(state) {
+      state.editModalDisplay=!state.editModalDisplay;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getAllPosts.fulfilled, (state, action) => {
@@ -196,6 +189,9 @@ const postsSlice = createSlice({
       .addCase(disLikePost.fulfilled, (state, action) => {
         state.posts = action.payload;
       })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.posts = action.payload;
+      })
       .addCase(getBookMarks.fulfilled, (state, action) => {
         state.bookmark = action.payload;
       })
@@ -210,11 +206,9 @@ const postsSlice = createSlice({
       })
       .addCase(getAPost.fulfilled, (state, action) => {
         state.loadingStatus = false;
-         state.currentPost = action.payload;
-      })
-      
-     
+        state.currentPost = action.payload;
+      });
   },
 });
-
+export const { changeModalDisplay } = postsSlice.actions;
 export default postsSlice.reducer;
