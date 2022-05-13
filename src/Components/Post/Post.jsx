@@ -1,6 +1,6 @@
 import React from "react";
 import "./Post.css";
-import { BiDotsHorizontalRounded, BiComment } from "react-icons/bi";
+import { BiComment } from "react-icons/bi";
 import { BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,18 +9,14 @@ import {
   disLikePost,
   bookMark,
   deleteBookMark,
+  deletePost,
+  changeModalDisplay,
 } from "Redux/Reducers-Redux/postsSlice";
-import {Link} from "react-router-dom";
+import DropDown from "Components/DropDown/DropDown";
+import { Link } from "react-router-dom";
 function Post({ postObj, currentUserObj }) {
-  const {
-    content,
-    username,
-    userPhoto,
-    _id,
-    id:postId,
-    likes: { likedBy, likeCount },
-  } = postObj;
   const dispatch = useDispatch();
+  const { content, username, userPhoto, _id, id: postId } = postObj;
   const { id } = currentUserObj;
   const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
     (post) => post._id === _id
@@ -37,6 +33,33 @@ function Post({ postObj, currentUserObj }) {
               <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
+            <DropDown>
+              <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1 "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={() => dispatch(deletePost(_id))}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Delete Post</span>
+                    </span>
+                  </a>
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={()=>dispatch(changeModalDisplay(_id))}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Edit Post</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </DropDown>
           </div>
           <div className="post__content">{content}</div>
         </div>
@@ -51,7 +74,7 @@ function Post({ postObj, currentUserObj }) {
           ></i>
         )}
         <AiOutlineRetweet />
-        {likedBy.some((post) => post.id === id) ? (
+        {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
           <i
             className="fas fa-heart"
             onClick={() => dispatch(disLikePost(_id))}
@@ -62,7 +85,7 @@ function Post({ postObj, currentUserObj }) {
             onClick={() => dispatch(likePost(_id))}
           ></i>
         )}
-        <Link to={`/post/${postId}`}>
+        <Link to={`/post/${_id}`}>
           <BiComment />
         </Link>
       </div>

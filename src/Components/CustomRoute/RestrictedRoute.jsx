@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 export default function RestrictedRoute() {  
     const currentUser = useSelector((state) => state.auth.currentUser);
     const location=useLocation();
-    console.log(location.state);
+    // console.log(location.state);
   return (
       currentUser._id?
    ( <Navigate to={
