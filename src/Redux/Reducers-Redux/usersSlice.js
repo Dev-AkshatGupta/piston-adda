@@ -34,7 +34,6 @@ export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUser
     const encodedToken=localStorage.getItem("token");
     try {
     const {data}=await axios.post(`/api/users/unfollow/${followUserId}`,{},{headers:{authorization: encodedToken}})
-    console.log(data.user);    
     return data;
     } catch (error) {
         console.log(error.response.data.errors)

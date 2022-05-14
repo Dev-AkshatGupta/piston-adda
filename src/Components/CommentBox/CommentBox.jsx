@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import DropDown from "Components/DropDown/DropDown";
-import { deleteComment, upVoteComment } from "Redux/Reducers-Redux/commentsSlice";
+import {
+  deleteComment,
+  upVoteComment,
+  downVoteComment,
+} from "Redux/Reducers-Redux/commentsSlice";
 import { useDispatch } from "react-redux";
 const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
   const dispatch = useDispatch();
-  console.log(commentObj);
   return (
     <>
       <div className="post">
         <img
           className="post__author-logo"
           src={commentObj?.userPhoto}
-          al="user image"
+          alt="user image"
         />
         <div className="post__main">
           <div className="post__header flex justify-between">
@@ -46,7 +49,7 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
                     className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
                     onClick={() => {
                       setModalDisplay((display) => !display);
-                    setCommentId(commentObj._id);
+                      setCommentId(commentObj._id);
                     }}
                   >
                     <span className="flex flex-col flex-center">
@@ -61,8 +64,29 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
         </div>
       </div>
       <div className="post__bottom">
-        <button className="" onClick={()=>{dispatch(upVoteComment({ postId:postObj._id, commentId:commentObj._id }));}}>Up Vote</button>
-        <button className="">Down Vote</button>
+        <button
+          className=""
+          onClick={() => {
+            dispatch(
+              upVoteComment({ postId: postObj._id, commentId: commentObj._id })
+            );
+          }}
+        >
+          Up Vote
+        </button>
+        <button
+          className=""
+          onClick={() => {
+            dispatch(
+              downVoteComment({
+                postId: postObj._id,
+                commentId: commentObj._id,
+              })
+            );
+          }}
+        >
+          Down Vote
+        </button>
       </div>
     </>
   );

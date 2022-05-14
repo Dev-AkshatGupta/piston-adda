@@ -24,7 +24,7 @@ export const posts = [
     comments: [
       {
         _id: "49eb98ce-6456-4f21-8a68-24c12101e834",
-        content: "fuck you man",
+        content: " you man",
         username: "akshat",
         userPhoto:
           "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",

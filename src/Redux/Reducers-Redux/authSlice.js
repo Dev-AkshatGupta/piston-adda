@@ -35,7 +35,6 @@ export const logOut=createAsyncThunk("auth/logOut",async()=>{
 });
 export const checkToken=createAsyncThunk("auth/checkToken",async()=>{
     const encodedToken=localStorage.getItem("token");
-console.log(encodedToken);
         if(encodedToken){
         try{
 const response=await axios.get("api/auth/verify",{encodedToken});    
@@ -79,7 +78,6 @@ const authSlice=createSlice({
             state.currentUser={};
         })
         .addCase(checkToken.fulfilled,(state,action)=>{
-            console.log(action.payload);
             if(action.payload){
             state.currentUser=action.payload.user;
             }

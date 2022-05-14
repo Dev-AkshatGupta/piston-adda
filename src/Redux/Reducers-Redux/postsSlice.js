@@ -50,7 +50,6 @@ export const editPost = createAsyncThunk(
   "posts/editPost",
   async (details) => {
     const {content, postId}=details;
-    console.log(content,postId);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -58,7 +57,6 @@ export const editPost = createAsyncThunk(
         { content: content },
         { headers: { authorization: encodedToken } }
       );
-      console.log(data);
       return data.posts;
     } catch (error) {
       console.log(error);
@@ -68,7 +66,6 @@ export const editPost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (postId) => {
-    console.log(postId);
     const encodedToken = localStorage.getItem("token");
     try {
       const { data } = await axios.delete(`/api/posts/${postId}`, {
@@ -130,7 +127,6 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
 export const deleteBookMark = createAsyncThunk(
   "posts/deleteBookMark",
   async (postId) => {
-    console.log(postId);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -156,7 +152,7 @@ export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
 
     return data.bookmarks;
   } catch (error) {
-    console.log(error.response.data.errors);
+    console.log(error.response);
   }
 });
 

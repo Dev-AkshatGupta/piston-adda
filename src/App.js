@@ -24,7 +24,7 @@ function App() {
       dispatch(checkToken());
       dispatch(getAllUsers());
       dispatch(getAllPosts());
-      dispatch(getBookMarks());
+
   },[])
   const location =useLocation();
 const editModalDisplay=useSelector(state=>state?.posts?.editModalDisplay);
@@ -66,7 +66,6 @@ const contentEditPost=useSelector(state=>state?.posts?.editedPost);
         ></PostEditModal>
       )}
       <ToastContainer />
-      <Outlet />
     </div>
   );
 }

@@ -30,7 +30,7 @@ dispatch(signUp(details));
           type="text"
           name="name"
           className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          // placeholder="First Name"
+         
           value={details.name}
           onChange={(e) => setDetails({ ...details, name: e.target.value })}
         />
@@ -83,10 +83,7 @@ dispatch(signUp(details));
         Sign-Up
       </button>
     {children}
-      {/* <Link to="/logIn-Page" className="link-btn text-center text-base">
-        Already have account?
-        <i className="fas fa-chevron-right text-accent"></i>
-      </Link> */}
+   
     </>
   );
 }

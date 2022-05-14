@@ -5,13 +5,9 @@ import { LeftAside } from "Components/LeftAside/LeftAside";
 const SettingsPage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  //   console.log(currentUser);
+
   const [details, setDetails] = useState(currentUser);
-//   const [images, setImages] = useState({});
-//   function imageLocalHost(img) {
-//       const image=new Blob([img],{type:'image/png'})
-//     return URL.createObjectURL(image);
-//   }
+
   useEffect(() => {
     setDetails(currentUser);
     console.log(details);
