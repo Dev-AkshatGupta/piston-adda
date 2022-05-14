@@ -1,7 +1,7 @@
 .page-404{
    height: 100vh;
     width: 100vw;
-    background-image: url(../../Assets/Images/404.svg);
+    background-image: url(../../IconsAndAssets//Assets/404.png);
     display: flex;
     font-size: 16px;
     flex-direction: column;

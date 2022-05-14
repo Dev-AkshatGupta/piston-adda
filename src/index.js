@@ -1,21 +1,26 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
 import {BrowserRouter as Router} from "react-router-dom";
-import {Provider} from "react-redux";
-import store from "Redux/store";
+import {AuthProvider} from "Context/AuthProvider";
+import { MultiUseContextProvider} from "Context/MultiUseContext";
+import {UserContextProvider} from "Context/UserContext";
 // Call make Server
 makeServer();
 
-const root=ReactDOM.createRoot(  document.getElementById("root"))
-root.render(
+ReactDOM.render(
   <React.StrictMode>
-       <Provider store={store}>
-         <Router>
-            <App/>         
-         </Router>
-       </Provider>
-   </React.StrictMode>
-)
+        <Router>
+          < MultiUseContextProvider>   
+          <UserContextProvider>     
+           <AuthProvider>
+             <App />
+           </AuthProvider>
+           </UserContextProvider>
+          </ MultiUseContextProvider>
+        </Router>
+  </React.StrictMode>,
+  document.getElementById("root")
+);

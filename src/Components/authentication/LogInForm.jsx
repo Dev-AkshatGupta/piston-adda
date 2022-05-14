@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import "./authentication.css";
 import { Link } from "react-router-dom";
-import { login } from "Redux/Reducers-Redux/authSlice";
-import { useDispatch } from "react-redux";
-function LogInForm({children}) {
+import { useAuthorization } from "Context/AuthProvider";
+import { useUser } from "Context/UserContext";
+
+function LogInForm() {
   const [viewPassword, setViewPassword] = useState(false);
   const [details, setDetails] = useState({
     userName: "",
     password: "",
   });
-  const dispatch = useDispatch();
+  const { logInHandler, authDispatch } = useAuthorization();
+  const { userDispatch } = useUser();
   function clickHandler(e) {
     //  to prevent initial refreshing of the page
-    e.preventDefault(details);
-    dispatch(login(details));
+    e.preventDefault();
+
+    logInHandler(
+      details.userName,
+      details.password,
+      authDispatch,
+      userDispatch
+    );
   }
 
   return (
@@ -30,7 +38,7 @@ function LogInForm({children}) {
           id="userName"
           name="userName"
           className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          onChange={(e) => setDetails({ ...details, username: e.target.value })}
+          onChange={(e) => setDetails({ ...details, userName: e.target.value })}
         />
       </div>
       <div className="relative mb-4">
@@ -68,13 +76,14 @@ function LogInForm({children}) {
         className="btn btn-outline-pri  py-2 px-8  rounded text-lg mt-1.5"
         onClick={(e) => {
           e.preventDefault();
-          dispatch(login({ username: "akshat", password: "akshat" }));
+          logInHandler("akshat", "akshat", authDispatch, userDispatch);
         }}
       >
         Guest Log-In
       </button>
-      {children}
-     
+      <Link to="/" className="link-btn text-center text-base">
+        Create new account <i className="fas fa-chevron-right text-accent"></i>
+      </Link>
     </>
   );
 }

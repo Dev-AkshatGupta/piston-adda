@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { LogInForm } from "Components/Authentication/LogInForm";
-import { SignUpForm } from "Components/Authentication/SignUpForm";
 import { Footer } from "Components/Footer/Footer";
 function LandingPage() {
-  const [formFlag, setFormFlag] = useState(false);
   return (
     <>
       <section className="text-gray-600 body-font">
@@ -23,27 +21,8 @@ function LandingPage() {
 
               <span className="ml-1.5 text-slate-900">Adda</span>
             </h1>
-            {formFlag ? (
-              <SignUpForm>
-                <a
-                  className="link-btn text-center text-base"
-                  onClick={() => setFormFlag(!formFlag)}
-                >
-                  Already have account?
-                  <i className="fas fa-chevron-right text-accent"></i>
-                </a>
-              </SignUpForm>
-            ) : (
-              <LogInForm>
-                <a
-                  onClick={() => setFormFlag(!formFlag)}
-                  className="link-btn text-center text-base"
-                >
-                  Create new account
-                  <i className="fas fa-chevron-right text-accent"></i>
-                </a>
-              </LogInForm>
-            )}
+
+            <LogInForm />
           </div>
         </div>
       </section>

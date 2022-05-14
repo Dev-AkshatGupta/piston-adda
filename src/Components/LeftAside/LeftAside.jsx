@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./LeftAside.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
-import { HiHashtag, HiLogout } from "react-icons/hi";
-import { BsBell, BsEnvelope, BsGear } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { HiHashtag } from "react-icons/hi";
+import { BsBell, BsEnvelope } from "react-icons/bs";
+
 import { FaEllipsisH } from "react-icons/fa";
+
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 function LeftAside() {
-  const currentUser = useSelector((state) => state.auth.currentUser);
   return (
     <aside className={`${styles.banner} `}>
       <div className={styles.bannerSmall}>
@@ -26,31 +26,21 @@ function LeftAside() {
                   </Link>
                 </h1>
               </div>
-
+              {/* mt-0.5 */}
               <div className={`${styles.navigation} mt-2 mb-1 `}>
                 <nav>
-                  <NavLink
-                    to="/homePage"
-                    className={({ isActive }) =>
-                      isActive ? `${styles.active_link}` : null
-                    }
-                  >
+                  <NavLink to="">
                     <span className={`${styles.navigation_svg} `}>
                       <GiHomeGarage />
                     </span>
                     <span className={` ${styles.navigation_text}`}> Home</span>
                   </NavLink>
-                  <NavLink
-                    to="/bookMarkPage"
-                    className={({ isActive }) =>
-                      isActive ? `${styles.active_link}` : null
-                    }
-                  >
+                  <NavLink to="">
                     <span className={`${styles.navigation_svg} `}>
                       <HiHashtag />
                     </span>
                     <span className={` ${styles.navigation_text}`}>
-                      BookMark
+                      Hashtag
                     </span>
                   </NavLink>
                   <NavLink to="">
@@ -61,12 +51,7 @@ function LeftAside() {
                       Notifications{" "}
                     </span>
                   </NavLink>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive ? `${styles.active_link}` : null
-                    }
-                  >
+                  <NavLink to="">
                     <span className={`${styles.navigation_svg} `}>
                       <BsEnvelope />
                     </span>
@@ -74,12 +59,7 @@ function LeftAside() {
                       Message
                     </span>
                   </NavLink>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive ? `${styles.active_link}` : null
-                    }
-                  >
+                  <NavLink to="">
                     <span className={`${styles.navigation_svg} `}>
                       <CgProfile />
                     </span>
@@ -88,18 +68,13 @@ function LeftAside() {
                     </span>
                   </NavLink>
                   <NavLink
-                    to="/settings"
-                    className={({ isActive }) =>
-                      isActive ? "active-link" : null
-                    }
+                    to=""
+                    // className={({isActive})=>}
                   >
                     <span className={`${styles.navigation_svg} `}>
-                      <BsGear />
+                      <HiOutlineDotsCircleHorizontal />
                     </span>
-                    <span className={` ${styles.navigation_text}`}>
-                      {" "}
-                      Settings
-                    </span>
+                    <span className={` ${styles.navigation_text}`}> More</span>
                   </NavLink>
                 </nav>
               </div>
@@ -107,18 +82,15 @@ function LeftAside() {
             <div className={`${styles.banner_bottom} my-3`}>
               <div className={`${styles.bottom_profile}`}>
                 <div className={`${styles.profile}`}>
-                  <Link
-                    className="avatar avatar-sm"
-                    to={`/profilePage/${currentUser?.id}`}
-                  >
+                  <span className="avatar avatar-sm">
                     <img
-                      src={currentUser?.profilePhoto?.chosen}
+                      src="https://pps.whatsapp.net/v/t61.24694-24/263791054_1403105616787621_2864310468495639335_n.jpg?ccb=11-4&oh=ce63379d09f2ee919b60f808bf09fd9c&oe=626AD054"
                       alt="Profile photo"
                     />
-                  </Link>
-                  <p>{currentUser?.username}</p>
+                  </span>
+                  <p>Akshat</p>
                   <span>
-                    <HiLogout />
+                    <FaEllipsisH />
                   </span>
                 </div>
               </div>

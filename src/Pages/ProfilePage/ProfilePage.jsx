@@ -1,40 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+
+// import "./HomePage.css";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
-import { useParams } from "react-router-dom";
 import "./ProfilePage.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getAUser } from "Redux/Reducers-Redux/usersSlice";
-import { getProfilePosts } from "Redux/Reducers-Redux/postsSlice";
-import {followUser,unFollowUser} from "Redux/Reducers-Redux/usersSlice";
 function ProfilePage() {
-  const { profileId } = useParams();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAUser(profileId));
-  }, [profileId]);
-  const profile = useSelector((state) => state.users.profile);
-  const {
-    id,
-    _id,
-    username,
-    profilePhoto,
-    followers,
-    following,
-    bookmarks,
-    coverPhoto,
-    firstName,
-  } = profile;
-  useEffect(() => {
-    dispatch(getProfilePosts(username));
-  }, [id]);
-  const postsArr = useSelector((state) => state.posts.profilePosts);
-  const currentUser = useSelector((state) => state?.users?.currentUser);
-  const isProfileFollowedByUser = currentUser?.following?.some(
-    (profile) => profile?.id === id
-  );
-
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -42,16 +13,19 @@ function ProfilePage() {
       </div>
       <div className="layout__main">
         <header className=" layout__main-header">
-          <span className="text">{firstName}</span>
+          <span className="text">Akshat</span>
         </header>
         <div className="empty"></div>
         <div className="profile___banner-img ">
-          <img src={coverPhoto?.chosen} alt="banner-img" />
+          <img
+            src="https://pbs.twimg.com/profile_banners/1248318243963461632/1637937949/600x200"
+            alt="banner-img"
+          />
         </div>
         <div className="profile p-2 flex-center-space-betw">
           <div className="profile__dp-img rounded-full w-32 h-32 rounded-full border-solid">
             <img
-              src={profilePhoto?.chosen}
+              src="https://pps.whatsapp.net/v/t61.24694-24/263791054_1403105616787621_2864310468495639335_n.jpg?ccb=11-4&oh=ce63379d09f2ee919b60f808bf09fd9c&oe=626AD054"
               alt="profile dp"
               className="rounded-full"
             />
@@ -60,39 +34,12 @@ function ProfilePage() {
             <button className="btn btn-sec p-2 rounded-xl">Edit Profile</button>
           </div>
         </div>
-
-        <div className="text-left font-extrabold pl-5 text-xl">{firstName}</div>
-        <p className="text-left text-base  text-slate-500 font-thin pl-5">
-          {username}
-        </p>
-        <p className="text-left text-base font-thin pl-5 text-slate-800 ">
-          JavaScript | React is ❤️ | Neog-2022 | Chess
-        </p>
-        {/* Followers count */}
-        <div className="flex justify-between px-2 mb-3.5 border-slate-300 border-b-2 pb-1">
-          <span className={`w-{1/2} flex justify-evenly self-end pl-2`}>
-            <span className="pl-1">{followers?.length} Followers</span>
-            <span className="pl-3">{following?.length} Following</span>
-          </span>
-          {isProfileFollowedByUser ?? false ? (
-            <button
-              className="btn btn-outline-pri p-1 rounded-xl px-2"
-              onClick={() => dispatch(unFollowUser(_id))}
-            >
-              Un-Follow
-            </button>
-          ) : (
-            <button
-              className="btn btn-outline-pri p-1 rounded-xl px-2"
-              onClick={() => dispatch(followUser(_id))}
-            >
-              Follow
-            </button>
-          )}
-        </div>
-        {postsArr.map((post) => (
-          <Post postObj={post} key={post._id} currentUserObj={currentUser} />
-        ))}
+        <div ></div>
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </div>
       <RightAside />
     </div>

@@ -59,11 +59,3 @@
     padding:.5rem;
     font-size: 20px;
 }
-.post__bottom>.fas.fa-heart{
-color:var(--HOT-PINK);
-}
-.post__bottom>.fal.fa-heart:hover{
-color:var(--HOT-PINK);
-transition: .04s ;
-
-}
