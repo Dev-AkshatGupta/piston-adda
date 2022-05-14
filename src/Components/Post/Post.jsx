@@ -1,45 +1,93 @@
 import React from "react";
 import "./Post.css";
-import { BiImages } from "react-icons/bi";
-import { BsSuitHeart } from "react-icons/bs";
-import { BiDotsHorizontalRounded, BiComment } from "react-icons/bi";
+import { BiComment } from "react-icons/bi";
+import { BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineRetweet } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  likePost,
+  disLikePost,
+  bookMark,
+  deleteBookMark,
+  deletePost,
+  changeModalDisplay,
+} from "Redux/Reducers-Redux/postsSlice";
+import DropDown from "Components/DropDown/DropDown";
+import { Link } from "react-router-dom";
+function Post({ postObj, currentUserObj }) {
+  const dispatch = useDispatch();
+  const { content, username, userPhoto, _id, id: postId } = postObj;
+  const { id } = currentUserObj;
+  const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
+    (post) => post._id === _id
+  );
 
-function Post() {
   return (
     <>
       <div className="post">
-        <img
-          className="post__author-logo"
-          src="https://pps.whatsapp.net/v/t61.24694-24/263791054_1403105616787621_2864310468495639335_n.jpg?ccb=11-4&oh=ce63379d09f2ee919b60f808bf09fd9c&oe=626AD054"
-        />
+        <img className="post__author-logo" src={userPhoto} />
         <div className="post__main">
-          <div
-            className="post__header"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <div style={{}}>
-              <span className="post__author-name">Elixir Digest</span>
-              <span className="post__author-slug">@elixirdigest</span>
+          <div className="post__header flex justify-between">
+            <div>
+              <span className="post__author-name">{username}</span>
+              <span className="post__author-slug">{username}</span>
               <span className="post__publish-time">10d</span>
             </div>
-            <BiDotsHorizontalRounded />
+            <DropDown>
+              <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1 "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={() => dispatch(deletePost(_id))}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Delete Post</span>
+                    </span>
+                  </a>
+                  <a
+                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                    onClick={()=>dispatch(changeModalDisplay(_id))}
+                  >
+                    <span className="flex flex-col flex-center">
+                      <span>Edit Post</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </DropDown>
           </div>
-          <div className="post__content">
-            Yet Another Guide To Build a JSON API with Phoenix 1.5 shared in the
-            latest Elixir Digest
-            <a href="https://elixirdigest.net/digests/276">
-              https://elixirdigest.net/digests/276
-            </a>
-            @_tamas_soos #myelixirstatus #elixirlang #phoenixframework
-          </div>
+          <div className="post__content">{content}</div>
         </div>
       </div>
       <div className="post__bottom">
-        <BiImages />
+        {isPostInBookMark ? (
+          <BsBookmarkFill onClick={() => dispatch(deleteBookMark(_id))} />
+        ) : (
+          <i
+            className="fal fa-bookmark"
+            onClick={() => dispatch(bookMark(_id))}
+          ></i>
+        )}
         <AiOutlineRetweet />
-        <BsSuitHeart />
-        <BiComment />
+        {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
+          <i
+            className="fas fa-heart"
+            onClick={() => dispatch(disLikePost(_id))}
+          ></i>
+        ) : (
+          <i
+            className="fal fa-heart"
+            onClick={() => dispatch(likePost(_id))}
+          ></i>
+        )}
+        <Link to={`/post/${_id}`}>
+          <BiComment />
+        </Link>
       </div>
     </>
   );

@@ -273,9 +273,10 @@
     border-radius: 5%;
     background-color: var(--btn-hover-bg);
 }
-.active-link{
+.active_link{
     border-right: var(--ACCENT-COLOR) solid 2px;
     padding-right: 2rem;
+    background-color: var(--ACCENT-COLOR-LIGHT);
 }
 /* Profile button container  */
 .banner_bottom{
@@ -298,7 +299,7 @@
     z-index: 0;
 }
 .bottom_profile{
-        display: flex;
+    display: flex;
     flex-basis: auto;
     flex-direction: column;
     flex-shrink: 0;
