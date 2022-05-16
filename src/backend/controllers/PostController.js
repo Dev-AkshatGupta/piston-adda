@@ -77,15 +77,17 @@ export const createPostHandler = function (schema, request) {
         }
       );
     }
-    const { postData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
-      ...postData,
+      content:content,
       likes: {
         likeCount: 0,
         likedBy: [],
         dislikedBy: [],
       },
+      comments:[],
+      userPhoto:user?.profilePhoto?.chosen,
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),
@@ -102,6 +104,7 @@ export const createPostHandler = function (schema, request) {
     );
   }
 };
+
 
 /**
  * This handler handles updating a post in the db.
@@ -123,7 +126,8 @@ export const editPostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    const { postData } = JSON.parse(request.requestBody);
+    // const { postData } = JSON.parse(request.requestBody);
+    const { content } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
       return new Response(
@@ -134,7 +138,8 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
-    post = { ...post, ...postData };
+    // post = { ...post, ...postData };
+    post = { ...post, content:content };
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

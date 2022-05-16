@@ -13,4 +13,5 @@ const notifyError = (text) => toast.error(text, toastStyles);
 const notifySuccess = (text) => toast.success(text, toastStyles);
 const notifyWarn = (text) => toast.warn(text, toastStyles);
 const notifyInfo = (text) => toast.info(text, toastStyles);
+
 export { notifyError, notifySuccess, notifyInfo, notifyWarn };
