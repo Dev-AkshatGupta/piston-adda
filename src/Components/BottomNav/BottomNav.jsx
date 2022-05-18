@@ -1,6 +1,6 @@
 import React from "react";
 import "./BottomNav.css";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
 import { HiHashtag, HiLogout } from "react-icons/hi";
 import { BsGear } from "react-icons/bs";
