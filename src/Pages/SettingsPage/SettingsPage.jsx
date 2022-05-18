@@ -10,11 +10,10 @@ const SettingsPage = () => {
 
   useEffect(() => {
     setDetails(currentUser);
-    console.log(details);
   }, [currentUser]);
   return (
     <>
-    <LeftAside/>
+      <LeftAside />
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
@@ -116,14 +115,6 @@ const SettingsPage = () => {
                 <button
                   className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                   onClick={() => {
-                    //   setDetails({
-                    //     ...details,
-                    //     profilePhoto: {
-                    //       ...details.profilePhoto,
-                    //       chosen: imageLocalHost(images.profile),
-                    //     },
-                    //   });
-                    //   console.log(details);
                     editUser(details);
                   }}
                 >

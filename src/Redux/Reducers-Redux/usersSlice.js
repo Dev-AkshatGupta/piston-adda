@@ -20,7 +20,7 @@ export const getAllUsers= createAsyncThunk("users/getAllUsers",async()=>{
       const { data } = await axios.get(`/api/users`);
       return data ;
     } catch (error) {
-      console.log(error.response.data.errors);
+      console.log(error.response);
     }
 } );
 
@@ -35,7 +35,7 @@ export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUser
     const {data}=await axios.post(`/api/users/unfollow/${followUserId}`,{},{headers:{authorization: encodedToken}})
     return data;
     } catch (error) {
-        console.log(error.response.data.errors)
+        console.log(error.response)
     }
 });
 
@@ -45,7 +45,7 @@ export const followUser=createAsyncThunk("users/followUser",async(followUserId)=
     const {data}=await axios.post(`/api/users/follow/${followUserId}`,{},{headers:{authorization: encodedToken}})
     return data;
     } catch (error) {
-        console.log(error.response.data.errors)
+        console.log(error.response)
     }
 });
 

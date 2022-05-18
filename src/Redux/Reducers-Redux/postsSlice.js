@@ -16,7 +16,7 @@ export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
     const { data } = await axios.get("/api/posts");
     return data.posts;
   } catch (error) {
-    console.log(error.response.data.errors);
+    console.log(error.response);
   }
 });
 
@@ -27,7 +27,7 @@ export const getProfilePosts = createAsyncThunk(
       const { data } = await axios.get(`/api/posts/user/${username}`);
       return data.posts;
     } catch (error) {
-      console.log(error.response.data.errors);
+      console.log(error.response);
     }
   }
 );
@@ -63,6 +63,7 @@ export const editPost = createAsyncThunk(
     }
   }
 );
+
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (postId) => {
@@ -89,7 +90,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
     );
     return data.posts;
   } catch (error) {
-    console.log(error.response.data[0].errors);
+    console.log(error.response);
   }
 });
 
@@ -105,7 +106,7 @@ export const disLikePost = createAsyncThunk(
       );
       return data.posts;
     } catch (error) {
-      console.log(error.response.data[0].errors);
+      console.log(error.response);
     }
   }
 );
@@ -120,7 +121,7 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
     );
     return data.bookmarks;
   } catch (error) {
-    console.log(error.response.data.errors);
+    console.log(error.response);
   }
 });
 
@@ -136,7 +137,7 @@ export const deleteBookMark = createAsyncThunk(
       );
       return data.bookmarks;
     } catch (error) {
-      console.log(error.response.data.errors);
+      console.log(error.response);
     }
   }
 );
@@ -149,7 +150,7 @@ export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
       {},
       { headers: { authorization: encodedToken } }
     );
-    console.log(data);
+
     return data.bookmarks;
   } catch (error) {
     console.log(error.response);

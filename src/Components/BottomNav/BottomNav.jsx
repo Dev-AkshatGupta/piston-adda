@@ -66,7 +66,6 @@ const BottomNav = () => {
         <span
           className="text-3xl"
           onClick={() => {
-            console.log("Clicked");
             window.location.reload(false);
             dispatch(logOut());
           }}

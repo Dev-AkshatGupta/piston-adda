@@ -61,7 +61,6 @@ export const editCommentData = createAsyncThunk(
   "comments/editCommentData",
   async (details) => {
     const { postId, commentData, commentId } = details;
-    console.log(postId,commentData,commentId);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -88,6 +87,7 @@ export const upVoteComment = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
+    
       return data.comments;
     } catch (error) {
       console.log(error.response);
@@ -117,6 +117,7 @@ export const downVoteComment = createAsyncThunk(
 const commentsSlice = createSlice({
   name: "comments",
   initialState,
+  reducers:{},
   extraReducers(builder) {
     builder
       .addCase(getComments.fulfilled, (state, action) => {

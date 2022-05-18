@@ -8,6 +8,7 @@ import {
 import { useDispatch } from "react-redux";
 const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
   const dispatch = useDispatch();
+  
   return (
     <>
       <div className="post">
@@ -72,7 +73,7 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
             );
           }}
         >
-          Up Vote
+          Up Vote{postObj?.votes?.upvotedBy.length}
         </button>
         <button
           className=""
@@ -85,7 +86,7 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
             );
           }}
         >
-          Down Vote
+          Down Vote{postObj?.votes?.downvotedBy.length}
         </button>
       </div>
     </>

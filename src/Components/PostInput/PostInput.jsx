@@ -12,7 +12,6 @@ function PostInput({ children, userObj, setPost, post }) {
     setPost((prevInput) => prevInput + emojiObject.emoji);
     setShowPicker(false);
   };
-  console.log(showPicker);
   return (
     <>
       <div className="postInput">

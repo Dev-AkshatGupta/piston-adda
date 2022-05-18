@@ -15,7 +15,7 @@ export const login = createAsyncThunk("auth/login", async (userDetails) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error.response.data.errors[0]);
+    console.log(error.response);
   }
 });
 export const signUp = createAsyncThunk("auth/signUp", async (userDetails) => {
@@ -38,7 +38,6 @@ export const checkToken = createAsyncThunk("auth/checkToken", async () => {
       const response = await axios.post("api/auth/verify", {
         encodedToken: encodedToken,
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error.response);
@@ -56,7 +55,7 @@ export const editUser = createAsyncThunk("auth/editUser", async (userData) => {
 
     return data;
   } catch (error) {
-    console.log(error.response.data.errors[0]);
+    console.log(error.response);
   }
 });
 const authSlice = createSlice({
