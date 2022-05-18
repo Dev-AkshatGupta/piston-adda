@@ -5,17 +5,15 @@ import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getBookMarks } from "Redux/Reducers-Redux/postsSlice";
+
 const BookMarkPage = () => {
-  const dispatch = useDispatch();
+
   const bookMarkPostArr = useSelector((state) => state.posts.bookmark);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  useEffect(() => {
-    dispatch(getBookMarks());
-  }, []);
+  
   return (
     <div className="layout">
-      <div className="layout__left-sidebar">
+      <div className="layout__left-sidebar ">
         <LeftAside />
       </div>
       <div className="layout__main">

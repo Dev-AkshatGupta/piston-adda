@@ -322,3 +322,12 @@
     justify-content: space-between;
     align-items: center;
 }
+
+/* responsive code */
+
+
+@media screen and (max-width: 1200px) {
+.banner{
+    display: none;
+}
+}

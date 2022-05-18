@@ -8,7 +8,7 @@ function LandingPage() {
     <>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
-          <div className=" md:pr-16 lg:pr-0 pr-0  lg:w-3/5 md:w-1/2 flex flex-col items-center">
+          <div className=" md:pr-16 lg:pr-0 pr-0  lg:w-3/5 md:w-1/2 flex flex-col items-center landing__image">
             <div className="h-3/5 w-96">
               <img
                 src={require("./../../Assets/Images/LandingLogo.png")}

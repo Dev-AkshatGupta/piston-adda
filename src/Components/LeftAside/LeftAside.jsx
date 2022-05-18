@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./LeftAside.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink ,useNavigate} from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
 import { HiHashtag, HiLogout } from "react-icons/hi";
-import { BsBell, BsEnvelope, BsGear } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { FaEllipsisH } from "react-icons/fa";
-import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import { BsGear } from "react-icons/bs";
+import { useSelector ,useDispatch} from "react-redux";
 import { CgProfile } from "react-icons/cg";
+import {logOut} from "./../../Redux/Reducers-Redux/authSlice";
 function LeftAside() {
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useSelector((state) => state?.auth?.currentUser);
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   return (
     <aside className={`${styles.banner} `}>
       <div className={styles.bannerSmall}>
@@ -47,35 +48,28 @@ function LeftAside() {
                     }
                   >
                     <span className={`${styles.navigation_svg} `}>
-                      <HiHashtag />
+                      <i className="fal fa-bookmark mr-2"></i>
                     </span>
                     <span className={` ${styles.navigation_text}`}>
                       BookMark
                     </span>
                   </NavLink>
-                  <NavLink to="">
-                    <span className={`${styles.navigation_svg} `}>
-                      <BsBell />
-                    </span>
-                    <span className={` ${styles.navigation_text}`}>
-                      Notifications{" "}
-                    </span>
-                  </NavLink>
                   <NavLink
-                    to="/"
+                    to="/explore"
                     className={({ isActive }) =>
                       isActive ? `${styles.active_link}` : null
                     }
                   >
                     <span className={`${styles.navigation_svg} `}>
-                      <BsEnvelope />
+                      <HiHashtag />
                     </span>
                     <span className={` ${styles.navigation_text}`}>
-                      Message
+                      Explore
                     </span>
                   </NavLink>
+
                   <NavLink
-                    to="/"
+                    to={`/profilePage/${currentUser?.id}`}
                     className={({ isActive }) =>
                       isActive ? `${styles.active_link}` : null
                     }
@@ -90,14 +84,13 @@ function LeftAside() {
                   <NavLink
                     to="/settings"
                     className={({ isActive }) =>
-                      isActive ? "active-link" : null
+                      isActive ? `${styles.active_link}` : null
                     }
                   >
                     <span className={`${styles.navigation_svg} `}>
                       <BsGear />
                     </span>
                     <span className={` ${styles.navigation_text}`}>
-                      {" "}
                       Settings
                     </span>
                   </NavLink>
@@ -117,7 +110,9 @@ function LeftAside() {
                     />
                   </Link>
                   <p>{currentUser?.username}</p>
-                  <span>
+                  <span onClick={()=>{window.location.reload(false);
+                    dispatch(logOut())}} className="text-3xl">
+                      
                     <HiLogout />
                   </span>
                 </div>

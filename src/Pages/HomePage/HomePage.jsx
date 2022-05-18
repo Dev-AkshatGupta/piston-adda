@@ -22,18 +22,26 @@ function HomePage() {
         <header className=" layout__main-header">
           <span className="text">Home</span>
         </header>
-      
+
         <div className="empty"></div>
         <PostInput userObj={currentUser} setPost={setPost} post={post}>
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
-            onClick={() =>{ dispatch(createPost(post));setPost("");}}
+            onClick={() => {
+              dispatch(createPost(post));
+              setPost("");
+            }}
           >
             Vroom
           </button>
         </PostInput>
         {postsArr?.map((post) => (
-          <Post postObj={post} key={post._id} currentUserObj={currentUser} />
+          <Post
+            postObj={post}
+            key={post._id}
+            currentUserObj={currentUser}
+            loggedInUser={currentUser}
+          />
         ))}
       </div>
       <RightAside />

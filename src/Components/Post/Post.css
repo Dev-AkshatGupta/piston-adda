@@ -10,13 +10,12 @@
 }
 
 .post a {
-  color: #1b94e0;
+ 
   text-decoration: none;
+  color:var(--PURE-BLACK);
 }
 
-.post a:hover {
-  text-decoration: underline;
-}
+
 
 .post__author-logo {
   width: 49px;

@@ -32,22 +32,28 @@ export const signupHandler = function (schema, request) {
     }
     const _id = uuid();
 
-    const newUser={
-       _id: uuid(),
-    username,
-    password,
-      profilePhoto:{
-      default:"",
-      chosen:"",},
-       coverPhoto:
-     {default:"" ,chosen:"",},
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-    followers:[],
-following:[],
-bookmarks:[],
-...rest
-    }
+    const newUser = {
+      _id: uuid(),
+      username,
+      password,
+      bio: "",
+      profilePhoto: {
+        default:
+          "https://www.vectorstock.com/royalty-free-vector/user-icon-vector-19240481",
+        chosen: "",
+      },
+      coverPhoto: {
+        default:
+          "https://cdn-ds.com/blogs-media/sites/263/2017/04/08170115/dodge-demon-srt-1038x450.jpg",
+        chosen: "",
+      },
+      createdAt: formatDate(),
+      updatedAt: formatDate(),
+      followers: [],
+      following: [],
+      bookmarks: [],
+      ...rest,
+    };
     const createdUser = schema.users.create(newUser);
     const encodedToken = sign(
       { _id, username },

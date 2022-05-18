@@ -34,6 +34,7 @@ function ProfilePage() {
   const isProfileFollowedByUser = currentUser?.following?.some(
     (profile) => profile?.id === id
   );
+  const loggedInUser = useSelector((state) => state.auth.currentUser);
 
   return (
     <div className="layout">
@@ -46,18 +47,27 @@ function ProfilePage() {
         </header>
         <div className="empty"></div>
         <div className="profile___banner-img ">
-          <img src={coverPhoto?.chosen} alt="banner-img" />
+          {coverPhoto?.chosen ? (
+            <img src={coverPhoto?.chosen} alt="banner-img" />
+          ) : (
+            <img src={coverPhoto?.default} alt="banner-img" />
+          )}
         </div>
         <div className="profile p-2 flex-center-space-betw">
           <div className="profile__dp-img rounded-full w-32 h-32 rounded-full border-solid">
-            <img
-              src={profilePhoto?.chosen}
-              alt="profile dp"
-              className="rounded-full"
-            />
-          </div>
-          <div className="profile__edit-btn">
-            <button className="btn btn-sec p-2 rounded-xl">Edit Profile</button>
+            {profilePhoto?.chosen ? (
+              <img
+                src={profilePhoto?.chosen}
+                alt="profile dp"
+                className="rounded-full"
+              />
+            ) : (
+              <img
+                src={profilePhoto?.default}
+                alt="profile dp"
+                className="rounded-full"
+              />
+            )}
           </div>
         </div>
 
@@ -66,7 +76,7 @@ function ProfilePage() {
           {username}
         </p>
         <p className="text-left text-base font-thin pl-5 text-slate-800 ">
-          JavaScript | React is ❤️ | Neog-2022 | Chess
+          {profile?.bio}
         </p>
         {/* Followers count */}
         <div className="flex justify-between px-2 mb-3.5 border-slate-300 border-b-2 pb-1">
@@ -91,7 +101,12 @@ function ProfilePage() {
           )}
         </div>
         {postsArr.map((post) => (
-          <Post postObj={post} key={post._id} currentUserObj={currentUser} />
+          <Post
+            postObj={post}
+            key={post._id}
+            currentUserObj={currentUser}
+            loggedInUser={loggedInUser}
+          />
         ))}
       </div>
       <RightAside />

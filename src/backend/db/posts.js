@@ -36,6 +36,7 @@ export const posts = [
         updatedAt: "2022-05-13T23:15:24+05:30",
       },
     ],
+    userId: 1,
   },
   {
     _id: uuid(),
@@ -52,6 +53,7 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
+    userId: 3,
   },
   {
     _id: uuid(),
@@ -68,6 +70,7 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
+    userId: 4,
   },
   {
     _id: uuid(),
@@ -84,6 +87,7 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
+    userId: 5,
   },
   {
     _id: uuid(),
@@ -100,5 +104,6 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
+    userId: 2,
   },
 ];
