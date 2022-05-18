@@ -80,17 +80,20 @@ export const createPostHandler = function (schema, request) {
     const { content } = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
-      content:content,
+      content: content,
       likes: {
         likeCount: 0,
         likedBy: [],
         dislikedBy: [],
       },
-      comments:[],
-      userPhoto:user?.profilePhoto?.chosen,
+      comments: [],
+      userPhoto: user?.profilePhoto?.chosen
+        ? user?.profilePhoto?.chosen
+        : user?.profilePhoto?.default,
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),
+      userId: user?.id,
     };
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });
@@ -104,7 +107,6 @@ export const createPostHandler = function (schema, request) {
     );
   }
 };
-
 
 /**
  * This handler handles updating a post in the db.
@@ -138,8 +140,8 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
-    // post = { ...post, ...postData };
-    post = { ...post, content:content };
+
+    post = { ...post, content: content };
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

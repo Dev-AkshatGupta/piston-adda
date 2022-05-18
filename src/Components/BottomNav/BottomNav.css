@@ -1,0 +1,15 @@
+/* .bottom__nav{
+
+} */
+.bottom__nav-active-link{
+    border-bottom:solid 2px var(--ICONS-ORANGE);
+    color: var(--ACCENT-COLOR);
+    font-weight: 700;
+    
+}
+
+@media screen and (min-width: 1200px) {
+    .bottom__nav{
+        display: none;
+    }
+}

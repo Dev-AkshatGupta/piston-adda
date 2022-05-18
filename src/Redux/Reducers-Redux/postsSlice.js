@@ -149,7 +149,7 @@ export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
       {},
       { headers: { authorization: encodedToken } }
     );
-
+    console.log(data);
     return data.bookmarks;
   } catch (error) {
     console.log(error.response);

@@ -14,7 +14,7 @@ import {
 } from "Redux/Reducers-Redux/postsSlice";
 import DropDown from "Components/DropDown/DropDown";
 import { Link } from "react-router-dom";
-function Post({ postObj, currentUserObj }) {
+function Post({ postObj, currentUserObj, loggedInUser }) {
   const dispatch = useDispatch();
   const { content, username, userPhoto, _id, id: postId } = postObj;
   const { id } = currentUserObj;
@@ -25,43 +25,53 @@ function Post({ postObj, currentUserObj }) {
   return (
     <>
       <div className="post">
-        <img className="post__author-logo" src={userPhoto} />
+        <Link to={`/profilePage/${postObj?.userId}`}>
+          <img className="post__author-logo" src={userPhoto} />
+        </Link>
         <div className="post__main">
           <div className="post__header flex justify-between">
             <div>
-              <span className="post__author-name">{username}</span>
-              <span className="post__author-slug">{username}</span>
-              <span className="post__publish-time">10d</span>
+              <Link to={`/profilePage/${postObj?.userId}`}>
+                <span className="post__author-name">{username}</span>
+                <span className="post__author-slug">{username}</span>
+                <span className="post__publish-time">10d</span>
+              </Link>
             </div>
-            <DropDown>
-              <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
-                <div
-                  className="py-1 "
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
-                >
-                  <a
-                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
-                    onClick={() => dispatch(deletePost(_id))}
+            {username === loggedInUser?.username && (
+              <DropDown>
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                  <div
+                    className="py-1 "
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
                   >
-                    <span className="flex flex-col flex-center">
-                      <span>Delete Post</span>
-                    </span>
-                  </a>
-                  <a
-                    className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
-                    onClick={()=>dispatch(changeModalDisplay(_id))}
-                  >
-                    <span className="flex flex-col flex-center">
-                      <span>Edit Post</span>
-                    </span>
-                  </a>
+                    <a
+                      className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                      onClick={() => dispatch(deletePost(_id))}
+                    >
+                      <span className="flex flex-col flex-center">
+                        <span>Delete Post</span>
+                      </span>
+                    </a>
+                    <a
+                      className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
+                      onClick={() => dispatch(changeModalDisplay(_id))}
+                    >
+                      <span className="flex flex-col flex-center">
+                        <span>Edit Post</span>
+                      </span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </DropDown>
+              </DropDown>
+            )}
           </div>
-          <div className="post__content">{content}</div>
+          <div className="post__content">
+            <Link className="" to={`/post/${_id}`}>
+              {content}
+            </Link>
+          </div>
         </div>
       </div>
       <div className="post__bottom">

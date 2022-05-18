@@ -24,12 +24,11 @@ export const getAllUsers= createAsyncThunk("users/getAllUsers",async()=>{
     }
 } );
 
-
-
  export const getAUser=createAsyncThunk("users/getAUser",async(userId)=>{
      const {data}=await axios.get(`/api/users/${userId}`)
      return data.user;
  });
+
 export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUserId)=>{
     const encodedToken=localStorage.getItem("token");
     try {
@@ -38,7 +37,8 @@ export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUser
     } catch (error) {
         console.log(error.response.data.errors)
     }
-})
+});
+
 export const followUser=createAsyncThunk("users/followUser",async(followUserId)=>{
     const encodedToken=localStorage.getItem("token");
     try {
@@ -47,7 +47,7 @@ export const followUser=createAsyncThunk("users/followUser",async(followUserId)=
     } catch (error) {
         console.log(error.response.data.errors)
     }
-})
+});
 
 
 
