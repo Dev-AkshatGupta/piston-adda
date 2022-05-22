@@ -21,7 +21,7 @@ export const posts = [
       "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    photoUrl:
+   imageUrl:
       "https://images.pexels.com/photos/267569/pexels-photo-267569.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     comments: [
       {

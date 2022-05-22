@@ -32,12 +32,15 @@ export const getProfilePosts = createAsyncThunk(
   }
 );
 
-export const createPost = createAsyncThunk("posts/createPost", async (post) => {
+export const createPost = createAsyncThunk("posts/createPost", async (details) => {
   try {
     const encodedToken = localStorage.getItem("token");
+    console.log(details);
     const { data } = await axios.post(
       "/api/posts/",
-      { content: post },
+      { content: details.post,
+        imageUrl:details.imageUrl 
+      },
       { headers: { authorization: encodedToken } }
     );
     return data.posts;

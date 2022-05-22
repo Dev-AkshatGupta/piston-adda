@@ -78,6 +78,7 @@ export const createPostHandler = function (schema, request) {
       );
     }
     const { content } = JSON.parse(request.requestBody);
+    const { imageUrl } = JSON.parse(request.requestBody);
     const post = {
       _id: uuid(),
       content: content,
@@ -86,6 +87,7 @@ export const createPostHandler = function (schema, request) {
         likedBy: [],
         dislikedBy: [],
       },
+      imageUrl:imageUrl,
       comments: [],
       userPhoto: user?.profilePhoto?.chosen
         ? user?.profilePhoto?.chosen

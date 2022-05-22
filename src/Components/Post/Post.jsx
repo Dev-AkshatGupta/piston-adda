@@ -71,7 +71,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             <Link className="" to={`/post/${_id}`}>
               {content}
             </Link>
-            {postObj?.photoUrl && <img src={postObj?.photoUrl} alt="post-photo"/>}
+            {postObj?.imageUrl && <img src={postObj?.imageUrl} alt="post-photo"/>}
           </div>
         </div>
       </div>
