@@ -71,20 +71,13 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             <Link className="" to={`/post/${_id}`}>
               {content}
             </Link>
-            {postObj?.imageUrl && <img src={postObj?.imageUrl} alt="post-photo"/>}
+            {postObj?.imageUrl && (
+              <img src={postObj?.imageUrl} alt="post-photo" />
+            )}
           </div>
         </div>
       </div>
       <div className="post__bottom">
-        {isPostInBookMark ? (
-          <BsBookmarkFill onClick={() => dispatch(deleteBookMark(_id))} />
-        ) : (
-          <i
-            className="fal fa-bookmark"
-            onClick={() => dispatch(bookMark(_id))}
-          ></i>
-        )}
-        {/* <AiOutlineRetweet /> */}
         {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
           <i
             className="fas fa-heart"
@@ -96,9 +89,18 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             onClick={() => dispatch(likePost(_id))}
           ></i>
         )}
+
         <Link to={`/post/${_id}`}>
           <BiComment />
         </Link>
+        {isPostInBookMark ? (
+          <BsBookmarkFill onClick={() => dispatch(deleteBookMark(_id))} />
+        ) : (
+          <i
+            className="fal fa-bookmark"
+            onClick={() => dispatch(bookMark(_id))}
+          ></i>
+        )}
       </div>
     </>
   );

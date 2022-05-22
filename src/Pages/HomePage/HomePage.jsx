@@ -25,8 +25,11 @@ function HomePage() {
         method: "post",
         body: data,
       })
-        .then((res) => res.json())
+        .then((res) => {
+     
+          return res.json()})
         .then((data) => {
+           console.log(data);
           console.log(data.secure_url);
           dispatch(createPost({post,imageUrl:data.secure_url}));
           setPost("");
@@ -57,8 +60,8 @@ function HomePage() {
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              image?dispatch(createPost({ post, imageUrl: "" }))
-              :imageHandler(image, post)
+              !image?dispatch(createPost({ post, imageUrl: "" }))
+              :imageHandler(image, post);
               
             }}
           >
