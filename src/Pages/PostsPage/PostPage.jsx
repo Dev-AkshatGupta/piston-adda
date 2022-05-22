@@ -36,7 +36,8 @@ const PostPage = () => {
       <LeftAside />
       <div className="layout__main">
         {loadingStatus ? (
-          <p className="text-center">...loading</p>
+          <p className="text-center height-100">...loading</p>
+
         ) : (
           <Post postObj={selectedPost} currentUserObj={currentUser} setModalDisplay={setModalDisplay} />
         )}

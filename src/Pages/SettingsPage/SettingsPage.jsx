@@ -11,6 +11,33 @@ const SettingsPage = () => {
   useEffect(() => {
     setDetails(currentUser);
   }, [currentUser]);
+  const imageHandler = async (details) => {
+    try {
+      const data = new FormData();
+      data.append("file", details.profilePhoto.chosen);
+      data.append("cloud_name", "piston");
+      data.append("upload_preset", "fridayaaa");
+
+      fetch("https://api.cloudinary.com/v1_1/piston/image/upload" ?? "", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const obj = {
+            ...details,
+            profilePhoto: {
+              default: details.profilePhoto.default,
+              chosen: data.secure_url,
+            },
+          };
+
+          dispatch(editUser(obj));
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <LeftAside />
@@ -38,6 +65,7 @@ const SettingsPage = () => {
                     onChange={(e) =>
                       setDetails({ ...details, username: e.target.value })
                     }
+                    value={details.username}
                   />
                 </div>
               </div>
@@ -56,24 +84,24 @@ const SettingsPage = () => {
                     onChange={(e) => {
                       setDetails({ ...details, password: e.target.value });
                     }}
+                    value={details.password}
                   />
                 </div>
               </div>
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label
-                    htmlFor="username"
+                    htmlFor="Banner Photo"
                     className="leading-7 text-sm text-gray-600"
                   >
-                    User-Name
+                    Banner Image
                   </label>
                   <input
-                    type="text"
-                    name="username"
+                    type="file"
+                    accept="image/*"
+                    name="profile Photo"
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    onChange={(e) =>
-                      setDetails({ ...details, username: e.target.value })
-                    }
+                    // onChange={(e) => setDetails({...details, coverPhoto:{...profilePhoto,chosen: e.target.files[0] }})}
                   />
                 </div>
               </div>
@@ -90,7 +118,15 @@ const SettingsPage = () => {
                     accept="image/*"
                     name="profile Photo"
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    //   onChange={(e) => setImages({ profile: e.target.value })}
+                    onChange={(e) =>
+                      setDetails({
+                        ...details,
+                        profilePhoto: {
+                          ...details.profilePhoto,
+                          chosen: e.target.files[0],
+                        },
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -108,14 +144,16 @@ const SettingsPage = () => {
                     onChange={(e) => {
                       setDetails({ ...details, bio: e.target.value });
                     }}
+                    value={details.bio}
                   ></textarea>
                 </div>
               </div>
               <div className="p-2 w-full">
                 <button
-                  className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                  onClick={() => {
-                    editUser(details);
+                  className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg btn btn-pri"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    imageHandler(details);
                   }}
                 >
                   Update my Profile

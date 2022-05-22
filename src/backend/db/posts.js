@@ -21,6 +21,8 @@ export const posts = [
       "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    photoUrl:
+      "https://images.pexels.com/photos/267569/pexels-photo-267569.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     comments: [
       {
         _id: "49eb98ce-6456-4f21-8a68-24c12101e834",
@@ -47,8 +49,8 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    userPhoto:
-      "https://pbs.twimg.com/profile_images/1516014184969826305/a_7EKaso_200x200.jpg",
+      photoUrl:"",
+    userPhoto:      "https://pbs.twimg.com/profile_images/1516014184969826305/a_7EKaso_200x200.jpg",
     username: "@annamalai_k",
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -64,6 +66,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+      photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1426015031360049153/QYd08TfK_200x200.jpg",
     username: "@jsaideepak",
@@ -81,6 +84,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+    photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1512802297717342217/av29k04g_200x200.jpg",
     username: "@ARanganathan72",
@@ -98,6 +102,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+    photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1514922147365330948/qeCXYlZR_200x200.jpg",
     username: "@Iyervval",

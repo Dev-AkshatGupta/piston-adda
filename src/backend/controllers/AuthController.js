@@ -39,7 +39,7 @@ export const signupHandler = function (schema, request) {
       bio: "",
       profilePhoto: {
         default:
-          "https://www.vectorstock.com/royalty-free-vector/user-icon-vector-19240481",
+          "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png",
         chosen: "",
       },
       coverPhoto: {

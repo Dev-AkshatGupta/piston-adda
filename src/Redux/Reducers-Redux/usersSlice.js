@@ -25,8 +25,12 @@ export const getAllUsers= createAsyncThunk("users/getAllUsers",async()=>{
 } );
 
  export const getAUser=createAsyncThunk("users/getAUser",async(userId)=>{
-     const {data}=await axios.get(`/api/users/${userId}`)
-     return data.user;
+     try {
+     const { data } = await axios.get(`/api/users/${userId}`);
+     return data.user;       
+     } catch (error) {
+         console.log(error)
+     }
  });
 
 export const unFollowUser=createAsyncThunk("users/unFollowUser",async(followUserId)=>{

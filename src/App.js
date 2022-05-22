@@ -22,7 +22,6 @@ import PostPage from "Pages/PostsPage/PostPage";
 import PostEditModal from "Components/PostEditModal/PostEditModal";
 import { ExplorePage } from "Pages/ExplorePage/ExplorePage";
 import BottomNav from "Components/BottomNav/BottomNav";
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {

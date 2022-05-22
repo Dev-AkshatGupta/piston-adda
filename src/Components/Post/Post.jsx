@@ -71,6 +71,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             <Link className="" to={`/post/${_id}`}>
               {content}
             </Link>
+            {postObj?.photoUrl && <img src={postObj?.photoUrl} alt="post-photo"/>}
           </div>
         </div>
       </div>
@@ -83,7 +84,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             onClick={() => dispatch(bookMark(_id))}
           ></i>
         )}
-        <AiOutlineRetweet />
+        {/* <AiOutlineRetweet /> */}
         {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
           <i
             className="fas fa-heart"
