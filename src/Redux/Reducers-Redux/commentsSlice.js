@@ -24,7 +24,6 @@ export const createComment = createAsyncThunk(
   "comments/createComment",
   async (details) => {
     const { postId, commentData,imageUrl } = details;
-console.log(details);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(

@@ -82,8 +82,8 @@ const PostEditModal = ({textArea,children}) => {
                   btn
                   "
                 onClick={() => {
-                
                     dispatch(editPost({ content:editPostContent, postId:editPostId }));
+                  dispatch(changeModalDisplay());
                 }}
               >
                 Edit Comment
