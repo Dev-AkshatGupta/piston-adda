@@ -29,6 +29,8 @@ function HomePage() {
         .then((data) => {
           console.log(data.secure_url);
           dispatch(createPost({post,imageUrl:data.secure_url}));
+          setPost("");
+          setImage("");
         });
     } catch (error) {
       console.log(error);
@@ -39,8 +41,8 @@ function HomePage() {
       <div className="layout__left-sidebar">
         <LeftAside />
       </div>
-      <div className="layout__main">
-        <header className=" layout__main-header border-none">
+      <div className="layout__main relative">
+        <header className=" layout__main-header ">
           <span className="text">Home</span>
         </header>
 
@@ -50,13 +52,14 @@ function HomePage() {
           setPost={setPost}
           post={post}
           setImage={setImage}
+
         >
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              imageHandler(image, post);
-              // dispatch(createPost(post));
-              // setPost("");
+              image?dispatch(createPost({ post, imageUrl: "" }))
+              :imageHandler(image, post)
+              
             }}
           >
             Vroom

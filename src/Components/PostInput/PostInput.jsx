@@ -5,7 +5,7 @@ import { GrGallery } from "react-icons/gr";
 import { AiOutlineFileGif } from "react-icons/ai";
 import { BsEmojiSmile } from "react-icons/bs";
 import Picker from "emoji-picker-react";
-function PostInput({ children, userObj, setPost, post,setImage }) {
+function PostInput({ children, userObj, setPost, post, setImage }) {
   const { profilePhoto, username } = userObj;
   const [showPicker, setShowPicker] = useState(false);
   const onEmojiClick = (event, emojiObject) => {
@@ -27,22 +27,26 @@ function PostInput({ children, userObj, setPost, post,setImage }) {
       <div className="postInput__bottom">
         <div className="postInput__bottom-firstBlock">
           <label htmlFor="post image">
-            <span>
-              <GrGallery />
-            </span>
+            <input
+              type="file"
+              accept="image/*"
+              name="post image"
+              onChange={(e) => {  
+                setImage(e.target.files[0]);
+              }}
+              placeholder="shit"
+              style={{
+                position: "absolute",
+                opacity: "none",
+                width: "28px",
+                background: "transparent",
+                border: "none",
+              }}
+              className="custom-file-input"
+            />
+            <GrGallery />
           </label>
-          <input
-            type="file"
-            accept="image/*"
-            name="post image"
-            onChange={(e) => {
-              console.log(e.target.files[0]);
-              setImage(e.target.files[0]);
-            }}
-            // style={{display:"none"}}
-          />
 
-          <AiOutlineFileGif />
           <span onClick={() => setShowPicker((val) => !val)}>
             <BsEmojiSmile />
           </span>

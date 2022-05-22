@@ -61,7 +61,10 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
               </div>
             </DropDown>
           </div>
-          <div className="post__content">{commentObj?.content}</div>
+          <div className="post__content">
+            {commentObj?.content}
+            {commentObj?.imageUrl && <img src={commentObj?.imageUrl} alt="commentImage" />}
+          </div>
         </div>
       </div>
       <div className="post__bottom">

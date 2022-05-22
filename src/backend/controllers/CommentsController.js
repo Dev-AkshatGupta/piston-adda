@@ -48,10 +48,12 @@ export const addPostCommentHandler = function (schema, request) {
     }
     const { postId } = request.params;
     const { content } = JSON.parse(request.requestBody);
+    const { imageUrl } = JSON.parse(request.requestBody);
 
     const comment = {
       _id: uuid(),
       content:content,
+      imageUrl:imageUrl,
       username: user.username,
       userPhoto: user?.profilePhoto?.chosen,
       votes: { upvotedBy: [], downvotedBy: [] },

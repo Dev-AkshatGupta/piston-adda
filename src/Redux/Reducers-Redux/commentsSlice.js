@@ -23,13 +23,13 @@ export const getComments = createAsyncThunk(
 export const createComment = createAsyncThunk(
   "comments/createComment",
   async (details) => {
-    const { postId, commentData } = details;
-
+    const { postId, commentData,imageUrl } = details;
+console.log(details);
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
         `/api/comments/add/${postId}`,
-        { content: commentData },
+        { content: commentData, imageUrl: imageUrl },
         { headers: { authorization: encodedToken } }
       );
    
