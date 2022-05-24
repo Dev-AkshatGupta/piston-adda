@@ -7,6 +7,7 @@ import { PostInput } from "Components/PostInput/PostInput";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "Redux/Reducers-Redux/postsSlice";
+import {notifyError} from "Utilities/Notifications";
 function HomePage() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const loadingStatus = useSelector((state) => state.auth.loading);
@@ -29,13 +30,13 @@ function HomePage() {
      
           return res.json()})
         .then((data) => {
-           console.log(data);
-          console.log(data.secure_url);
           dispatch(createPost({post,imageUrl:data.secure_url}));
           setPost("");
           setImage("");
         });
     } catch (error) {
+      notifyError("Can't upload image");
+      setImage("");
       console.log(error);
     }
   };

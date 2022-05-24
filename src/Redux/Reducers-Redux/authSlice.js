@@ -43,6 +43,7 @@ export const checkToken = createAsyncThunk("auth/checkToken", async () => {
       });
       return response.data;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -58,6 +59,7 @@ export const editUser = createAsyncThunk("auth/editUser", async (userData) => {
 
     return data;
   } catch (error) {
+     notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });

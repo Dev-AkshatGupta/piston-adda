@@ -15,6 +15,7 @@ import { PostInput } from "Components/PostInput/PostInput";
 import CommentBox from "Components/CommentBox/CommentBox";
 import EditModal from "Components/EditModal/EditModal";
 import { TextArea } from "Components/PostInput/TextArea";
+import { notifyError } from "Utilities/Notifications";
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -44,7 +45,6 @@ const PostPage = () => {
        })
          .then((res) => res.json())
          .then((data) => {
-           console.log(data.secure_url);
             dispatch(
               createComment({
                 commentData: comment,
@@ -57,6 +57,8 @@ const PostPage = () => {
          });
      } catch (error) {
        console.log(error);
+       notifyError("There is some problem with uploading image");
+       setImage("");
      }
    };
   return (

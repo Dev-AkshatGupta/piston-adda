@@ -1,3 +1,4 @@
+import AllRoutes from "AllRoutes";
 import { LandingPage } from "Pages/LandingPage/LandingPage";
 import Mockman from "mockman-js";
 import { ToastContainer } from "react-toastify";
@@ -37,7 +38,7 @@ function App() {
   const contentEditPost = useSelector((state) => state?.posts?.editedPost);
 return (
   <div className="App">
-    <Routes>
+    {/* <Routes>
       <Route element={<RestrictedRoute />}>
         <Route path="/" element={<LandingPage />} />
       </Route>
@@ -52,8 +53,8 @@ return (
 
       <Route path="*" element={<Page404 />} />
       <Route path="/mock" element={<Mockman />} />
-    </Routes>
-
+    </Routes> */}
+<AllRoutes/>
     {editModalDisplay && (
       <PostEditModal
         textArea={

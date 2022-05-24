@@ -9,13 +9,13 @@ const initialState = {
 export const getComments = createAsyncThunk(
   "comments/getComments",
   async (postId) => {
-
     try {
       const { data } = await axios.get(`/api/comments/${postId}`);
 
       return data.comments;
     } catch (error) {
-      console.log(error);
+      notifyError(error.response.data.error[0]);
+      console.log(error.response);
     }
   }
 );
@@ -23,7 +23,7 @@ export const getComments = createAsyncThunk(
 export const createComment = createAsyncThunk(
   "comments/createComment",
   async (details) => {
-    const { postId, commentData,imageUrl } = details;
+    const { postId, commentData, imageUrl } = details;
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -31,9 +31,10 @@ export const createComment = createAsyncThunk(
         { content: commentData, imageUrl: imageUrl },
         { headers: { authorization: encodedToken } }
       );
-   
+
       return data.comments;
     } catch (error) {
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -52,6 +53,7 @@ export const deleteComment = createAsyncThunk(
       );
       return data.comments;
     } catch (error) {
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -69,6 +71,7 @@ export const editCommentData = createAsyncThunk(
       );
       return data.comments;
     } catch (error) {
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -78,7 +81,7 @@ export const upVoteComment = createAsyncThunk(
   "comments/upVoteComment",
   async (details) => {
     const { postId, commentId } = details;
- 
+
     try {
       const encodedToken = localStorage.getItem("token");
       const { data } = await axios.post(
@@ -86,9 +89,10 @@ export const upVoteComment = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-    
+
       return data.comments;
     } catch (error) {
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -105,9 +109,10 @@ export const downVoteComment = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-      
+
       return data.comments;
     } catch (error) {
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -116,7 +121,7 @@ export const downVoteComment = createAsyncThunk(
 const commentsSlice = createSlice({
   name: "comments",
   initialState,
-  reducers:{},
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getComments.fulfilled, (state, action) => {
