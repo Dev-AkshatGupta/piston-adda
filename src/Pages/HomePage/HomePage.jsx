@@ -40,6 +40,10 @@ function HomePage() {
       console.log(error);
     }
   };
+  function clickHandler(){
+dispatch(createPost({ post, imageUrl: "" }));
+setPost("");
+  }
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -56,14 +60,12 @@ function HomePage() {
           setPost={setPost}
           post={post}
           setImage={setImage}
-
         >
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              !image?dispatch(createPost({ post, imageUrl: "" }))
+              !image?clickHandler()
               :imageHandler(image, post);
-              
             }}
           >
             Vroom
@@ -79,7 +81,6 @@ function HomePage() {
         ))}
       </div>
       <RightAside />
-      <Outlet />
     </div>
   );
 }

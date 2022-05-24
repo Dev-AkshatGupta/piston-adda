@@ -80,6 +80,7 @@
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid var(--SLATE-300);
+  padding-top: 0;
 }
 
 .postInput__bottom-firstBlock {

@@ -30,6 +30,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-left: 1rem;
 }
 
 .who-to-follow__heading {

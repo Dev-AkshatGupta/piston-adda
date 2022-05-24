@@ -12,12 +12,10 @@ function FollowCard({ userObj, currentUserObj }) {
     id,
   } = userObj;
   const dispatch = useDispatch();
-  
   const isProfileFollowedByUser = currentUserObj?.following?.some(
     (profile) => profile.id === id
   );
- 
- 
+
   return (
     <div className="who-to-follow__block" key={_id}>
       <Link to={`/profilePage/${userObj.id}`}>
