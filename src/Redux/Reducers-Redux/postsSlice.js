@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { notifyError } from "Utilities/Notifications";
 const initialState = {
   posts: [],
   profilePosts: [],
@@ -17,6 +17,7 @@ export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
     return data.posts;
   } catch (error) {
     console.log(error.response);
+     notifyError(error.response.data.error[0]);
   }
 });
 
@@ -27,21 +28,26 @@ export const getProfilePosts = createAsyncThunk(
       const { data } = await axios.get(`/api/posts/user/${username}`);
       return data.posts;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
 );
 
-export const createPost = createAsyncThunk("posts/createPost", async (post) => {
+export const createPost = createAsyncThunk("posts/createPost", async (details) => {
   try {
     const encodedToken = localStorage.getItem("token");
+ 
     const { data } = await axios.post(
       "/api/posts/",
-      { content: post },
+      { content: details.post,
+        imageUrl:details.imageUrl 
+      },
       { headers: { authorization: encodedToken } }
     );
     return data.posts;
   } catch (error) {
+     notifyError(error.response.data.error[0]);
     console.log(error);
   }
 });
@@ -59,6 +65,7 @@ export const editPost = createAsyncThunk(
       );
       return data.posts;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error);
     }
   }
@@ -75,6 +82,7 @@ export const deletePost = createAsyncThunk(
      
       return data.posts;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -90,6 +98,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
     );
     return data.posts;
   } catch (error) {
+     notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });
@@ -106,6 +115,7 @@ export const disLikePost = createAsyncThunk(
       );
       return data.posts;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -121,6 +131,7 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
     );
     return data.bookmarks;
   } catch (error) {
+     notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });
@@ -137,6 +148,7 @@ export const deleteBookMark = createAsyncThunk(
       );
       return data.bookmarks;
     } catch (error) {
+       notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -153,6 +165,7 @@ export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
 
     return data.bookmarks;
   } catch (error) {
+     notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });

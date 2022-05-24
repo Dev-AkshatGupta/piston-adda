@@ -12,10 +12,10 @@ import {
 } from "Redux/Reducers-Redux/commentsSlice";
 import "./PostPage.css";
 import { PostInput } from "Components/PostInput/PostInput";
-import { Loader } from "Components/Loader/Loader";
 import CommentBox from "Components/CommentBox/CommentBox";
 import EditModal from "Components/EditModal/EditModal";
 import { TextArea } from "Components/PostInput/TextArea";
+import { notifyError } from "Utilities/Notifications";
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -29,29 +29,71 @@ const PostPage = () => {
   const loadingStatus = useSelector((state) => state.posts.loadingStatus);
   const [comment, setComment] = useState("");
   const [modalDisplay, setModalDisplay] = useState(false);
-  const [editComment, setEditComment] = useState("");
+  const [editComment, setEditComment] = useState(comment);
   const [commentId, setCommentId] = useState("");
+  const[image,setImage]=useState("");
+   const imageHandler = async (image, content) => {
+     try {
+       const data = new FormData();
+       data.append("file", image);
+       data.append("cloud_name", "piston");
+       data.append("upload_preset", "fridayaaa");
+
+       fetch("https://api.cloudinary.com/v1_1/piston/image/upload" ?? "", {
+         method: "post",
+         body: data,
+       })
+         .then((res) => res.json())
+         .then((data) => {
+            dispatch(
+              createComment({
+                commentData: comment,
+                postId: selectedPost?._id,
+                imageUrl: data.secure_url,
+              })
+            );
+           setComment("");
+           setImage("");
+         });
+     } catch (error) {
+       console.log(error);
+       notifyError("There is some problem with uploading image");
+       setImage("");
+     }
+   };
   return (
     <div className="layout">
       <LeftAside />
       <div className="layout__main">
         {loadingStatus ? (
-          <p className="text-center">...loading</p>
+          <p className="text-center height-100">...loading</p>
         ) : (
-          <Post postObj={selectedPost} currentUserObj={currentUser} setModalDisplay={setModalDisplay} />
+          <Post
+            postObj={selectedPost}
+            currentUserObj={currentUser}
+            setModalDisplay={setModalDisplay}
+          />
         )}
 
-        <PostInput userObj={currentUser} setPost={setComment} post={comment}>
+        <PostInput
+          userObj={currentUser}
+          setPost={setComment}
+          post={comment}
+          setImage={setImage}
+        >
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              dispatch(
-                createComment({
-                  commentData: comment,
-                  postId: selectedPost?._id,
-                })
-              );
-              setComment("");
+              image
+                ? imageHandler(image)
+                : dispatch(
+                    createComment({
+                      commentData: comment,
+                      postId: selectedPost?._id,
+                      imageUrl: "",
+                    }),
+                    setComment("")
+                  );
             }}
           >
             Vroom
@@ -70,13 +112,29 @@ const PostPage = () => {
           <EditModal
             setModalDisplay={setModalDisplay}
             setCommentId={setCommentId}
-            textArea={<TextArea setPost={setEditComment} post={editComment} />}
+            textArea={<TextArea setPost={setEditComment} post={editComment}/>}
           >
-           
+            <button
+              className="
+                  block
+                  text-center
+                  w-full
+                  p-3
+                  text-base
+                  font-medium
+                  rounded-lg
+                  text-dark
+                  border border-[#E9EDF9]
+                  hover:bg-red-600 hover:text-white hover:border-red-600
+                  transition
+                  btn
+                  "
+              onClick={() =>{ setModalDisplay((display) => !display);
+              dispatch(editCommentData({commentId:commentId,postId:postId,commentData:editComment}));
+              }}
+            >Edit Comment</button>
           </EditModal>
         )}
-      
-
       </div>
       <RightAside />
     </div>

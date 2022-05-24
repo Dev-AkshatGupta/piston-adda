@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editUser } from "Redux/Reducers-Redux/authSlice";
 import { LeftAside } from "Components/LeftAside/LeftAside";
+import { notifyError } from "Utilities/Notifications";
+import { settingsImageHandler } from "Utilities/CloudinaryImage";
 const SettingsPage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
-
+ const [viewPassword, setViewPassword] = useState(false);
   const [details, setDetails] = useState(currentUser);
 
   useEffect(() => {
     setDetails(currentUser);
   }, [currentUser]);
+  
   return (
     <>
       <LeftAside />
@@ -38,6 +40,7 @@ const SettingsPage = () => {
                     onChange={(e) =>
                       setDetails({ ...details, username: e.target.value })
                     }
+                    value={details.username}
                   />
                 </div>
               </div>
@@ -50,33 +53,30 @@ const SettingsPage = () => {
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={viewPassword ? "text" : "password"}
                     name="password"
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                     onChange={(e) => {
                       setDetails({ ...details, password: e.target.value });
                     }}
+                    value={details.password}
                   />
+                  {!viewPassword && (
+                    <i
+                      className="fa fa-eye text text-center mb-1"
+                      aria-hidden="true"
+                      onClick={(e) => setViewPassword(!viewPassword)}
+                    ></i>
+                  )}
+                  {viewPassword && (
+                    <i
+                      className="fas fa-eye-slash text text-center mb-1"
+                      onClick={(e) => setViewPassword(!viewPassword)}
+                    ></i>
+                  )}
                 </div>
               </div>
-              <div className="p-2 w-1/2">
-                <div className="relative">
-                  <label
-                    htmlFor="username"
-                    className="leading-7 text-sm text-gray-600"
-                  >
-                    User-Name
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    onChange={(e) =>
-                      setDetails({ ...details, username: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
+
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label
@@ -90,7 +90,15 @@ const SettingsPage = () => {
                     accept="image/*"
                     name="profile Photo"
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    //   onChange={(e) => setImages({ profile: e.target.value })}
+                    onChange={(e) =>
+                      setDetails({
+                        ...details,
+                        profilePhoto: {
+                          ...details.profilePhoto,
+                          chosen: e.target.files[0],
+                        },
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -108,14 +116,16 @@ const SettingsPage = () => {
                     onChange={(e) => {
                       setDetails({ ...details, bio: e.target.value });
                     }}
+                    value={details.bio}
                   ></textarea>
                 </div>
               </div>
               <div className="p-2 w-full">
                 <button
-                  className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                  onClick={() => {
-                    editUser(details);
+                  className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg btn btn-pri"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    settingsImageHandler(details,dispatch);
                   }}
                 >
                   Update my Profile
