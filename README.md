@@ -37,7 +37,7 @@ These Days social media applications are part of the daily life of every individ
 
 2. It's a completely responsive web app . Tablet mobile or Desktop.Ready to handle everything.
 
-3. You can post emoji or text content what ever you want to .
+3. You can post emoji or text content and images as your post and comments too.
 
 4. You can comment on the user's post's
 
