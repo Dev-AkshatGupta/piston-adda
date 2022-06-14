@@ -18,10 +18,12 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
   const dispatch = useDispatch();
   const { content, username, userPhoto, _id, id: postId } = postObj;
   const { id } = currentUserObj;
-  const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
+  const isPostInBookMark = useSelector((state) => state.posts?.bookmark)?.some(
     (post) => post._id === _id
   );
-
+  const isPostLikedByCurrentUser = useSelector(
+    (state) => state.posts?.liked
+  )?.some((post) => post._id === _id);
   return (
     <>
       <div className="post">
@@ -78,7 +80,8 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
         </div>
       </div>
       <div className="post__bottom">
-        {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
+    
+        {isPostLikedByCurrentUser ? (
           <i
             className="fas fa-heart"
             onClick={() => dispatch(disLikePost(_id))}

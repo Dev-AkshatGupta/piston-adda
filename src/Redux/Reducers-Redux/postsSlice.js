@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   profilePosts: [],
   bookmark: [],
+  liked:[],
   currentPost: {},
   loadingStatus: false,
   editModalDisplay: false,
@@ -96,8 +97,8 @@ export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
       {},
       { headers: { authorization: encodedToken } }
     );
-    console.log(data.posts);
-    return data.posts;
+    // console.log(data);
+    return data;
   } catch (error) {
      notifyError(error.response.data.error[0]);
     console.log(error.response);
@@ -114,7 +115,8 @@ export const disLikePost = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-      return data.posts;
+      
+      return data;
     } catch (error) {
        notifyError(error.response.data.error[0]);
       console.log(error.response);
@@ -130,6 +132,7 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
       {},
       { headers: { authorization: encodedToken } }
     );
+    console.log(data.bookmarks);
     return data.bookmarks;
   } catch (error) {
      notifyError(error.response.data.error[0]);
@@ -203,10 +206,12 @@ const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(likePost.fulfilled, (state, action) => {
-        state.posts = action.payload;
+        state.posts = action.payload.posts;
+        state.liked=action.payload.liked;
       })
       .addCase(disLikePost.fulfilled, (state, action) => {
-        state.posts = action.payload;
+        state.posts = action.payload.posts;
+        state.liked = action.payload.liked ;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.posts = action.payload;

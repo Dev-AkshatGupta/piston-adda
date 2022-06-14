@@ -29,6 +29,7 @@ export const users = [
     followers: [],
     following: [],
     bookmarks: [],
+    liked:[],
   },
   {
     _id: uuid(),
@@ -52,6 +53,7 @@ export const users = [
     followers: [],
     following: [],
     bookmarks: [],
+    liked:[]
   },
   {
     _id: uuid(),
