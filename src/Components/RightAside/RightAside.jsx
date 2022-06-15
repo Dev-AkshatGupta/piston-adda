@@ -21,25 +21,7 @@ function RightAside() {
             />
           </div>
         </header>
-        <div className="trends-for-you">
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__heading">Trends for you</div>
-          </div>
-
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__meta-information">
-              Trending in Germany
-            </div>
-            <div className="trends-for-you__trend-name">#AmazonPrimeDay</div>
-          </div>
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__meta-information">
-              Trending - Trending
-            </div>
-            <div className="trends-for-you__trend-name">#autos</div>
-            <div className="trends-for-you__meta-information">2,800 Tweets</div>
-          </div>
-        </div>
+       
         <div className="who-to-follow">
           <div className="who-to-follow__block">
             <div className="who-to-follow__heading">Who to follow</div>
