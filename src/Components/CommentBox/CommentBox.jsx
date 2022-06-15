@@ -5,10 +5,11 @@ import {
   upVoteComment,
   downVoteComment,
 } from "Redux/Reducers-Redux/commentsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {BsFillArrowDownSquareFill,BsFillArrowUpSquareFill} from "react-icons/bs"
 const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
   const dispatch = useDispatch();
-  
+  const currentUser=useSelector((state)=>state.auth?.currentUser);
   return (
     <>
       <div className="post">
@@ -63,23 +64,32 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
           </div>
           <div className="post__content">
             {commentObj?.content}
-            {commentObj?.imageUrl && <img src={commentObj?.imageUrl} alt="commentImage" />}
+            {commentObj?.imageUrl && (
+              <img src={commentObj?.imageUrl} alt="commentImage" />
+            )}
           </div>
         </div>
       </div>
       <div className="post__bottom">
+        <span>
+          <button
+            className="text-2xl text-slate-400"
+            onClick={() => {
+              dispatch(
+                upVoteComment({
+                  postId: postObj._id,
+                  commentId: commentObj._id,
+                })
+              );
+            }}
+          >
+            <BsFillArrowUpSquareFill />
+          </button>
+          {` ${"  "} ${commentObj?.votes?.upvotedBy.length}`}
+        </span>
+        {commentObj.votes?.upvotedBy?.some(({_id})=>_id===currentUser._id)&&
         <button
-          className=""
-          onClick={() => {
-            dispatch(
-              upVoteComment({ postId: postObj._id, commentId: commentObj._id })
-            );
-          }}
-        >
-          Up Vote{postObj?.votes?.upvotedBy.length}
-        </button>
-        <button
-          className=""
+          className="text-2xl text-slate-400"
           onClick={() => {
             dispatch(
               downVoteComment({
@@ -89,8 +99,9 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
             );
           }}
         >
-          Down Vote{postObj?.votes?.downvotedBy.length}
-        </button>
+          <BsFillArrowDownSquareFill />
+          {/* Down Vote{postObj?.votes?.downvotedBy.length} */}
+        </button>}
       </div>
     </>
   );

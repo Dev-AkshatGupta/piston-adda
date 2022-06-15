@@ -24,6 +24,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
   const isPostLikedByCurrentUser = useSelector(
     (state) => state.posts?.liked
   )?.some((post) => post._id === _id);
+  console.log(postObj);
   return (
     <>
       <div className="post">

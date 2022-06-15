@@ -16,6 +16,10 @@ import CommentBox from "Components/CommentBox/CommentBox";
 import EditModal from "Components/EditModal/EditModal";
 import { TextArea } from "Components/PostInput/TextArea";
 import { notifyError } from "Utilities/Notifications";
+import {
+  BsFillArrowUpSquareFill,
+  BsFillArrowDownSquareFill,
+} from "react-icons/bs";
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);

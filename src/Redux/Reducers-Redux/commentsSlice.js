@@ -141,6 +141,7 @@ const commentsSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(upVoteComment.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.comments = action.payload;
       })
       .addCase(downVoteComment.fulfilled, (state, action) => {

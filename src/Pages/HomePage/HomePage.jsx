@@ -27,7 +27,6 @@ function HomePage() {
         body: data,
       })
         .then((res) => {
-     
           return res.json()})
         .then((data) => {
           dispatch(createPost({post,imageUrl:data.secure_url}));
