@@ -97,7 +97,6 @@ export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
       {},
       { headers: { authorization: encodedToken } }
     );
-    // console.log(data);
     return data;
   } catch (error) {
      notifyError(error.response.data.error[0]);
