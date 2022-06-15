@@ -71,37 +71,59 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
         </div>
       </div>
       <div className="post__bottom">
-        <span>
-          <button
-            className="text-2xl text-slate-400"
-            onClick={() => {
-              dispatch(
-                upVoteComment({
-                  postId: postObj._id,
-                  commentId: commentObj._id,
-                })
-              );
-            }}
-          >
-            <BsFillArrowUpSquareFill />
-          </button>
-          {` ${"  "} ${commentObj?.votes?.upvotedBy.length}`}
-        </span>
-        {commentObj.votes?.upvotedBy?.some(({_id})=>_id===currentUser._id)&&
-        <button
-          className="text-2xl text-slate-400"
-          onClick={() => {
-            dispatch(
-              downVoteComment({
-                postId: postObj._id,
-                commentId: commentObj._id,
-              })
-            );
-          }}
-        >
-          <BsFillArrowDownSquareFill />
-          {/* Down Vote{postObj?.votes?.downvotedBy.length} */}
-        </button>}
+        {commentObj.votes?.upvotedBy?.some(
+          ({ _id }) => _id === currentUser._id
+        ) ? (
+          <>
+            <button
+              title="downvote"
+              className="text-2xl text-accent"
+              onClick={() => {
+                dispatch(
+                  downVoteComment({
+                    postId: postObj._id,
+                    commentId: commentObj._id,
+                  })
+                );
+              }}
+            >
+              <BsFillArrowUpSquareFill />
+            </button>
+            <button
+              title="downvote"
+              className="text-2xl text-slate-400"
+              onClick={() => {
+                dispatch(
+                  downVoteComment({
+                    postId: postObj._id,
+                    commentId: commentObj._id,
+                  })
+                );
+              }}
+            >
+              <BsFillArrowDownSquareFill />
+            </button>
+          </>
+        ) : (
+          <>
+            <span>
+              <button
+                className="text-2xl text-slate-400"
+                onClick={() => {
+                  dispatch(
+                    upVoteComment({
+                      postId: postObj._id,
+                      commentId: commentObj._id,
+                    })
+                  );
+                }}
+              >
+                <BsFillArrowUpSquareFill />
+              </button>
+              {` ${"  "} ${commentObj?.votes?.upvotedBy.length}`}
+            </span>
+          </>
+        )}
       </div>
     </>
   );
