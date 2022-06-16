@@ -4,6 +4,7 @@ import { notifySuccess, notifyError } from "Utilities/Notifications";
 
 const initialState = {
   users: [],
+  allUsers:[],
   profile: {},
   currentUser: {},
   followedUser: [],
@@ -68,10 +69,21 @@ export const followUser = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
+  reducers:{
+searchUser(state,action){
+state.users = state.allUsers.filter(
+  ({ firstName, username }) =>
+    firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
+    username.toLowerCase().includes(action.payload.toLowerCase())
+);
+}
+
+  },
   extraReducers(builder) {
     builder
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.users = action.payload.users;
+        state.allUsers=action.payload.users;
       })
       .addCase(getAUser.fulfilled, (state, action) => {
         state.profile = action.payload;
@@ -84,4 +96,5 @@ const usersSlice = createSlice({
       });
   },
 });
+export const {searchUser}=usersSlice.actions;
 export default usersSlice.reducer;

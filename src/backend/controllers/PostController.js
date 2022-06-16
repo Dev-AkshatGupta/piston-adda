@@ -130,7 +130,7 @@ export const editPostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    // const { postData } = JSON.parse(request.requestBody);
+    
     const { content } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
@@ -190,7 +190,7 @@ export const likePostHandler = function (schema, request) {
     );
     post.likes.likeCount += 1;
     post.likes.likedBy.push(user);
-    //experimentation with the array of liked
+   
     user.liked.push(JSON.parse(JSON.stringify(post)));
     this.db.users.update(
       { _id: user._id },

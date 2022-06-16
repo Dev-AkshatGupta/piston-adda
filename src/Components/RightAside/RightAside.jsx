@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import "./RightAside.css";
 import { FollowCard } from "Components/FollowCard/FollowCard";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import {searchUser} from "Redux/Reducers-Redux/usersSlice";
 function RightAside() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const usersArr = useSelector((state) => state.users.users).filter((user) => user.id !== currentUser.id
   );
-  // This state is being continiously updated on follow and un-follow and used for that only
+  const dispatch=useDispatch();
+
   const currentUserObj=useSelector(state=>state.users.currentUser);
+const debounceSearch=(e)=>{
+dispatch(searchUser(e.target.value));
+}
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">
@@ -18,6 +22,7 @@ function RightAside() {
               type="text"
               className="nav-bottom-search"
               placeholder=" search"
+              onChange={debounceSearch}
             />
           </div>
         </header>
