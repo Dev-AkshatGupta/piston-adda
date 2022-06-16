@@ -4,7 +4,7 @@ import { notifySuccess, notifyError } from "Utilities/Notifications";
 
 const initialState = {
   users: [],
-  allUsers:[],
+  allUsers: [],
   profile: {},
   currentUser: {},
   followedUser: [],
@@ -69,21 +69,20 @@ export const followUser = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers:{
-searchUser(state,action){
-state.users = state.allUsers.filter(
-  ({ firstName, username }) =>
-    firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
-    username.toLowerCase().includes(action.payload.toLowerCase())
-);
-}
-
+  reducers: {
+    searchUser(state, action) {
+      state.users = state.allUsers.filter(
+        ({ firstName, username }) =>
+          firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
+          username.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.users = action.payload.users;
-        state.allUsers=action.payload.users;
+        state.allUsers = action.payload.users;
       })
       .addCase(getAUser.fulfilled, (state, action) => {
         state.profile = action.payload;
@@ -92,9 +91,9 @@ state.users = state.allUsers.filter(
         state.currentUser = action.payload.user;
       })
       .addCase(unFollowUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload?.user;
+        state.currentUser = action.payload.user;
       });
   },
 });
-export const {searchUser}=usersSlice.actions;
+export const { searchUser } = usersSlice.actions;
 export default usersSlice.reducer;

@@ -78,7 +78,7 @@ const authSlice = createSlice({
         state.currentUser = action.payload.foundUser;
         state.loading = false;
         localStorage.setItem("piston-adda-token", action.payload.encodedToken);
-        notifySuccess("Hey you loge'd in man");
+        notifySuccess("Hey you logged in man");
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.currentUser = action.payload.createdUser;
