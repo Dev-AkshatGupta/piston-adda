@@ -51,7 +51,9 @@ These Days social media applications are part of the daily life of every individ
 
 9.Can follow or unfollow a user you like.
 
-10.Can update your bio name or anything same.
+10.Can update your bio name or your profile image.
+
+11. Debounce search of users on right aside.
 # Visit the website here
 
 ## [Piston-adda](https://piston-adda.vercel.app/)

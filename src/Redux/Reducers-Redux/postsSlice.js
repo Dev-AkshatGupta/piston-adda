@@ -178,7 +178,9 @@ export const getAPost = createAsyncThunk("posts/getAPost", async (postId) => {
     const { data } = await axios.get(`/api/posts/${postId}`);
 
     return data.post;
-  } catch (error) {}
+  } catch (error) {
+      notifyError(error.response.data.error[0]);
+  }
 });
 
 const postsSlice = createSlice({
