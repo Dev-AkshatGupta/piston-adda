@@ -3,14 +3,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { notifyError } from "Utilities/Notifications";
 const initialState = {
   posts: [],
+  allPosts: [],
+  explorePosts:[],
   profilePosts: [],
   bookmark: [],
-  liked:[],
+  liked: [],
   currentPost: {},
   loadingStatus: false,
   editModalDisplay: false,
-  editedPost:"",
-  editPostId:"",
+  editedPost: "",
+  editPostId: "",
 };
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   try {
@@ -18,7 +20,7 @@ export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
     return data.posts;
   } catch (error) {
     console.log(error.response);
-     notifyError(error.response.data.error[0]);
+    notifyError(error.response.data.error[0]);
   }
 });
 
@@ -29,48 +31,46 @@ export const getProfilePosts = createAsyncThunk(
       const { data } = await axios.get(`/api/posts/user/${username}`);
       return data.posts;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
 );
 
-export const createPost = createAsyncThunk("posts/createPost", async (details) => {
-  try {
-    const encodedToken = localStorage.getItem("token");
- 
-    const { data } = await axios.post(
-      "/api/posts/",
-      { content: details.post,
-        imageUrl:details.imageUrl 
-      },
-      { headers: { authorization: encodedToken } }
-    );
-    return data.posts;
-  } catch (error) {
-     notifyError(error.response.data.error[0]);
-    console.log(error);
-  }
-});
-
-export const editPost = createAsyncThunk(
-  "posts/editPost",
+export const createPost = createAsyncThunk(
+  "posts/createPost",
   async (details) => {
-    const {content, postId}=details;
     try {
       const encodedToken = localStorage.getItem("token");
+
       const { data } = await axios.post(
-        `/api/posts/edit/${postId}`,
-        { content: content },
+        "/api/posts/",
+        { content: details.post, imageUrl: details.imageUrl },
         { headers: { authorization: encodedToken } }
       );
       return data.posts;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+      notifyError(error.response.data.error[0]);
       console.log(error);
     }
   }
 );
+
+export const editPost = createAsyncThunk("posts/editPost", async (details) => {
+  const { content, postId } = details;
+  try {
+    const encodedToken = localStorage.getItem("token");
+    const { data } = await axios.post(
+      `/api/posts/edit/${postId}`,
+      { content: content },
+      { headers: { authorization: encodedToken } }
+    );
+    return data.posts;
+  } catch (error) {
+    notifyError(error.response.data.error[0]);
+    console.log(error);
+  }
+});
 
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
@@ -80,10 +80,10 @@ export const deletePost = createAsyncThunk(
       const { data } = await axios.delete(`/api/posts/${postId}`, {
         headers: { authorization: encodedToken },
       });
-     
+
       return data.posts;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -99,7 +99,7 @@ export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
     );
     return data;
   } catch (error) {
-     notifyError(error.response.data.error[0]);
+    notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });
@@ -114,10 +114,10 @@ export const disLikePost = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
-      
+
       return data;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -134,7 +134,7 @@ export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
     return data.bookmarks;
   } catch (error) {
     console.log(error);
-     notifyError(error.response.data.error[0]);
+    notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });
@@ -151,7 +151,7 @@ export const deleteBookMark = createAsyncThunk(
       );
       return data.bookmarks;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+      notifyError(error.response.data.error[0]);
       console.log(error.response);
     }
   }
@@ -168,7 +168,7 @@ export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
 
     return data.bookmarks;
   } catch (error) {
-     notifyError(error.response.data.error[0]);
+    notifyError(error.response.data.error[0]);
     console.log(error.response);
   }
 });
@@ -179,7 +179,7 @@ export const getAPost = createAsyncThunk("posts/getAPost", async (postId) => {
 
     return data.post;
   } catch (error) {
-      notifyError(error.response.data.error[0]);
+    notifyError(error.response.data.error[0]);
   }
 });
 
@@ -187,18 +187,27 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    changeModalDisplay(state,action) {
-      state.editModalDisplay=!state.editModalDisplay;
-      state.editPostId=action.payload;
+    changeModalDisplay(state, action) {
+      state.editModalDisplay = !state.editModalDisplay;
+      state.editPostId = action.payload;
     },
-    editPostContent(state,action){
-      state.editedPost=action.payload;
-    }
+    editPostContent(state, action) {
+      state.editedPost = action.payload;
+    },
+    searchPost(state, action) {
+      state.explorePosts = state.allPosts.filter(
+        ({ content, username }) =>
+          username.toLowerCase().includes(action.payload.toLowerCase()) ||
+          content.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(getAllPosts.fulfilled, (state, action) => {
         state.posts = action.payload;
+        state.allPosts = action.payload;
+        state.explorePosts=action.payload;
       })
       .addCase(getProfilePosts.fulfilled, (state, action) => {
         state.profilePosts = action.payload;
@@ -208,11 +217,11 @@ const postsSlice = createSlice({
       })
       .addCase(likePost.fulfilled, (state, action) => {
         state.posts = action.payload.posts;
-        state.liked=action.payload.liked;
+        state.liked = action.payload.liked;
       })
       .addCase(disLikePost.fulfilled, (state, action) => {
         state.posts = action.payload.posts;
-        state.liked = action.payload.liked ;
+        state.liked = action.payload.liked;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.posts = action.payload;
@@ -238,5 +247,6 @@ const postsSlice = createSlice({
       });
   },
 });
-export const { changeModalDisplay,editPostContent } = postsSlice.actions;
+export const { changeModalDisplay, editPostContent, searchPost } =
+  postsSlice.actions;
 export default postsSlice.reducer;
