@@ -41,7 +41,7 @@ export const createPost = createAsyncThunk(
   "posts/createPost",
   async (details) => {
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
 
       const { data } = await axios.post(
         "/api/posts/",
@@ -59,7 +59,7 @@ export const createPost = createAsyncThunk(
 export const editPost = createAsyncThunk("posts/editPost", async (details) => {
   const { content, postId } = details;
   try {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     const { data } = await axios.post(
       `/api/posts/edit/${postId}`,
       { content: content },
@@ -75,7 +75,7 @@ export const editPost = createAsyncThunk("posts/editPost", async (details) => {
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (postId) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     try {
       const { data } = await axios.delete(`/api/posts/${postId}`, {
         headers: { authorization: encodedToken },
@@ -91,7 +91,7 @@ export const deletePost = createAsyncThunk(
 
 export const likePost = createAsyncThunk("posts/likePost", async (postId) => {
   try {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     const { data } = await axios.post(
       `/api/posts/like/${postId}`,
       {},
@@ -108,7 +108,7 @@ export const disLikePost = createAsyncThunk(
   "posts/disLikePost",
   async (postId) => {
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/posts/dislike/${postId}`,
         {},
@@ -125,7 +125,7 @@ export const disLikePost = createAsyncThunk(
 
 export const bookMark = createAsyncThunk("posts/bookMark", async (postId) => {
   try {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     const { data } = await axios.post(
       `/api/users/bookmark/${postId}`,
       {},
@@ -143,7 +143,7 @@ export const deleteBookMark = createAsyncThunk(
   "posts/deleteBookMark",
   async (postId) => {
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/users/remove-bookmark/${postId}`,
         {},
@@ -159,7 +159,7 @@ export const deleteBookMark = createAsyncThunk(
 
 export const getBookMarks = createAsyncThunk("posts/getBookMarks", async () => {
   try {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     const { data } = await axios.get(
       `/api/users/bookmark/`,
       {},

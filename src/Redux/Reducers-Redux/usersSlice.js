@@ -33,7 +33,7 @@ export const getAUser = createAsyncThunk("users/getAUser", async (userId) => {
 export const unFollowUser = createAsyncThunk(
   "users/unFollowUser",
   async (followUserId) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     try {
       const { data } = await axios.post(
         `/api/users/unfollow/${followUserId}`,
@@ -51,7 +51,7 @@ export const unFollowUser = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "users/followUser",
   async (followUserId) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken = localStorage.getItem("piston-adda-token");
     try {
       const { data } = await axios.post(
         `/api/users/follow/${followUserId}`,
