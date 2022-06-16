@@ -1,9 +1,9 @@
-import React, { useEffect,useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./RightAside.css";
 import { FollowCard } from "Components/FollowCard/FollowCard";
 import { useSelector, useDispatch } from "react-redux";
 import { searchUser } from "Redux/Reducers-Redux/usersSlice";
-import {debounce} from "Utilities/debounce";
+import { debounce } from "Utilities/debounce";
 function RightAside() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const usersArr = useSelector((state) => state.users.users).filter(
@@ -11,9 +11,12 @@ function RightAside() {
   );
   const dispatch = useDispatch();
   const currentUserObj = useSelector((state) => state.users.currentUser);
-  
-  
-const search= debounce((input)=>{dispatch(searchUser(input))}, 1500);
+
+  const search = debounce((input) => {
+    dispatch(searchUser(input));
+  }, 1500);
+ 
+
 
   return (
     <div className="layout__right-sidebar-container">
@@ -34,13 +37,17 @@ const search= debounce((input)=>{dispatch(searchUser(input))}, 1500);
             <div className="who-to-follow__heading">Who to follow</div>
           </div>
 
-          {usersArr.length>0?usersArr.map((user) => (
-            <FollowCard
-              userObj={user}
-              key={user._id}
-              currentUserObj={currentUserObj}
-            />
-          )):<p className=" text-center">no such user...</p>}
+          {usersArr.length > 0 ? (
+            usersArr.map((user) => (
+              <FollowCard
+                userObj={user}
+                key={user._id}
+                currentUserObj={currentUserObj}
+              />
+            ))
+          ) : (
+            <p className=" text-center">no such user...</p>
+          )}
         </div>
       </div>
     </div>
