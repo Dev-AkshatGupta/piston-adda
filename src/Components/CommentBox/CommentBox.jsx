@@ -5,10 +5,11 @@ import {
   upVoteComment,
   downVoteComment,
 } from "Redux/Reducers-Redux/commentsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {BsFillArrowDownSquareFill,BsFillArrowUpSquareFill} from "react-icons/bs"
 const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
   const dispatch = useDispatch();
-  
+  const currentUser=useSelector((state)=>state.auth?.currentUser);
   return (
     <>
       <div className="post">
@@ -63,34 +64,66 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
           </div>
           <div className="post__content">
             {commentObj?.content}
-            {commentObj?.imageUrl && <img src={commentObj?.imageUrl} alt="commentImage" />}
+            {commentObj?.imageUrl && (
+              <img src={commentObj?.imageUrl} alt="commentImage" />
+            )}
           </div>
         </div>
       </div>
       <div className="post__bottom">
-        <button
-          className=""
-          onClick={() => {
-            dispatch(
-              upVoteComment({ postId: postObj._id, commentId: commentObj._id })
-            );
-          }}
-        >
-          Up Vote{postObj?.votes?.upvotedBy.length}
-        </button>
-        <button
-          className=""
-          onClick={() => {
-            dispatch(
-              downVoteComment({
-                postId: postObj._id,
-                commentId: commentObj._id,
-              })
-            );
-          }}
-        >
-          Down Vote{postObj?.votes?.downvotedBy.length}
-        </button>
+        {commentObj.votes?.upvotedBy?.some(
+          ({ _id }) => _id === currentUser._id
+        ) ? (
+          <>
+            <button
+              title="downvote"
+              className="text-2xl text-accent"
+              onClick={() => {
+                dispatch(
+                  downVoteComment({
+                    postId: postObj._id,
+                    commentId: commentObj._id,
+                  })
+                );
+              }}
+            >
+              <BsFillArrowUpSquareFill />
+            </button>
+            <button
+              title="downvote"
+              className="text-2xl text-slate-400"
+              onClick={() => {
+                dispatch(
+                  downVoteComment({
+                    postId: postObj._id,
+                    commentId: commentObj._id,
+                  })
+                );
+              }}
+            >
+              <BsFillArrowDownSquareFill />
+            </button>
+          </>
+        ) : (
+          <>
+            <span>
+              <button
+                className="text-2xl text-slate-400"
+                onClick={() => {
+                  dispatch(
+                    upVoteComment({
+                      postId: postObj._id,
+                      commentId: commentObj._id,
+                    })
+                  );
+                }}
+              >
+                <BsFillArrowUpSquareFill />
+              </button>
+              {` ${"  "} ${commentObj?.votes?.upvotedBy.length}`}
+            </span>
+          </>
+        )}
       </div>
     </>
   );

@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./RightAside.css";
 import { FollowCard } from "Components/FollowCard/FollowCard";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { searchUser } from "Redux/Reducers-Redux/usersSlice";
+import { debounce } from "Utilities/debounce";
 function RightAside() {
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const usersArr = useSelector((state) => state.users.users).filter((user) => user.id !== currentUser.id
+  const usersArr = useSelector((state) => state.users.users).filter(
+    (user) => user.id !== currentUser.id
   );
-  // This state is being continiously updated on follow and un-follow and used for that only
-  const currentUserObj=useSelector(state=>state.users.currentUser);
+  const dispatch = useDispatch();
+  const currentUserObj = useSelector((state) => state.users.currentUser);
+
+  const search = debounce((input) => {
+    dispatch(searchUser(input));
+  }, 1500);
+ 
+
+
   return (
     <div className="layout__right-sidebar-container">
       <div className="layout__right-sidebar">
@@ -17,41 +26,28 @@ function RightAside() {
             <input
               type="text"
               className="nav-bottom-search"
-              placeholder=" search"
+              placeholder=" search username or name"
+              onKeyUp={(e) => search(e.target.value)}
             />
           </div>
         </header>
-        <div className="trends-for-you">
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__heading">Trends for you</div>
-          </div>
 
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__meta-information">
-              Trending in Germany
-            </div>
-            <div className="trends-for-you__trend-name">#AmazonPrimeDay</div>
-          </div>
-          <div className="trends-for-you__block">
-            <div className="trends-for-you__meta-information">
-              Trending - Trending
-            </div>
-            <div className="trends-for-you__trend-name">#autos</div>
-            <div className="trends-for-you__meta-information">2,800 Tweets</div>
-          </div>
-        </div>
         <div className="who-to-follow">
           <div className="who-to-follow__block">
             <div className="who-to-follow__heading">Who to follow</div>
           </div>
 
-          {usersArr.map((user) => (
-            <FollowCard
-              userObj={user}
-              key={user._id}
-              currentUserObj={currentUserObj}
-            />
-          ))}
+          {usersArr.length > 0 ? (
+            usersArr.map((user) => (
+              <FollowCard
+                userObj={user}
+                key={user._id}
+                currentUserObj={currentUserObj}
+              />
+            ))
+          ) : (
+            <p className=" text-center">no such user...</p>
+          )}
         </div>
       </div>
     </div>

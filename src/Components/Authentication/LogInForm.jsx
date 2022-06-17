@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./authentication.css";
 import { login } from "Redux/Reducers-Redux/authSlice";
 import { useDispatch } from "react-redux";
-import { notifyError } from "./../../Utilities/Notifications";
+import { notifyError } from "Utilities/Notifications";
+import {throttling}from 'Utilities/debounce'
 function LogInForm({ children }) {
   const [viewPassword, setViewPassword] = useState(false);
   const [details, setDetails] = useState({
@@ -28,10 +29,10 @@ function LogInForm({ children }) {
     e.preventDefault();
    
     if (validateDetails(details)) {
-      dispatch(login(details));
+       throttle(details);
     }
   }
-
+const throttle = throttling((input)=>{dispatch(login(input))}, 3000);
   return (
     <>
       <h2 className="text-gray-900 text-lg font-medium title-font mb-5 text-center mt-2.5">
@@ -84,7 +85,8 @@ function LogInForm({ children }) {
         className="btn btn-outline-pri  py-2 px-8  rounded text-lg mt-1.5"
         onClick={(e) => {
           e.preventDefault();
-          dispatch(login({ username: "akshat", password: "akshat" }));
+          
+          throttle({ username: "akshat", password: "akshat" }); 
         }}
       >
         Guest Log-In

@@ -14,7 +14,8 @@
 border-right: solid .25px var(--SLATE-300);
 border-left: solid .25px var(--SLATE-300);
 margin-right: 2px;
-max-width:573px ;}
+max-width:573px ;
+}
 
 /* main layout block */
 .layout__main-header {
@@ -27,6 +28,7 @@ max-width:573px ;}
   align-items: center;
   justify-content: flex-start;
   top: 0;
+  
   position: fixed;
   border-bottom:solid .25px var(--SLATE-300);
   border-left:solid .25px var(--SLATE-300);
