@@ -16,10 +16,6 @@ import CommentBox from "Components/CommentBox/CommentBox";
 import EditModal from "Components/EditModal/EditModal";
 import { TextArea } from "Components/PostInput/TextArea";
 import { notifyError } from "Utilities/Notifications";
-import {
-  BsFillArrowUpSquareFill,
-  BsFillArrowDownSquareFill,
-} from "react-icons/bs";
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -35,36 +31,36 @@ const PostPage = () => {
   const [modalDisplay, setModalDisplay] = useState(false);
   const [editComment, setEditComment] = useState(comment);
   const [commentId, setCommentId] = useState("");
-  const [image, setImage] = useState("");
-  const imageHandler = async (image, content) => {
-    try {
-      const data = new FormData();
-      data.append("file", image);
-      data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
-      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_KEY);
+  const[image,setImage]=useState("");
+   const imageHandler = async (image, content) => {
+     try {
+       const data = new FormData();
+       data.append("file", image);
+       data.append("cloud_name", "piston");
+       data.append("upload_preset", "fridayaaa");
 
-      fetch(process.env.REACT_APP_CLOUDINARY_LINK_KEY ?? "", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(
-            createComment({
-              commentData: comment,
-              postId: selectedPost?._id,
-              imageUrl: data.secure_url,
-            })
-          );
-          setComment("");
-          setImage("");
-        });
-    } catch (error) {
-      console.log(error);
-      notifyError("There is some problem with uploading image");
-      setImage("");
-    }
-  };
+       fetch("https://api.cloudinary.com/v1_1/piston/image/upload" ?? "", {
+         method: "post",
+         body: data,
+       })
+         .then((res) => res.json())
+         .then((data) => {
+            dispatch(
+              createComment({
+                commentData: comment,
+                postId: selectedPost?._id,
+                imageUrl: data.secure_url,
+              })
+            );
+           setComment("");
+           setImage("");
+         });
+     } catch (error) {
+       console.log(error);
+       notifyError("There is some problem with uploading image");
+       setImage("");
+     }
+   };
   return (
     <div className="layout">
       <LeftAside />
@@ -116,7 +112,7 @@ const PostPage = () => {
           <EditModal
             setModalDisplay={setModalDisplay}
             setCommentId={setCommentId}
-            textArea={<TextArea setPost={setEditComment} post={editComment} />}
+            textArea={<TextArea setPost={setEditComment} post={editComment}/>}
           >
             <button
               className="
@@ -133,19 +129,10 @@ const PostPage = () => {
                   transition
                   btn
                   "
-              onClick={() => {
-                setModalDisplay((display) => !display);
-                dispatch(
-                  editCommentData({
-                    commentId: commentId,
-                    postId: postId,
-                    commentData: editComment,
-                  })
-                );
+              onClick={() =>{ setModalDisplay((display) => !display);
+              dispatch(editCommentData({commentId:commentId,postId:postId,commentData:editComment}));
               }}
-            >
-              Edit Comment
-            </button>
+            >Edit Comment</button>
           </EditModal>
         )}
       </div>

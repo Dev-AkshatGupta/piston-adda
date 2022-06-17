@@ -87,7 +87,7 @@ export const createPostHandler = function (schema, request) {
         likedBy: [],
         dislikedBy: [],
       },
-      imageUrl: imageUrl,
+      imageUrl:imageUrl,
       comments: [],
       userPhoto: user?.profilePhoto?.chosen
         ? user?.profilePhoto?.chosen
@@ -130,7 +130,7 @@ export const editPostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    
+    // const { postData } = JSON.parse(request.requestBody);
     const { content } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
@@ -190,15 +190,8 @@ export const likePostHandler = function (schema, request) {
     );
     post.likes.likeCount += 1;
     post.likes.likedBy.push(user);
-   
-    user.liked.push(JSON.parse(JSON.stringify(post)));
-    this.db.users.update(
-      { _id: user._id },
-      { ...user, updatedAt: formatDate() }
-    );
-
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-    return new Response(201, {}, { posts: this.db.posts, liked: user.liked });
+    return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(
       500,
@@ -216,7 +209,7 @@ export const likePostHandler = function (schema, request) {
  * */
 
 export const dislikePostHandler = function (schema, request) {
-  let user = requiresAuth.call(this, request);
+  const user = requiresAuth.call(this, request);
   try {
     if (!user) {
       return new Response(
@@ -231,7 +224,6 @@ export const dislikePostHandler = function (schema, request) {
     }
     const postId = request.params.postId;
     let post = schema.posts.findBy({ _id: postId }).attrs;
-
     if (post.likes.likeCount === 0) {
       return new Response(
         400,
@@ -251,18 +243,9 @@ export const dislikePostHandler = function (schema, request) {
       (currUser) => currUser._id !== user._id
     );
     post.likes.dislikedBy.push(user);
-    const filteredLiked = user.liked.filter(
-      (currPost) => currPost._id !== postId
-    );
-    user = { ...user, liked: filteredLiked };
-    this.db.users.update(
-      { _id: user._id },
-      { ...user, updatedAt: formatDate() }
-    );
-
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
-    return new Response(201, {}, { posts: this.db.posts, liked: user.liked });
+    return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(
       500,

@@ -21,7 +21,7 @@ export const posts = [
       "https://pbs.twimg.com/profile_images/1515328412885610503/8LHDJf1a_200x200.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    imageUrl:
+   imageUrl:
       "https://images.pexels.com/photos/267569/pexels-photo-267569.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     comments: [
       {
@@ -38,7 +38,7 @@ export const posts = [
         updatedAt: "2022-05-13T23:15:24+05:30",
       },
     ],
-    userId: "8f9a9720-4c73-44b2-a4cf-71482e794d0e",
+    userId: 1,
   },
   {
     _id: uuid(),
@@ -49,14 +49,13 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    photoUrl: "",
-    userPhoto:
-      "https://pbs.twimg.com/profile_images/1516014184969826305/a_7EKaso_200x200.jpg",
+      photoUrl:"",
+    userPhoto:      "https://pbs.twimg.com/profile_images/1516014184969826305/a_7EKaso_200x200.jpg",
     username: "@annamalai_k",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
-    userId: "4675f040-bebf-45ba-9c9c-f551587412f6",
+    userId: 3,
   },
   {
     _id: uuid(),
@@ -67,14 +66,14 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    photoUrl: "",
+      photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1426015031360049153/QYd08TfK_200x200.jpg",
     username: "@jsaideepak",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
-    userId: "52cf33fd-8665-4771-a940-0ccb9b5f433d",
+    userId: 4,
   },
   {
     _id: uuid(),
@@ -85,14 +84,14 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    photoUrl: "",
+    photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1512802297717342217/av29k04g_200x200.jpg",
     username: "@ARanganathan72",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
-    userId: "a7fe04ea-3740-4b39-bdf8-784fa5dc5445",
+    userId: 5,
   },
   {
     _id: uuid(),
@@ -103,13 +102,13 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    photoUrl: "",
+    photoUrl:"",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1514922147365330948/qeCXYlZR_200x200.jpg",
     username: "@Iyervval",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
-    userId: "362be157-f9f3-4c6d-a2a5-386e7c852c34",
+    userId: 2,
   },
 ];

@@ -4,7 +4,7 @@ function Page404() {
   return (
     <div className="page-404">
       <span className="text"> PAGE 404 Go Back to Homepage</span>
-      <Link to="/homePage" className="btn btn-outline-pri">
+      <Link to="/" className="btn btn-outline-pri">
         Home Page
       </Link>
     </div>

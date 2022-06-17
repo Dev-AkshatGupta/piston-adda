@@ -2,6 +2,7 @@ import React from "react";
 import "./Post.css";
 import { BiComment } from "react-icons/bi";
 import { BsBookmarkFill } from "react-icons/bs";
+import { AiOutlineRetweet } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {
   likePost,
@@ -15,13 +16,11 @@ import DropDown from "Components/DropDown/DropDown";
 import { Link } from "react-router-dom";
 function Post({ postObj, currentUserObj, loggedInUser }) {
   const dispatch = useDispatch();
-  const { content, username, userPhoto, _id, id } = postObj;
-  const isPostInBookMark = useSelector((state) => state.posts?.bookmark)?.some(
+  const { content, username, userPhoto, _id, id: postId } = postObj;
+  const { id } = currentUserObj;
+  const isPostInBookMark = useSelector((state) => state?.posts?.bookmark)?.some(
     (post) => post._id === _id
   );
-  const isPostLikedByCurrentUser = useSelector(
-    (state) => state.posts?.liked
-  )?.some((post) => post._id === _id);
 
   return (
     <>
@@ -79,8 +78,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
         </div>
       </div>
       <div className="post__bottom">
-    
-        {isPostLikedByCurrentUser ? (
+        {postObj?.likes?.likedBy?.some((post) => post.id === id) ? (
           <i
             className="fas fa-heart"
             onClick={() => dispatch(disLikePost(_id))}

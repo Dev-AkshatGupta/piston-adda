@@ -5,10 +5,10 @@ export const settingsImageHandler = async (details,dispatch) => {
   try {
     const data = new FormData();
     data.append("file", details.profilePhoto.chosen);
-    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
-    data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_KEY);
+    data.append("cloud_name", "piston");
+    data.append("upload_preset", "fridayaaa");
 
-    fetch(process.env.REACT_APP_CLOUDINARY_LINK_KEY ?? "", {
+    fetch("https://api.cloudinary.com/v1_1/piston/image/upload" ?? "", {
       method: "post",
       body: data,
     })

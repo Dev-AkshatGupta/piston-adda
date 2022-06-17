@@ -8,7 +8,7 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: uuid(),
-    id: "8f9a9720-4c73-44b2-a4cf-71482e794d0e",
+    id: 1,
     firstName: "Akshat",
     username: "akshat",
     password: "akshat",
@@ -23,17 +23,16 @@ export const users = [
       chosen:
         "https://pbs.twimg.com/profile_banners/1248318243963461632/1637937949/600x200",
     },
-
+    
     createdAt: formatDate(),
     updatedAt: formatDate(),
     followers: [],
     following: [],
     bookmarks: [],
-    liked: [],
   },
   {
     _id: uuid(),
-    id: "362be157-f9f3-4c6d-a2a5-386e7c852c34",
+    id: 2,
     firstName: "Abhijit Iyer-Mitra",
     username: "@Iyervval",
     password: "@Iyervval",
@@ -53,11 +52,10 @@ export const users = [
     followers: [],
     following: [],
     bookmarks: [],
-    liked: [],
   },
   {
     _id: uuid(),
-    id: "4675f040-bebf-45ba-9c9c-f551587412f6",
+    id: 3,
     bio: "Tamil Nadu BJP head",
     firstName: "K.Annamalai",
     username: "@annamalai_k",
@@ -80,7 +78,7 @@ export const users = [
   },
   {
     _id: uuid(),
-    id: "52cf33fd-8665-4771-a940-0ccb9b5f433d",
+    id: 4,
     bio: "Supreme Court advocate",
     firstName: "Sai Deepak J",
     username: "@jsaideepak",
@@ -100,10 +98,11 @@ export const users = [
     followers: [],
     following: [],
     bookmarks: [],
+   
   },
   {
     _id: uuid(),
-    id: "a7fe04ea-3740-4b39-bdf8-784fa5dc5445",
+    id: 5,
     firstName: "Anand Ranganathan",
     username: "@ARanganathan72",
     password: "Anand123",
