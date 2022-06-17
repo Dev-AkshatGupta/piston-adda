@@ -25,7 +25,7 @@ export const createComment = createAsyncThunk(
   async (details) => {
     const { postId, commentData, imageUrl } = details;
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/comments/add/${postId}`,
         { content: commentData, imageUrl: imageUrl },
@@ -45,7 +45,7 @@ export const deleteComment = createAsyncThunk(
     const { postId, commentId } = details;
 
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/comments/delete/${postId}/${commentId}`,
         {},
@@ -63,7 +63,7 @@ export const editCommentData = createAsyncThunk(
   async (details) => {
     const { postId, commentData, commentId } = details;
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/comments/edit/${postId}/${commentId}`,
         { content: commentData },
@@ -83,7 +83,7 @@ export const upVoteComment = createAsyncThunk(
     const { postId, commentId } = details;
 
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/comments/upvote/${postId}/${commentId}`,
         {},
@@ -103,7 +103,7 @@ export const downVoteComment = createAsyncThunk(
   async (details) => {
     const { postId, commentId } = details;
     try {
-      const encodedToken = localStorage.getItem("token");
+      const encodedToken = localStorage.getItem("piston-adda-token");
       const { data } = await axios.post(
         `/api/comments/downvote/${postId}/${commentId}`,
         {},
@@ -141,6 +141,7 @@ const commentsSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(upVoteComment.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.comments = action.payload;
       })
       .addCase(downVoteComment.fulfilled, (state, action) => {
