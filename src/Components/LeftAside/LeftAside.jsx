@@ -6,7 +6,7 @@ import { HiHashtag, HiLogout } from "react-icons/hi";
 import { BsGear } from "react-icons/bs";
 import { useSelector ,useDispatch} from "react-redux";
 import { CgProfile } from "react-icons/cg";
-import {logOut} from "./../../Redux/Reducers-Redux/authSlice";
+import {logOut} from "Redux/Reducers-Redux/authSlice";
 function LeftAside() {
   const currentUser = useSelector((state) => state?.auth?.currentUser);
   const dispatch=useDispatch();
