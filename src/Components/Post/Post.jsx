@@ -22,7 +22,6 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
   const isPostLikedByCurrentUser = useSelector(
     (state) => state.posts?.liked
   )?.some((post) => post._id === _id);
-
   return (
     <>
       <div className="post">
@@ -35,17 +34,17 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
               <Link to={`/profilePage/${postObj?.userId}`}>
                 <span className="post__author-name">{username}</span>
                 <span className="post__author-slug">{username}</span>
-                <span className="post__publish-time">10d</span>
+                {/* ToDO */}
+                {/* <span className="post__publish-time">10d</span> */}
               </Link>
             </div>
             {username === loggedInUser?.username && (
               <DropDown>
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                <div
+                  className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black       ring-opacity-5"
+                >
                   <div
                     className="py-1 "
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="options-menu"
                   >
                     <a
                       className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
@@ -57,7 +56,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
                     </a>
                     <a
                       className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
-                      onClick={() => dispatch(changeModalDisplay(_id))}
+                      onClick={() => dispatch(changeModalDisplay(postObj))}
                     >
                       <span className="flex flex-col flex-center">
                         <span>Edit Post</span>
@@ -69,9 +68,7 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
             )}
           </div>
           <div className="post__content">
-            <Link className="" to={`/post/${_id}`}>
-              {content}
-            </Link>
+            <Link to={`/post/${_id}`}>{content}</Link>
             {postObj?.imageUrl && (
               <img src={postObj?.imageUrl} alt="post-photo" />
             )}
@@ -79,7 +76,18 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
         </div>
       </div>
       <div className="post__bottom">
-    
+        {isPostInBookMark ? (
+          <BsBookmarkFill onClick={() => dispatch(deleteBookMark(_id))} />
+        ) : (
+          <i
+            className="fal fa-bookmark"
+            onClick={() => dispatch(bookMark(_id))}
+          ></i>
+        )}
+        <Link to={`/post/${_id}`}>
+          <BiComment />
+        </Link>
+
         {isPostLikedByCurrentUser ? (
           <i
             className="fas fa-heart"
@@ -89,18 +97,6 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
           <i
             className="fal fa-heart"
             onClick={() => dispatch(likePost(_id))}
-          ></i>
-        )}
-
-        <Link to={`/post/${_id}`}>
-          <BiComment />
-        </Link>
-        {isPostInBookMark ? (
-          <BsBookmarkFill onClick={() => dispatch(deleteBookMark(_id))} />
-        ) : (
-          <i
-            className="fal fa-bookmark"
-            onClick={() => dispatch(bookMark(_id))}
           ></i>
         )}
       </div>

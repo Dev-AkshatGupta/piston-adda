@@ -71,10 +71,10 @@ setPost("");
             Vroom
           </button>
         </PostInput>
-        {postsArr?.map((post) => (
+        {postsArr?.map((post,i) => (
           <Post
-            postObj={post}
-            key={post._id}
+            postObj={postsArr[postsArr.length-1-i]}
+            // key={postsArr[postsArr.length-1-i][_id]}
             currentUserObj={currentUser}
             loggedInUser={currentUser}
           />

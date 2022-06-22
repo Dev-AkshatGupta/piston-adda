@@ -11,8 +11,7 @@ const initialState = {
   currentPost: {},
   loadingStatus: false,
   editModalDisplay: false,
-  editedPost: "",
-  editPostId: "",
+  editPost: "",
 };
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   try {
@@ -188,11 +187,9 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     changeModalDisplay(state, action) {
+      const post=action.payload;
       state.editModalDisplay = !state.editModalDisplay;
-      state.editPostId = action.payload;
-    },
-    editPostContent(state, action) {
-      state.editedPost = action.payload;
+      state.editPost =post;
     },
     searchPost(state, action) {
       state.explorePosts = state.allPosts.filter(

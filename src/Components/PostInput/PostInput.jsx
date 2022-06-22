@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./PostInput.css";
 import { TextArea } from "./TextArea";
 import { GrGallery } from "react-icons/gr";
-import { AiOutlineFileGif } from "react-icons/ai";
 import { BsEmojiSmile } from "react-icons/bs";
 import Picker from "emoji-picker-react";
+import { useNavigate } from "react-router-dom";
 function PostInput({ children, userObj, setPost, post, setImage }) {
   const { profilePhoto, username } = userObj;
   const [showPicker, setShowPicker] = useState(false);
@@ -12,11 +12,18 @@ function PostInput({ children, userObj, setPost, post, setImage }) {
     setPost((prevInput) => prevInput + emojiObject.emoji);
     setShowPicker(false);
   };
-
+  const navigate=useNavigate();
   return (
     <>
       <div className="postInput">
-        <img className="post__author-logo" src={profilePhoto.chosen} />
+       
+        <span
+          className="cursor-pointer"
+          onClick={navigate.bind(this, `/profilePage/${userObj?.id}`)}
+        >
+          <img className="post__author-logo" src={profilePhoto.chosen} />
+        </span>
+
         <div className="post__main">
           <div className="post__content">
             <TextArea setPost={setPost} post={post} />
@@ -31,7 +38,7 @@ function PostInput({ children, userObj, setPost, post, setImage }) {
               type="file"
               accept="image/*"
               name="post image"
-              onChange={(e) => {  
+              onChange={(e) => {
                 setImage(e.target.files[0]);
               }}
               placeholder="shit"

@@ -37,7 +37,7 @@ function ProfilePage() {
 
   const loggedInUser = useSelector((state) => state.auth?.currentUser);
 
-  console.log(profile);
+ 
   return (
     <div className="layout">
       <div className="layout__left-sidebar">

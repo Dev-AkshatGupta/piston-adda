@@ -42,7 +42,6 @@ const PostPage = () => {
       data.append("file", image);
       data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
       data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_KEY);
-
       fetch(process.env.REACT_APP_CLOUDINARY_LINK_KEY ?? "", {
         method: "post",
         body: data,

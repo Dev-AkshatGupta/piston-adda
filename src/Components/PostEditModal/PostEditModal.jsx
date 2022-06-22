@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeModalDisplay,editPost } from "Redux/Reducers-Redux/postsSlice";
+import { changeModalDisplay, editPost } from "Redux/Reducers-Redux/postsSlice";
 
-const PostEditModal = ({textArea,children}) => {
+const PostEditModal = ({ }) => {
   const dispatch = useDispatch();
-  const editPostContent=useSelector(state=>state?.posts?.editedPost);
-  const editPostId=useSelector(state=>state?.posts?.editPostId);
+  // const editPostContent = useSelector((state) => state?.posts?.editedPost);
+  const postToBeEdited = useSelector((state) => state?.posts?.editPost);
+  const [editPostObj, setEditPost] = useState(postToBeEdited);
+
   return (
     <section>
       <div
@@ -41,7 +43,22 @@ const PostEditModal = ({textArea,children}) => {
             Edit Post
           </h3>
           <span className="inline-block bg-primary h-1 w-[90px] mx-auto rounded mb-6"></span>
-          {textArea}
+          {/* {textArea} */}
+
+          <textarea
+            role="textbox"
+            type="text"
+            name="post"
+            className="postInput__content-input"
+            placeholder="Write something in this"
+            rows="3"
+            onChange={(e) => {
+              setEditPost({ ...postToBeEdited, content: e.target.value });
+            
+            }}
+         
+            value={editPostObj.content}
+          ></textarea>
           <div className="flex flex-wrap -mx-3">
             <div className="w-1/2 px-3">
               <button
@@ -82,13 +99,17 @@ const PostEditModal = ({textArea,children}) => {
                   btn
                   "
                 onClick={() => {
-                    dispatch(editPost({ content:editPostContent, postId:editPostId }));
+                  dispatch(
+                    editPost({
+                      content: editPostObj.content,
+                      postId: editPostObj._id,
+                    })
+                  );
                   dispatch(changeModalDisplay());
                 }}
               >
                 Edit Comment
               </button>
-              
             </div>
           </div>
         </div>
@@ -98,4 +119,4 @@ const PostEditModal = ({textArea,children}) => {
 };
 
 export default PostEditModal;
-    // dispatch(editPostContent(e.target.value));
+;
