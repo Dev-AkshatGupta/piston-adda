@@ -9,7 +9,7 @@ import {
   getAllPosts,
   getBookMarks,
 } from "Redux/Reducers-Redux/postsSlice";
-import PostEditModal from "Components/PostEditModal/PostEditModal";
+import GlobalComponents from "GlobalComponents";
 import BottomNav from "Components/BottomNav/BottomNav";
 function App() {
   const dispatch = useDispatch();
@@ -20,16 +20,12 @@ function App() {
     dispatch(getBookMarks());
   }, []);
   const location = useLocation();
-  const editModalDisplay = useSelector(
-    (state) => state?.posts?.editModalDisplay
-  );
+ 
 
   return (
     <div className="App">
       <AllRoutes />
-      {editModalDisplay && (
-        <PostEditModal/>
-      )}
+      <GlobalComponents/>
       {location.pathname !== "/" && <BottomNav />}
       <ToastContainer />
       <div className="empty "></div>
