@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModalDisplay, editPost } from "Redux/Reducers-Redux/postsSlice";
 
-const PostEditModal = ({ }) => {
+const PostEditModal = ({}) => {
   const dispatch = useDispatch();
   // const editPostContent = useSelector((state) => state?.posts?.editedPost);
   const postToBeEdited = useSelector((state) => state?.posts?.editPost);
@@ -54,9 +54,7 @@ const PostEditModal = ({ }) => {
             rows="3"
             onChange={(e) => {
               setEditPost({ ...postToBeEdited, content: e.target.value });
-            
             }}
-         
             value={editPostObj.content}
           ></textarea>
           <div className="flex flex-wrap -mx-3">
@@ -108,7 +106,7 @@ const PostEditModal = ({ }) => {
                   dispatch(changeModalDisplay());
                 }}
               >
-                Edit Comment
+                Edit Post
               </button>
             </div>
           </div>
@@ -119,4 +117,3 @@ const PostEditModal = ({ }) => {
 };
 
 export default PostEditModal;
-;
