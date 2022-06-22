@@ -1,6 +1,6 @@
 import React from "react";
 import "./PostInput.css";
-function TextArea({ setPost, post, value }) {
+function TextArea({ setPost, post}) {
   return (
     <textarea
       role="textbox"

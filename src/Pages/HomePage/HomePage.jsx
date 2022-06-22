@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {v4 as uuid} from "uuid";
 import "./HomePage.css";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
@@ -74,7 +75,7 @@ setPost("");
         {postsArr?.map((post,i) => (
           <Post
             postObj={postsArr[postsArr.length-1-i]}
-            // key={postsArr[postsArr.length-1-i][_id]}
+            key={uuid()}
             currentUserObj={currentUser}
             loggedInUser={currentUser}
           />

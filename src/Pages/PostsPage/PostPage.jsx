@@ -16,10 +16,7 @@ import CommentBox from "Components/CommentBox/CommentBox";
 import EditModal from "Components/EditModal/EditModal";
 import { TextArea } from "Components/PostInput/TextArea";
 import { notifyError } from "Utilities/Notifications";
-import {
-  BsFillArrowUpSquareFill,
-  BsFillArrowDownSquareFill,
-} from "react-icons/bs";
+
 const PostPage = () => {
   const { postId } = useParams();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -33,9 +30,11 @@ const PostPage = () => {
   const loadingStatus = useSelector((state) => state.posts.loadingStatus);
   const [comment, setComment] = useState("");
   const [modalDisplay, setModalDisplay] = useState(false);
-  const [editComment, setEditComment] = useState(comment);
+  // const [editComment, setEditComment] = useState(comment);
+  const [editComment, setEditComment] = useState();
   const [commentId, setCommentId] = useState("");
   const [image, setImage] = useState("");
+  // const [commentConetentTobeEdited,]
   const imageHandler = async (image, content) => {
     try {
       const data = new FormData();
@@ -109,6 +108,7 @@ const PostPage = () => {
             postObj={selectedPost}
             setModalDisplay={setModalDisplay}
             setCommentId={setCommentId}
+            setCommentToEdit={setEditComment}
           />
         ))}
         {modalDisplay && (

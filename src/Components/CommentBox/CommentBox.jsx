@@ -7,9 +7,16 @@ import {
 } from "Redux/Reducers-Redux/commentsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {BsFillArrowDownSquareFill,BsFillArrowUpSquareFill} from "react-icons/bs"
-const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
+const CommentBox = ({
+  commentObj,
+  postObj,
+  setModalDisplay,
+  setCommentId,
+  setCommentToEdit,
+}) => {
   const dispatch = useDispatch();
-  const currentUser=useSelector((state)=>state.auth?.currentUser);
+  const currentUser = useSelector((state) => state.auth?.currentUser);
+
   return (
     <>
       <div className="post">
@@ -52,6 +59,7 @@ const CommentBox = ({ commentObj, postObj, setModalDisplay, setCommentId }) => {
                     onClick={() => {
                       setModalDisplay((display) => !display);
                       setCommentId(commentObj._id);
+                      setCommentToEdit(commentObj.content);
                     }}
                   >
                     <span className="flex flex-col flex-center">
