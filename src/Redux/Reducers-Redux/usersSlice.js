@@ -9,13 +9,18 @@ const initialState = {
   currentUser: {},
   followedUser: [],
 };
+const errorWarnFirst = (error) =>
+  error.response.data.error[0]
+    ? error.response.data.error[0]
+    : "Something went wrong";
 
+// const errorWarnSecond=
 export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
   try {
     const { data } = await axios.get(`/api/users`);
     return data;
   } catch (error) {
-    notifyError(error.response.data.error[0]);
+    notifyError(errorWarnFirst(error));
     console.log(error.response);
   }
 });
@@ -25,7 +30,7 @@ export const getAUser = createAsyncThunk("users/getAUser", async (userId) => {
     const { data } = await axios.get(`/api/users/${userId}`);
     return data.user;
   } catch (error) {
-    notifyError(error.response.data.error[0]);
+    notifyError(errorWarnFirst(error));
     console.log(error);
   }
 });
@@ -40,9 +45,10 @@ export const unFollowUser = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
+     
       return data;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -58,9 +64,10 @@ export const followUser = createAsyncThunk(
         {},
         { headers: { authorization: encodedToken } }
       );
+    
       return data;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -89,9 +96,11 @@ const usersSlice = createSlice({
       })
       .addCase(followUser.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
+        state.profile = action.payload.followUser;
       })
       .addCase(unFollowUser.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
+        state.profile = action.payload.followUser;
       });
   },
 });

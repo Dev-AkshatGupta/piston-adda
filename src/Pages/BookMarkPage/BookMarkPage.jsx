@@ -3,14 +3,13 @@ import "./bookMarkPage.css";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
-import { Outlet } from "react-router-dom";
+import { Outlet,useNavigate, useNavigationType } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const BookMarkPage = () => {
-
   const bookMarkPostArr = useSelector((state) => state.posts.bookmark);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  
+const navigate=useNavigate();
   return (
     <div className="layout">
       <div className="layout__left-sidebar ">
@@ -22,10 +21,24 @@ const BookMarkPage = () => {
         </header>
 
         <div className="empty"></div>
-
-        {bookMarkPostArr?.map((post) => (
-          <Post postObj={post} key={post._id} currentUserObj={currentUser} />
-        ))}
+        {bookMarkPostArr.length > 0 ? (
+          bookMarkPostArr?.map((post) => (
+            <Post postObj={post} key={post._id} currentUserObj={currentUser} />
+          ))
+        ) : (
+          <>
+            <p className="text-center">There are no bookmarks</p>
+            <div className="flex justify-center">
+              {" "}
+              <button
+                className="btn btn-outline p-1 rounded-xl px-2"
+                onClick={navigate.bind(this,"/homePage")}
+              >
+                Home
+              </button>
+            </div>{" "}
+          </>
+        )}
       </div>
       <RightAside />
       <Outlet />

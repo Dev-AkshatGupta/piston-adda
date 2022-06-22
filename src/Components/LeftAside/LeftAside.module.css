@@ -64,7 +64,7 @@
     position: fixed;
     user-select: none;
     height: 100%;
-    border-right:solid .25px var(--SLATE-300);
+    border-right:solid 1px var(--SLATE-300);
 }
 
 .main_banner {

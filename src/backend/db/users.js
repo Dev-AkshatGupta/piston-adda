@@ -21,7 +21,7 @@ export const users = [
     coverPhoto: {
       default: "",
       chosen:
-        "https://pbs.twimg.com/profile_banners/1248318243963461632/1637937949/600x200",
+        "https://pbs.twimg.com/profile_banners/1248318243963461632/1654966206/600x200",
     },
 
     createdAt: formatDate(),

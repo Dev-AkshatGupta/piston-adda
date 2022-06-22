@@ -7,7 +7,7 @@ import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAUser } from "Redux/Reducers-Redux/usersSlice";
 import { getProfilePosts } from "Redux/Reducers-Redux/postsSlice";
-import {followUser,unFollowUser} from "Redux/Reducers-Redux/usersSlice";
+import { followUser, unFollowUser } from "Redux/Reducers-Redux/usersSlice";
 function ProfilePage() {
   const { profileId } = useParams();
   const dispatch = useDispatch();
@@ -31,11 +31,13 @@ function ProfilePage() {
   }, [id]);
   const postsArr = useSelector((state) => state.posts.profilePosts);
   const currentUser = useSelector((state) => state?.users?.currentUser);
-  const isProfileFollowedByUser = currentUser?.following?.some(
+  const isProfileFollowedByUser = currentUser.following?.some(
     (profile) => profile?.id === id
   );
-  const loggedInUser = useSelector((state) => state.auth.currentUser);
 
+  const loggedInUser = useSelector((state) => state.auth?.currentUser);
+
+  console.log(profile);
   return (
     <div className="layout">
       <div className="layout__left-sidebar">
@@ -81,13 +83,17 @@ function ProfilePage() {
         {/* Followers count */}
         <div className="flex justify-between px-2 mb-3.5 border-slate-300 border-b-2 pb-1">
           <span className={`w-{1/2} flex justify-evenly self-end pl-2`}>
-            <span className="pl-1">{followers?.length} Followers</span>
-            <span className="pl-3">{following?.length} Following</span>
+            <span className="pl-1">{profile.followers?.length} Followers</span>
+            <span className="pl-3">{profile.following?.length} Following</span>
+            
           </span>
-          {isProfileFollowedByUser ?? false ? (
+  
+          {loggedInUser.username === profile.username ? (
+            ""
+          ) : isProfileFollowedByUser ? (
             <button
               className="btn btn-outline-pri p-1 rounded-xl px-2"
-              onClick={() => dispatch(unFollowUser(_id))}
+              onClick={dispatch.bind(this, unFollowUser(_id))}
             >
               Un-Follow
             </button>

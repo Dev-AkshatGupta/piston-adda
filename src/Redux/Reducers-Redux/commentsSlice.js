@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { notifySuccess, notifyError } from "Utilities/Notifications";
+import { notifySuccess, notifyError, notifyWarn,notifyInfo } from "Utilities/Notifications";
 
 const initialState = {
   comments: [],
   loading: false,
 };
+
+const errorWarnFirst = (error) =>
+  error.response.data.error[0]
+    ? error.response.data.error[0]
+    : "Something went wrong";
 export const getComments = createAsyncThunk(
   "comments/getComments",
   async (postId) => {
@@ -14,7 +19,7 @@ export const getComments = createAsyncThunk(
 
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -34,7 +39,7 @@ export const createComment = createAsyncThunk(
 
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -53,7 +58,7 @@ export const deleteComment = createAsyncThunk(
       );
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -71,7 +76,7 @@ export const editCommentData = createAsyncThunk(
       );
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -92,7 +97,7 @@ export const upVoteComment = createAsyncThunk(
 
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -112,7 +117,7 @@ export const downVoteComment = createAsyncThunk(
 
       return data.comments;
     } catch (error) {
-      notifyError(error.response.data.error[0]);
+      notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -129,6 +134,7 @@ const commentsSlice = createSlice({
       })
       .addCase(createComment.fulfilled, (state, action) => {
         state.comments = action.payload;
+        notifySuccess("Commented");
       })
       .addCase(deleteComment.pending, (state, action) => {
         state.loading = true;
@@ -136,16 +142,22 @@ const commentsSlice = createSlice({
       .addCase(deleteComment.fulfilled, (state, action) => {
         state.loading = false;
         state.comments = action.payload;
+                notifyWarn("Comment Deleted");
+
       })
       .addCase(editCommentData.fulfilled, (state, action) => {
         state.comments = action.payload;
+        notifyInfo("Comment Edited");
       })
       .addCase(upVoteComment.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.comments = action.payload;
+                notifyInfo("Comment upvoted");
+
       })
       .addCase(downVoteComment.fulfilled, (state, action) => {
         state.comments = action.payload;
+                        notifyInfo("Comment downvoted");
+
       });
   },
 });

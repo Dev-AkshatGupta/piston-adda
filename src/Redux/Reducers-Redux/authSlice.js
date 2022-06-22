@@ -6,6 +6,10 @@ const initialState = {
   currentUser: {},
   loading: false,
 };
+const errorWarnFirst = (error) =>
+  error.response.data.error[0]
+    ? error.response.data.error[0]
+    : "Something went wrong";
 
 export const login = createAsyncThunk("auth/login", async (userDetails) => {
   try {
@@ -16,7 +20,7 @@ export const login = createAsyncThunk("auth/login", async (userDetails) => {
 
     return response.data;
   } catch (error) {
-    notifyError(error.response.data.error[0]);
+    notifyError(errorWarnFirst(error));
     console.log(error.response);
   }
 });
@@ -29,7 +33,7 @@ export const signUp = createAsyncThunk("auth/signUp", async (userDetails) => {
     });
     return response.data;
   } catch (error) {
-    notifyError(error.response.data.error[0]);
+    notifyError(errorWarnFirst(error));
     console.log(error.response);
   }
 });
@@ -43,7 +47,7 @@ export const checkToken = createAsyncThunk("auth/checkToken", async () => {
       });
       return response.data;
     } catch (error) {
-       notifyError(error.response.data.error[0]);
+       notifyError(errorWarnFirst(error));
       console.log(error.response);
     }
   }
@@ -59,7 +63,7 @@ export const editUser = createAsyncThunk("auth/editUser", async (userData) => {
 
     return data;
   } catch (error) {
-     notifyError(error.response.data.error[0]);
+     notifyError(errorWarnFirst(error));
     console.log(error.response);
   }
 });
@@ -78,7 +82,7 @@ const authSlice = createSlice({
         state.currentUser = action.payload.foundUser;
         state.loading = false;
         localStorage.setItem("piston-adda-token", action.payload.encodedToken);
-        notifySuccess("Hey you logged in man");
+        notifySuccess("User logged in");
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.currentUser = action.payload.createdUser;

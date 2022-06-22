@@ -109,10 +109,19 @@ function LeftAside() {
                       alt="Profile photo"
                     />
                   </Link>
-                  <p>{currentUser?.username}</p>
-                  <span onClick={()=>{window.location.reload(false);
-                    dispatch(logOut())}} className="text-3xl">
-                      
+                  <p>
+                    <Link to={`/profilePage/${currentUser?.id}`}>
+                      {currentUser?.username}
+                    </Link>
+                  </p>
+                  <span
+                    onClick={() => {
+                      window.location.reload(false);
+                      dispatch(logOut());
+                    }}
+                    title="Logout"
+                    className="text-3xl cursor-pointer"
+                  >
                     <HiLogout />
                   </span>
                 </div>

@@ -9,6 +9,7 @@ export const settingsImageHandler = async (details,dispatch) => {
     data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_KEY);
 
     fetch(process.env.REACT_APP_CLOUDINARY_LINK_KEY ?? "", {
+    // fetch(process.env.REACT_APP_CLOUDINARY_LINK_KEY , {
       method: "post",
       body: data,
     })

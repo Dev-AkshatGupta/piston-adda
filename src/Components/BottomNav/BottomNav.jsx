@@ -64,7 +64,8 @@ const BottomNav = () => {
       </NavLink>
       <a>
         <span
-          className="text-3xl"
+        title="logout"
+          className="text-3xl cursor-pointer"
           onClick={() => {
             window.location.reload(false);
             dispatch(logOut());
