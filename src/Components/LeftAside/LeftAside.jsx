@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./LeftAside.module.css";
-import { Link, NavLink ,useNavigate} from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { GiHomeGarage } from "react-icons/gi";
 import { HiHashtag, HiLogout } from "react-icons/hi";
 import { BsGear } from "react-icons/bs";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CgProfile } from "react-icons/cg";
-import {logOut} from "Redux/Reducers-Redux/authSlice";
+import { logOut } from "Redux/Reducers-Redux/authSlice";
 function LeftAside() {
   const currentUser = useSelector((state) => state?.auth?.currentUser);
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <aside className={`${styles.banner} `}>
       <div className={styles.bannerSmall}>
@@ -24,6 +24,7 @@ function LeftAside() {
                       src={require("./../../Assets/Images/FooterImage.png")}
                       alt="logo"
                     />
+                    {/* Adda */}
                   </Link>
                 </h1>
               </div>

@@ -17,7 +17,7 @@ const navigate=useNavigate();
       </div>
       <div className="layout__main">
         <header className=" layout__main-header">
-          <span className="text">BookMarks</span>
+          <span className="text">Bookmarks</span>
         </header>
 
         <div className="empty"></div>

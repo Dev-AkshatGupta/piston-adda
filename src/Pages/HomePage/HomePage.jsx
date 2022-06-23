@@ -5,7 +5,6 @@ import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
 import { Post } from "Components/Post/Post";
 import { PostInput } from "Components/PostInput/PostInput";
-import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "Redux/Reducers-Redux/postsSlice";
 import {notifyError} from "Utilities/Notifications";
