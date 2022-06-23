@@ -46,6 +46,12 @@ function ProfilePage() {
       <div className="layout__main">
         <header className=" layout__main-header">
           <span className="text">{firstName}</span>
+          <span>
+            <img
+              src={require("./../../Assets/Images/logo-40.png")}
+              alt="logo"
+            />
+          </span>
         </header>
         <div className="empty"></div>
         <div className="profile___banner-img ">
@@ -85,9 +91,8 @@ function ProfilePage() {
           <span className={`w-{1/2} flex justify-evenly self-end pl-2`}>
             <span className="pl-1">{profile.followers?.length} Followers</span>
             <span className="pl-3">{profile.following?.length} Following</span>
-            
           </span>
-  
+
           {loggedInUser.username === profile.username ? (
             ""
           ) : isProfileFollowedByUser ? (

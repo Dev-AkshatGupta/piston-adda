@@ -23,6 +23,7 @@ function LandingPage() {
 
               <span className="ml-1.5 text-slate-900">Adda</span>
             </h1>
+            <h4 className="  text-center ">Social media for gear heads. </h4>
             {formFlag ? (
               <SignUpForm>
                 <a

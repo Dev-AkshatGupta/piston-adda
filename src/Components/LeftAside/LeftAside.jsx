@@ -19,12 +19,12 @@ function LeftAside() {
             <div className={styles.banner_upper}>
               <div className={`${styles.logo_container} py-0.5`}>
                 <h1>
-                  <Link to="/">
+                  <Link to="/" className="flex">
                     <img
                       src={require("./../../Assets/Images/FooterImage.png")}
                       alt="logo"
                     />
-                    {/* Adda */}
+                    {/* <span> Adda</span> */}
                   </Link>
                 </h1>
               </div>

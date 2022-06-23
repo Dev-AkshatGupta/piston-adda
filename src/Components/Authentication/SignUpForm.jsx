@@ -74,25 +74,25 @@ function SignUpForm({ children }) {
         <input
           type={!viewPassword ? "password" : "text"}
           name="password"
-          className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out relative"
           value={details.password}
           placeholder="Enter Your Password"
           onChange={(e) => setDetails({ ...details, password: e.target.value })}
         />
+        {!viewPassword && (
+          <i
+            className="fa fa-eye text text-center mb-1 absolute right-2.5 bottom-2.5 z-10"
+            aria-hidden="true"
+            onClick={(e) => setViewPassword(!viewPassword)}
+          ></i>
+        )}
+        {viewPassword && (
+          <i
+            className="fas fa-eye-slash text text-center mb-1 bottom-2.5 absolute right-2.5 z-10"
+            onClick={(e) => setViewPassword(!viewPassword)}
+          ></i>
+        )}
       </div>
-      {!viewPassword && (
-        <i
-          className="fa fa-eye text text-center mb-1"
-          aria-hidden="true"
-          onClick={() => setViewPassword(!viewPassword)}
-        ></i>
-      )}
-      {viewPassword && (
-        <i
-          className="fas fa-eye-slash text text-center mb-1"
-          onClick={() => setViewPassword(!viewPassword)}
-        ></i>
-      )}
 
       <button
         className="btn btn-outline-pri  py-2 px-8  rounded text-lg"

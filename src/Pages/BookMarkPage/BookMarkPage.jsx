@@ -18,6 +18,12 @@ const navigate=useNavigate();
       <div className="layout__main">
         <header className=" layout__main-header">
           <span className="text">Bookmarks</span>
+          <span>
+            <img
+              src={require("./../../Assets/Images/logo-40.png")}
+              alt="logo"
+            />
+          </span>
         </header>
 
         <div className="empty"></div>
@@ -32,7 +38,7 @@ const navigate=useNavigate();
               {" "}
               <button
                 className="btn btn-outline p-1 rounded-xl px-2"
-                onClick={navigate.bind(this,"/homePage")}
+                onClick={navigate.bind(this, "/homePage")}
               >
                 Home
               </button>

@@ -52,6 +52,12 @@ setPost("");
       <div className="layout__main relative">
         <header className=" layout__main-header ">
           <span className="text">Home</span>
+          <span>
+            <img
+              src={require("./../../Assets/Images/logo-40.png")}
+              alt="logo"
+            />
+          </span>
         </header>
 
         <div className="empty"></div>
@@ -64,16 +70,15 @@ setPost("");
           <button
             className="btn btn-outline-pri p-3 rounded-xl py-1.5"
             onClick={() => {
-              !image?clickHandler()
-              :imageHandler(image, post);
+              !image ? clickHandler() : imageHandler(image, post);
             }}
           >
             Vroom
           </button>
         </PostInput>
-        {postsArr?.map((post,i) => (
+        {postsArr?.map((post, i) => (
           <Post
-            postObj={postsArr[postsArr.length-1-i]}
+            postObj={postsArr[postsArr.length - 1 - i]}
             key={uuid()}
             currentUserObj={currentUser}
             loggedInUser={currentUser}
