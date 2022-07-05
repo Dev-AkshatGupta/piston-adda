@@ -22,19 +22,20 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
   const isPostLikedByCurrentUser = useSelector(
     (state) => state.posts?.liked
   )?.some((post) => post._id === _id);
+  console.log(postObj);
   return (
     <>
       <div className="post">
         <Link to={`/profilePage/${postObj?.userId}`}>
-          <img className="post__author-logo" src={userPhoto} />
+          <img className="post__author-logo" src={userPhoto} alt="dp"/>
         </Link>
         <div className="post__main">
           <div className="post__header flex justify-between">
             <div>
               <Link to={`/profilePage/${postObj?.userId}`}>
-                <span className="post__author-name">{username}</span>
-                <span className="post__author-slug">{username}</span>
-                {/* ToDO */}
+                <span className="post__author-name">@{username}</span>
+                {/* <span className="post__author-slug">@{username}</span>  */}
+                {/* Todo */}
                 {/* <span className="post__publish-time">10d</span> */}
               </Link>
             </div>
@@ -46,22 +47,22 @@ function Post({ postObj, currentUserObj, loggedInUser }) {
                   <div
                     className="py-1 "
                   >
-                    <a
+                    <button
                       className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
                       onClick={() => dispatch(deletePost(_id))}
                     >
                       <span className="flex flex-col flex-center">
                         <span>Delete Post</span>
                       </span>
-                    </a>
-                    <a
+                    </button>
+                    <button
                       className="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600 flex-center"
                       onClick={() => dispatch(changeModalDisplay(postObj))}
                     >
                       <span className="flex flex-col flex-center">
                         <span>Edit Post</span>
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </DropDown>

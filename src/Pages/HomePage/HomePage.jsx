@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 import "./HomePage.css";
 import { LeftAside } from "Components/LeftAside/LeftAside";
 import { RightAside } from "Components/RightAside/RightAside";
@@ -7,7 +7,8 @@ import { Post } from "Components/Post/Post";
 import { PostInput } from "Components/PostInput/PostInput";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "Redux/Reducers-Redux/postsSlice";
-import {notifyError} from "Utilities/Notifications";
+import { notifyError } from "Utilities/Notifications";
+
 function HomePage() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const loadingStatus = useSelector((state) => state.auth.loading);
@@ -40,9 +41,9 @@ function HomePage() {
       console.log(error);
     }
   };
-  function clickHandler(){
-dispatch(createPost({ post, imageUrl: "" }));
-setPost("");
+  function clickHandler() {
+    dispatch(createPost({ post, imageUrl: "" }));
+    setPost("");
   }
   return (
     <div className="layout">
@@ -76,6 +77,8 @@ setPost("");
             Vroom
           </button>
         </PostInput>
+        
+   
         {postsArr?.map((post, i) => (
           <Post
             postObj={postsArr[postsArr.length - 1 - i]}

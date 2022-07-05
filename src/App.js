@@ -29,6 +29,7 @@ function App() {
       {location.pathname !== "/" && <BottomNav />}
       <ToastContainer />
       <div className="empty "></div>
+      
     </div>
   );
 }

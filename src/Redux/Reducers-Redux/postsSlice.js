@@ -9,7 +9,7 @@ const initialState = {
   bookmark: [],
   liked: [],
   currentPost: {},
-  loadingStatus: false,
+  loadingStatus: true,
   editModalDisplay: false,
   editPost: "",
 };

@@ -35,8 +35,8 @@ export const users = [
     _id: uuid(),
     id: "362be157-f9f3-4c6d-a2a5-386e7c852c34",
     firstName: "Abhijit Iyer-Mitra",
-    username: "@Iyervval",
-    password: "@Iyervval",
+    username: "Iyervval",
+    password: "Iyervval",
     bio: "I m an national analyst",
     profilePhoto: {
       default: "",
@@ -60,8 +60,8 @@ export const users = [
     id: "4675f040-bebf-45ba-9c9c-f551587412f6",
     bio: "Tamil Nadu BJP head",
     firstName: "K.Annamalai",
-    username: "@annamalai_k",
-    password: "@annamalai_k",
+    username: "annamalai_k",
+    password: "annamalai_k",
     profilePhoto: {
       default: "",
       chosen:
@@ -83,8 +83,8 @@ export const users = [
     id: "52cf33fd-8665-4771-a940-0ccb9b5f433d",
     bio: "Supreme Court advocate",
     firstName: "Sai Deepak J",
-    username: "@jsaideepak",
-    password: "@jsaideepak",
+    username: "jsaideepak",
+    password: "jsaideepak",
     profilePhoto: {
       default: "",
       chosen:
@@ -105,7 +105,7 @@ export const users = [
     _id: uuid(),
     id: "a7fe04ea-3740-4b39-bdf8-784fa5dc5445",
     firstName: "Anand Ranganathan",
-    username: "@ARanganathan72",
+    username: "ARanganathan72",
     password: "Anand123",
     bio: "Professor in JNU",
     profilePhoto: {

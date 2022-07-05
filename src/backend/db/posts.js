@@ -52,7 +52,7 @@ export const posts = [
     photoUrl: "",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1516014184969826305/a_7EKaso_200x200.jpg",
-    username: "@annamalai_k",
+    username: "annamalai_k",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
@@ -70,7 +70,7 @@ export const posts = [
     photoUrl: "",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1426015031360049153/QYd08TfK_200x200.jpg",
-    username: "@jsaideepak",
+    username: "jsaideepak",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
@@ -88,7 +88,7 @@ export const posts = [
     photoUrl: "",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1512802297717342217/av29k04g_200x200.jpg",
-    username: "@ARanganathan72",
+    username: "ARanganathan72",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
@@ -106,7 +106,7 @@ export const posts = [
     photoUrl: "",
     userPhoto:
       "https://pbs.twimg.com/profile_images/1514922147365330948/qeCXYlZR_200x200.jpg",
-    username: "@Iyervval",
+    username: "Iyervval",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],

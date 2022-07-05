@@ -8,6 +8,9 @@ const initialState = {
   profile: {},
   currentUser: {},
   followedUser: [],
+  loaders:{
+    isGetUserLoadingStatus:true,
+  }
 };
 const errorWarnFirst = (error) =>
   error.response.data.error[0]
@@ -93,6 +96,7 @@ const usersSlice = createSlice({
       })
       .addCase(getAUser.fulfilled, (state, action) => {
         state.profile = action.payload;
+        state.loaders.isGetUserLoadingStatus=false;
       })
       .addCase(followUser.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
